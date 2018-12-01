@@ -17,8 +17,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":18,"i1":6};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
+var methods = {"i0":6};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -96,6 +96,10 @@ var activeTableTab = "activeTableTab";
 <div class="description">
 <ul class="blockList">
 <li class="blockList">
+<dl>
+<dt>All Known Implementing Classes:</dt>
+<dd><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="class in net.peierls.puzzle">AbstractPuzzleSolver</a></dd>
+</dl>
 <hr>
 <br>
 <pre>public interface <a href="../../../src-html/net/peierls/puzzle/PuzzleSolver.html#line.11">PuzzleSolver</a>&lt;T extends <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;T&gt;&gt;</pre>
@@ -114,23 +118,16 @@ var activeTableTab = "activeTableTab";
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t5" class="tableTab"><span><a href="javascript:show(16);">Default Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>default <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="type parameter in PuzzleSolver">T</a>&gt;&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/PuzzleSolver.html#solution-T-">solution</a></span>(<a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="type parameter in PuzzleSolver">T</a>&nbsp;initialState)</code>
-<div class="block">Finds a solution to puzzle defined by initial state.</div>
-</td>
-</tr>
-<tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="type parameter in PuzzleSolver">T</a>&gt;&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/PuzzleSolver.html#solution-T-net.peierls.puzzle.PuzzleStateFilter-">solution</a></span>(<a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="type parameter in PuzzleSolver">T</a>&nbsp;initialState,
-        <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="type parameter in PuzzleSolver">T</a>&gt;&nbsp;filter)</code>
-<div class="block">Finds a solution to puzzle defined by initial state using
- the given state filter.</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/PuzzleSolver.html#solution-T-">solution</a></span>(<a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="type parameter in PuzzleSolver">T</a>&nbsp;initialState)</code>
+<div class="block">Finds a solution to puzzle defined by initial state, using
+ the state filter supplied by that initial state.</div>
 </td>
 </tr>
 </table>
@@ -153,37 +150,17 @@ var activeTableTab = "activeTableTab";
 </a><a name="solution-T-">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>solution</h4>
-<pre>default&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="type parameter in PuzzleSolver">T</a>&gt;&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleSolver.html#line.20">solution</a>(<a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="type parameter in PuzzleSolver">T</a>&nbsp;initialState)</pre>
-<div class="block">Finds a solution to puzzle defined by initial state.</div>
+<pre><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="type parameter in PuzzleSolver">T</a>&gt;&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleSolver.html#line.21">solution</a>(<a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="type parameter in PuzzleSolver">T</a>&nbsp;initialState)</pre>
+<div class="block">Finds a solution to puzzle defined by initial state, using
+ the state filter supplied by that initial state.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the solution to the puzzle as a list of states from
  the initial state to a solved state (inclusive), or an empty
  optional if solution is unreachable from initial state.</dd>
-</dl>
-</li>
-</ul>
-<a name="solution-net.peierls.puzzle.PuzzleState-net.peierls.puzzle.PuzzleStateFilter-">
-<!--   -->
-</a><a name="solution-T-net.peierls.puzzle.PuzzleStateFilter-">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>solution</h4>
-<pre><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="type parameter in PuzzleSolver">T</a>&gt;&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleSolver.html#line.34">solution</a>(<a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="type parameter in PuzzleSolver">T</a>&nbsp;initialState,
-                           <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="type parameter in PuzzleSolver">T</a>&gt;&nbsp;filter)</pre>
-<div class="block">Finds a solution to puzzle defined by initial state using
- the given state filter.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the solution to the puzzle as a list of states from
- the initial state to a solved state (inclusive), or an empty
- optional if solution is unreachable from initial state under
- the limitations of the given state filter.</dd>
 </dl>
 </li>
 </ul>
