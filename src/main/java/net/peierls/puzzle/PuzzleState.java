@@ -30,4 +30,26 @@ public interface PuzzleState<T extends PuzzleState<T>> {
      * a single move from this state.
      */
     Stream<T> successors();
+
+
+    /**
+     * Returns a state that is equivalent to this state,
+     * but which might implement some methods more efficiently,
+     * e.g., by precomputing commonly needed values.
+     * The return value can be this instance itself, and that is
+     * how the method is implemented by default.
+     */
+    @SuppressWarnings("unchecked")
+    default T initialized() {
+        return (T) this;
+    }
+
+
+    /**
+     * A rating of how good this state is. Lower is better. You can
+     * return the same value for all states if you don't know.
+     */
+    default int score() {
+        return 0;
+    }
 }
