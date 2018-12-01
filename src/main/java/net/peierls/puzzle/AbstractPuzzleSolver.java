@@ -17,14 +17,28 @@ public abstract class AbstractPuzzleSolver<T extends PuzzleState<T>> implements 
     private final Function<Funnel<T>, PuzzleStateFilter<T>> funnelToFilter;
 
 
+    /**
+     * Constructs a solver that will always use an exact filter, which
+     * will store each state seen but will always report correctly on
+     * whether a state has been seen.
+     */
     AbstractPuzzleSolver() {
         this.funnelToFilter = funnel -> exactFilter();
     }
 
+    /**
+     * Constructs a solver that will always use the given state filter.
+     */
     AbstractPuzzleSolver(PuzzleStateFilter<T> filter) {
         this.funnelToFilter = funnel -> filter;
     }
 
+    /**
+     * Constructs a solver that will use an exact filter when solving
+     * for initial states that do not define a funnel, and a BloomFilter
+     * when solving initial states that do define a funnel. The two
+     * parameters to this method will be ignored in the former case.
+     */
     AbstractPuzzleSolver(int expectedInsertions, double fpp) {
         this.funnelToFilter = funnel -> bloomFilter(funnel, expectedInsertions, fpp);
     }
