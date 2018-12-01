@@ -8,9 +8,19 @@ import java.util.function.Function;
 
 
 /**
- * Abstract base for puzzle solvers that use a puzzle state filter to
- * keep track (possibility only approximately) of which states have
- * been seen during the search for a solution.
+ * Abstract base for puzzle solvers that use a {@link PuzzleStateFilter}
+ * to keep track (possibility only approximately) of which states have
+ * been seen during the search for a solution. General-purpose solvers
+ * necessarily fall into this category, because otherwise there is no
+ * way to know in general whether a particular state has already been
+ * examined. (Custom solvers for specific puzzle state types might be
+ * able to get around this with domain-specific information.)
+ * <p>
+ * Because in general the search space can be so large that it is not
+ * possible to store all states that have been seen (even taking advantage
+ * of compressed forms), the {@link PuzzleStateFilter} abstraction is
+ * used to allow for searches that use much less memory but that may fail
+ * occasionally to search a valid branch.
  */
 public abstract class AbstractPuzzleSolver<T extends PuzzleState<T>> implements PuzzleSolver<T> {
 
