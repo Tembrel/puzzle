@@ -1,4 +1,4 @@
-# Expressions
+# Puzzle solving
 
 This repository contains a Java framework for solving puzzles.
 
