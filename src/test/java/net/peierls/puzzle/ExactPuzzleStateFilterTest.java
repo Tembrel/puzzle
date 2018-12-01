@@ -8,9 +8,6 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 
-/**
- * Demonstrate usage of puzzle framework.
- */
 public class ExactPuzzleStateFilterTest {
 
     static class NullState implements PuzzleState<NullState> {
