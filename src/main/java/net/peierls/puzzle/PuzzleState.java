@@ -52,4 +52,16 @@ public interface PuzzleState<T extends PuzzleState<T>> {
     default int score() {
         return 0;
     }
+
+
+    /**
+     * A filter for keeping track of instances of puzzle states
+     * of this type, providing a specific trade-off between memory
+     * consumption and completeness of the solution search.
+     * The default is in favor of completeness at the expense of
+     * storing every state seen during the search for a solution.
+     */
+    default PuzzleStateFilter<T> newFilterInstance() {
+        return new ExactPuzzleStateFilter<>();
+    }
 }
