@@ -1,5 +1,8 @@
 package net.peierls.puzzle;
 
+import com.google.common.hash.Funnel;
+
+import java.util.Optional;
 import java.util.stream.*;
 
 import one.util.streamex.*;
@@ -55,13 +58,10 @@ public interface PuzzleState<T extends PuzzleState<T>> {
 
 
     /**
-     * A filter for keeping track of instances of puzzle states
-     * of this type, providing a specific trade-off between memory
-     * consumption and completeness of the solution search.
-     * The default is in favor of completeness at the expense of
-     * storing every state seen during the search for a solution.
+     * Optionally returns a funnel for encoding arbitrary instances
+     * of this type, for use in approximate containment tests.
      */
-    default PuzzleStateFilter<T> newFilterInstance() {
-        return new ExactPuzzleStateFilter<>();
+    default Optional<Funnel<T>> funnel() {
+        return Optional.empty();
     }
 }

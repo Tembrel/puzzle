@@ -1,61 +1,57 @@
 package net.peierls.puzzle;
 
+import com.google.common.hash.Funnel;
+
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 
 /**
- * Interface for algorithms that search for solutions to a puzzles
- * of the parameterized type.
+ * Abstract base for puzzle solvers that use a puzzle state filter to
+ * keep track (possibility only approximately) of which states have
+ * been seen during the search for a solution.
  */
-public abstract class AbstractPuzzleSolver<T extends PuzzleState<T>>
-        implements PuzzleSolver<T>, PuzzleStateFilter<T> {
+public abstract class AbstractPuzzleSolver<T extends PuzzleState<T>> implements PuzzleSolver<T> {
 
-    private volatile PuzzleStateFilter<T> filter;
+    private final Function<Funnel<T>, PuzzleStateFilter<T>> funnelToFilter;
+
 
     AbstractPuzzleSolver() {
-        this.filter = null;
+        this.funnelToFilter = funnel -> exactFilter();
     }
 
     AbstractPuzzleSolver(PuzzleStateFilter<T> filter) {
-        this.filter = filter;
+        this.funnelToFilter = funnel -> filter;
     }
 
-    @Override
-    public boolean mightContain(T state) {
-        return filter.mightContain(state);
+    AbstractPuzzleSolver(int expectedInsertions, double fpp) {
+        this.funnelToFilter = funnel -> bloomFilter(funnel, expectedInsertions, fpp);
     }
 
-    @Override
-    public boolean put(T state) {
-        return filter.put(state);
-    }
-
-    @Override
-    public long approximateElementCount() {
-        return filter.approximateElementCount();
-    }
-
-    @Override
-    public double expectedFalsePositiveProbability() {
-        return filter.expectedFalsePositiveProbability();
-    }
 
     @Override
     public final Optional<List<T>> solution(T initialState) {
-        synchronized (this) {
-            if (filter == null) {
-                filter = initialState.newFilterInstance();
-            }
-        }
-        return solve(initialState);
+        PuzzleStateFilter<T> filter = initialState.funnel()
+            .map(funnel -> funnelToFilter.apply(funnel))
+            .orElseGet(this::exactFilter);
+        return solution(initialState, filter);
     }
+
 
     /**
      * Concrete subclasses must implement this method to
-     * find a solution from the given initial state,
-     * presumably using the puzzle state filter methods
-     * to limit the search, though this is not enforced.
+     * find a solution from the given initial state, using
+     * the given state filter.
      */
-    abstract Optional<List<T>> solve(T initialState);
+    abstract Optional<List<T>> solution(T initialState, PuzzleStateFilter<T> filter);
+
+
+    private PuzzleStateFilter<T> bloomFilter(Funnel<T> funnel, int expectedInsertions, double fpp) {
+        return new BloomPuzzleStateFilter<>(funnel, expectedInsertions, fpp);
+    }
+
+    private PuzzleStateFilter<T> exactFilter() {
+        return new ExactPuzzleStateFilter<>();
+    }
 }
