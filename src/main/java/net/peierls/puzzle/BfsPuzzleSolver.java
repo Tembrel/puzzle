@@ -29,7 +29,7 @@ public class BfsPuzzleSolver<T extends PuzzleState<T>> extends AbstractPuzzleSol
 
 
     @Override
-    Optional<T> solutionState(T initialState, PuzzleStateFilter<T> filter) {
+    protected Optional<T> solutionState(T initialState, PuzzleStateFilter<T> filter) {
         return bfs(initialState, filter)
             //.peek(this::trace)
             .findAny(PuzzleState::isSolution);

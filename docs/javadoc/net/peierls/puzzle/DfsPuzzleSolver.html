@@ -17,6 +17,12 @@
     catch(err) {
     }
 //-->
+var methods = {"i0":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 </script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
@@ -68,13 +74,13 @@
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#methods.inherited.from.class.net.peierls.puzzle.AbstractPuzzleSolver">Method</a></li>
+<li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a name="skip.navbar.top">
@@ -151,6 +157,22 @@ extends <a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="c
 <!--   -->
 </a>
 <h3>Method Summary</h3>
+<table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr id="i0" class="altColor">
+<td class="colFirst"><code>protected <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-">solutionState</a></span>(<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&nbsp;initialState,
+             <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&gt;&nbsp;filter)</code>
+<div class="block">Concrete subclasses must implement this method to
+ find a solution from the given initial state, using
+ the given state filter.</div>
+</td>
+</tr>
+</table>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.net.peierls.puzzle.AbstractPuzzleSolver">
 <!--   -->
@@ -199,6 +221,34 @@ extends <a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="c
                        double&nbsp;fpp)</pre>
 <div class="block">Constructs a DFS solver that will use a Bloom filter for states
  that support it, otherwise an exact filter.</div>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ============ METHOD DETAIL ========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method.detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="solutionState-net.peierls.puzzle.PuzzleState-net.peierls.puzzle.PuzzleStateFilter-">
+<!--   -->
+</a><a name="solutionState-T-net.peierls.puzzle.PuzzleStateFilter-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>solutionState</h4>
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/DfsPuzzleSolver.html#line.33">solutionState</a>(<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&nbsp;initialState,
+                                    <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&gt;&nbsp;filter)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-">AbstractPuzzleSolver</a></code></span></div>
+<div class="block">Concrete subclasses must implement this method to
+ find a solution from the given initial state, using
+ the given state filter.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-">solutionState</a></code>&nbsp;in class&nbsp;<code><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="class in net.peierls.puzzle">AbstractPuzzleSolver</a>&lt;<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a> extends <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&gt;&gt;</code></dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -255,13 +305,13 @@ extends <a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="c
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#methods.inherited.from.class.net.peierls.puzzle.AbstractPuzzleSolver">Method</a></li>
+<li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a name="skip.navbar.bottom">

@@ -77,7 +77,7 @@ public abstract class AbstractPuzzleSolver<T extends PuzzleState<T>> implements 
      * find a solution from the given initial state, using
      * the given state filter.
      */
-    abstract Optional<T> solutionState(T initialState, PuzzleStateFilter<T> filter);
+    protected abstract Optional<T> solutionState(T initialState, PuzzleStateFilter<T> filter);
 
 
     /**

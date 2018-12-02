@@ -30,7 +30,7 @@ public class DfsPuzzleSolver<T extends PuzzleState<T>> extends AbstractPuzzleSol
 
 
     @Override
-    Optional<T> solutionState(T initialState, PuzzleStateFilter<T> filter) {
+    protected Optional<T> solutionState(T initialState, PuzzleStateFilter<T> filter) {
         return solutionState(initialState, filter, 0);
     }
 
