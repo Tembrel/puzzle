@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 public class BfsPuzzleSolverTest {
 
     final static long INIT = 1L;
-    final static long FINAL = 1_000_000L;
+    final static long FINAL = 1_000L;
 
     static class CounterState implements PuzzleState<CounterState> {
         final long count;
@@ -57,7 +57,7 @@ public class BfsPuzzleSolverTest {
 
     @Test public void bfs() {
         CounterState initialState = new CounterState(INIT, null);
-        AbstractPuzzleSolver<CounterState> solver = new BfsPuzzleSolver<>(28_000_000, 0.001);
+        AbstractPuzzleSolver<CounterState> solver = new BfsPuzzleSolver<>(2_453_203, 0.0001);
         Stopwatch stopwatch = Stopwatch.createStarted();
         Optional<List<CounterState>> solution = solver.solution(initialState);
         if (solution.isPresent()) {
