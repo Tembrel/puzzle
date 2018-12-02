@@ -8,64 +8,75 @@
 <div class="sourceContainer">
 <pre><span class="sourceLineNo">001</span>package net.peierls.puzzle;<a name="line.1"></a>
 <span class="sourceLineNo">002</span><a name="line.2"></a>
-<span class="sourceLineNo">003</span>import java.util.Optional;<a name="line.3"></a>
-<span class="sourceLineNo">004</span><a name="line.4"></a>
-<span class="sourceLineNo">005</span>import one.util.streamex.StreamEx;<a name="line.5"></a>
+<span class="sourceLineNo">003</span>import java.util.ArrayDeque;<a name="line.3"></a>
+<span class="sourceLineNo">004</span>import java.util.Deque;<a name="line.4"></a>
+<span class="sourceLineNo">005</span>import java.util.Optional;<a name="line.5"></a>
 <span class="sourceLineNo">006</span><a name="line.6"></a>
-<span class="sourceLineNo">007</span><a name="line.7"></a>
-<span class="sourceLineNo">008</span>/**<a name="line.8"></a>
-<span class="sourceLineNo">009</span> * Breadth-first-search puzzle solver.<a name="line.9"></a>
-<span class="sourceLineNo">010</span> */<a name="line.10"></a>
-<span class="sourceLineNo">011</span>public class BfsPuzzleSolver&lt;T extends PuzzleState&lt;T&gt;&gt; extends AbstractPuzzleSolver&lt;T&gt; {<a name="line.11"></a>
-<span class="sourceLineNo">012</span><a name="line.12"></a>
-<span class="sourceLineNo">013</span>    /**<a name="line.13"></a>
-<span class="sourceLineNo">014</span>     * Constructs a BFS solver with an exact filter.<a name="line.14"></a>
-<span class="sourceLineNo">015</span>     */<a name="line.15"></a>
-<span class="sourceLineNo">016</span>    public BfsPuzzleSolver() {<a name="line.16"></a>
-<span class="sourceLineNo">017</span>        super();<a name="line.17"></a>
-<span class="sourceLineNo">018</span>    }<a name="line.18"></a>
-<span class="sourceLineNo">019</span><a name="line.19"></a>
-<span class="sourceLineNo">020</span>    /**<a name="line.20"></a>
-<span class="sourceLineNo">021</span>     * Constructs a BFS solver that will use a Bloom filter for states<a name="line.21"></a>
-<span class="sourceLineNo">022</span>     * that support it, otherwise an exact filter.<a name="line.22"></a>
-<span class="sourceLineNo">023</span>     */<a name="line.23"></a>
-<span class="sourceLineNo">024</span>    public BfsPuzzleSolver(int expectedInsertions, double fpp) {<a name="line.24"></a>
-<span class="sourceLineNo">025</span>        super(expectedInsertions, fpp);<a name="line.25"></a>
-<span class="sourceLineNo">026</span>    }<a name="line.26"></a>
-<span class="sourceLineNo">027</span><a name="line.27"></a>
-<span class="sourceLineNo">028</span><a name="line.28"></a>
-<span class="sourceLineNo">029</span>    @Override<a name="line.29"></a>
-<span class="sourceLineNo">030</span>    Optional&lt;T&gt; solutionState(T initialState, PuzzleStateFilter&lt;T&gt; filter) {<a name="line.30"></a>
-<span class="sourceLineNo">031</span>        return bfs(StreamEx.of(initialState), filter)<a name="line.31"></a>
-<span class="sourceLineNo">032</span>            //.peek(this::trace)<a name="line.32"></a>
-<span class="sourceLineNo">033</span>            .findAny(PuzzleState::isSolution);<a name="line.33"></a>
-<span class="sourceLineNo">034</span>    }<a name="line.34"></a>
-<span class="sourceLineNo">035</span><a name="line.35"></a>
-<span class="sourceLineNo">036</span>    StreamEx&lt;T&gt; bfs(StreamEx&lt;T&gt; states, PuzzleStateFilter&lt;T&gt; filter) {<a name="line.36"></a>
-<span class="sourceLineNo">037</span>        return states.headTail((state, rest) -&gt;<a name="line.37"></a>
-<span class="sourceLineNo">038</span>            bfs(maybeAddSuccessors(state, rest, filter), filter)<a name="line.38"></a>
-<span class="sourceLineNo">039</span>                .prepend(state));<a name="line.39"></a>
-<span class="sourceLineNo">040</span>    }<a name="line.40"></a>
-<span class="sourceLineNo">041</span><a name="line.41"></a>
-<span class="sourceLineNo">042</span>    StreamEx&lt;T&gt; maybeAddSuccessors(T state, StreamEx&lt;T&gt; rest, PuzzleStateFilter&lt;T&gt; filter) {<a name="line.42"></a>
-<span class="sourceLineNo">043</span>        if (filter.put(state) &amp;&amp; !state.isHopeless()) {<a name="line.43"></a>
-<span class="sourceLineNo">044</span>            // We haven't seen this state before and it isn't hopeless to search<a name="line.44"></a>
-<span class="sourceLineNo">045</span>            // further from it, so we append its successors to whatever is left<a name="line.45"></a>
-<span class="sourceLineNo">046</span>            // in the queue.<a name="line.46"></a>
-<span class="sourceLineNo">047</span>            return rest.append(state.successors());<a name="line.47"></a>
-<span class="sourceLineNo">048</span>        } else {<a name="line.48"></a>
-<span class="sourceLineNo">049</span>            // Either we've seen this state before or it's hopeless to search<a name="line.49"></a>
-<span class="sourceLineNo">050</span>            // its successors, so we just return whatever's left in the queue.<a name="line.50"></a>
-<span class="sourceLineNo">051</span>            return rest;<a name="line.51"></a>
-<span class="sourceLineNo">052</span>        }<a name="line.52"></a>
-<span class="sourceLineNo">053</span>    }<a name="line.53"></a>
-<span class="sourceLineNo">054</span><a name="line.54"></a>
-<span class="sourceLineNo">055</span>    private void trace(T state) {<a name="line.55"></a>
-<span class="sourceLineNo">056</span>        System.out.printf("searching %s, pred %s%n",<a name="line.56"></a>
-<span class="sourceLineNo">057</span>            state,<a name="line.57"></a>
-<span class="sourceLineNo">058</span>            state.predecessor().map(Object::toString).orElse("-"));<a name="line.58"></a>
-<span class="sourceLineNo">059</span>    }<a name="line.59"></a>
-<span class="sourceLineNo">060</span>}<a name="line.60"></a>
+<span class="sourceLineNo">007</span>import one.util.streamex.StreamEx;<a name="line.7"></a>
+<span class="sourceLineNo">008</span><a name="line.8"></a>
+<span class="sourceLineNo">009</span><a name="line.9"></a>
+<span class="sourceLineNo">010</span>/**<a name="line.10"></a>
+<span class="sourceLineNo">011</span> * Breadth-first-search puzzle solver.<a name="line.11"></a>
+<span class="sourceLineNo">012</span> */<a name="line.12"></a>
+<span class="sourceLineNo">013</span>public class BfsPuzzleSolver&lt;T extends PuzzleState&lt;T&gt;&gt; extends AbstractPuzzleSolver&lt;T&gt; {<a name="line.13"></a>
+<span class="sourceLineNo">014</span><a name="line.14"></a>
+<span class="sourceLineNo">015</span>    /**<a name="line.15"></a>
+<span class="sourceLineNo">016</span>     * Constructs a BFS solver with an exact filter.<a name="line.16"></a>
+<span class="sourceLineNo">017</span>     */<a name="line.17"></a>
+<span class="sourceLineNo">018</span>    public BfsPuzzleSolver() {<a name="line.18"></a>
+<span class="sourceLineNo">019</span>        super();<a name="line.19"></a>
+<span class="sourceLineNo">020</span>    }<a name="line.20"></a>
+<span class="sourceLineNo">021</span><a name="line.21"></a>
+<span class="sourceLineNo">022</span>    /**<a name="line.22"></a>
+<span class="sourceLineNo">023</span>     * Constructs a BFS solver that will use a Bloom filter for states<a name="line.23"></a>
+<span class="sourceLineNo">024</span>     * that support it, otherwise an exact filter.<a name="line.24"></a>
+<span class="sourceLineNo">025</span>     */<a name="line.25"></a>
+<span class="sourceLineNo">026</span>    public BfsPuzzleSolver(int expectedInsertions, double fpp) {<a name="line.26"></a>
+<span class="sourceLineNo">027</span>        super(expectedInsertions, fpp);<a name="line.27"></a>
+<span class="sourceLineNo">028</span>    }<a name="line.28"></a>
+<span class="sourceLineNo">029</span><a name="line.29"></a>
+<span class="sourceLineNo">030</span><a name="line.30"></a>
+<span class="sourceLineNo">031</span>    @Override<a name="line.31"></a>
+<span class="sourceLineNo">032</span>    Optional&lt;T&gt; solutionState(T initialState, PuzzleStateFilter&lt;T&gt; filter) {<a name="line.32"></a>
+<span class="sourceLineNo">033</span>        return bfs(initialState, filter)<a name="line.33"></a>
+<span class="sourceLineNo">034</span>            //.peek(this::trace)<a name="line.34"></a>
+<span class="sourceLineNo">035</span>            .findAny(PuzzleState::isSolution);<a name="line.35"></a>
+<span class="sourceLineNo">036</span>    }<a name="line.36"></a>
+<span class="sourceLineNo">037</span><a name="line.37"></a>
+<span class="sourceLineNo">038</span>    private StreamEx&lt;T&gt; bfs(T initialState, PuzzleStateFilter&lt;T&gt; filter) {<a name="line.38"></a>
+<span class="sourceLineNo">039</span>        Deque&lt;T&gt; queue = new ArrayDeque&lt;&gt;();<a name="line.39"></a>
+<span class="sourceLineNo">040</span>        queue.offer(initialState);<a name="line.40"></a>
+<span class="sourceLineNo">041</span>        return StreamEx.produce(action -&gt; {<a name="line.41"></a>
+<span class="sourceLineNo">042</span>            T state = queue.poll();<a name="line.42"></a>
+<span class="sourceLineNo">043</span>            if (state == null) {<a name="line.43"></a>
+<span class="sourceLineNo">044</span>                return false;<a name="line.44"></a>
+<span class="sourceLineNo">045</span>            }<a name="line.45"></a>
+<span class="sourceLineNo">046</span>            action.accept(state);<a name="line.46"></a>
+<span class="sourceLineNo">047</span>            if (canSearch(state, filter)) {<a name="line.47"></a>
+<span class="sourceLineNo">048</span>                state.successors().forEach(queue::offer);<a name="line.48"></a>
+<span class="sourceLineNo">049</span>            }<a name="line.49"></a>
+<span class="sourceLineNo">050</span>            return true;<a name="line.50"></a>
+<span class="sourceLineNo">051</span>        });<a name="line.51"></a>
+<span class="sourceLineNo">052</span>    }<a name="line.52"></a>
+<span class="sourceLineNo">053</span><a name="line.53"></a>
+<span class="sourceLineNo">054</span>    private boolean canSearch(T state, PuzzleStateFilter&lt;T&gt; filter) {<a name="line.54"></a>
+<span class="sourceLineNo">055</span>        if (filter.put(state) &amp;&amp; !state.isHopeless()) {<a name="line.55"></a>
+<span class="sourceLineNo">056</span>            // We haven't seen this state before and it isn't hopeless to search<a name="line.56"></a>
+<span class="sourceLineNo">057</span>            // further from it.<a name="line.57"></a>
+<span class="sourceLineNo">058</span>            return true;<a name="line.58"></a>
+<span class="sourceLineNo">059</span>        } else {<a name="line.59"></a>
+<span class="sourceLineNo">060</span>            // Either we've seen this state before or it's hopeless to search<a name="line.60"></a>
+<span class="sourceLineNo">061</span>            // its successors.<a name="line.61"></a>
+<span class="sourceLineNo">062</span>            return false;<a name="line.62"></a>
+<span class="sourceLineNo">063</span>        }<a name="line.63"></a>
+<span class="sourceLineNo">064</span>    }<a name="line.64"></a>
+<span class="sourceLineNo">065</span><a name="line.65"></a>
+<span class="sourceLineNo">066</span>    private void trace(T state) {<a name="line.66"></a>
+<span class="sourceLineNo">067</span>        System.out.printf("searching %s, pred %s%n",<a name="line.67"></a>
+<span class="sourceLineNo">068</span>            state,<a name="line.68"></a>
+<span class="sourceLineNo">069</span>            state.predecessor().map(Object::toString).orElse("-"));<a name="line.69"></a>
+<span class="sourceLineNo">070</span>    }<a name="line.70"></a>
+<span class="sourceLineNo">071</span>}<a name="line.71"></a>
 
 
 

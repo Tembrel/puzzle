@@ -193,7 +193,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
 <ul class="blockList">
 <li class="blockList">
 <h4>solution</h4>
-<pre>public final&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/AbstractPuzzleSolver.html#line.58">solution</a>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;initialState)</pre>
+<pre>public final&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/AbstractPuzzleSolver.html#line.61">solution</a>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;initialState)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../net/peierls/puzzle/PuzzleSolver.html#solution-T-">PuzzleSolver</a></code></span></div>
 <div class="block">Finds a solution to puzzle defined by initial state, using
  the state filter supplied by that initial state.</div>
@@ -215,7 +215,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
 <ul class="blockListLast">
 <li class="blockList">
 <h4>firstSeen</h4>
-<pre>protected&nbsp;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;<a href="../../../src-html/net/peierls/puzzle/AbstractPuzzleSolver.html#line.79">firstSeen</a>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;state,
+<pre>protected&nbsp;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;<a href="../../../src-html/net/peierls/puzzle/AbstractPuzzleSolver.html#line.87">firstSeen</a>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;state,
                       <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&nbsp;filter)</pre>
 <div class="block">Helper method to check if a state has (probably) been seen and to initialize
  it if so. Uses null return instead of optional; maybe premature optimization.</div>

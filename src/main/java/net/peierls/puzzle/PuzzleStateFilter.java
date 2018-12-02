@@ -3,7 +3,7 @@ package net.peierls.puzzle;
 
 /**
  * A container for states that offers only an approximate containment
- * test, no removla, and no iteration, modeled on the idea of a Bloom
+ * test, no removal, and no iteration, modeled on the idea of a Bloom
  * filter and mimicking the Guava BloomFilter interface.
  * <p>
  * Implementations of this interface are free to make the containment
