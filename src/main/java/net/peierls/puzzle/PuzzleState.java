@@ -2,6 +2,7 @@ package net.peierls.puzzle;
 
 import com.google.common.hash.Funnel;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.*;
 
@@ -36,6 +37,14 @@ public interface PuzzleState<T extends PuzzleState<T>> {
 
 
     /**
+     * The state from which this state was reached.
+     */
+    default Optional<T> predecessor() {
+        return Optional.empty();
+    }
+
+
+    /**
      * Returns a state that is equivalent to this state,
      * but which might implement some methods more efficiently,
      * e.g., by precomputing commonly needed values.
@@ -64,4 +73,19 @@ public interface PuzzleState<T extends PuzzleState<T>> {
     default Optional<Funnel<T>> funnel() {
         return Optional.empty();
     }
+
+    /**
+     * Convert this state into a solution.
+     */
+    default List<T> toSolution() {
+        @SuppressWarnings("unchecked")
+        List<T> reversed = StreamEx.iterate(
+            (T) this,
+            s -> s != null,
+            s -> s.predecessor().orElse(null)
+        ).toList();
+
+        return StreamEx.ofReversed(reversed).toList();
+    }
+
 }
