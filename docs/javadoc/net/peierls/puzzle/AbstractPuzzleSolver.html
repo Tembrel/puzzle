@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10};
+var methods = {"i0":10,"i1":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -47,7 +47,7 @@ var activeTableTab = "activeTableTab";
 <div class="subNav">
 <ul class="navList">
 <li>Prev&nbsp;Class</li>
-<li><a href="../../../net/peierls/puzzle/BloomPuzzleStateFilter.html" title="class in net.peierls.puzzle"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html" title="class in net.peierls.puzzle"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../index.html?net/peierls/puzzle/AbstractPuzzleSolver.html" target="_top">Frames</a></li>
@@ -108,6 +108,10 @@ var activeTableTab = "activeTableTab";
 <dt>All Implemented Interfaces:</dt>
 <dd><a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interface in net.peierls.puzzle">PuzzleSolver</a>&lt;T&gt;</dd>
 </dl>
+<dl>
+<dt>Direct Known Subclasses:</dt>
+<dd><a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html" title="class in net.peierls.puzzle">BfsPuzzleSolver</a>, <a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="class in net.peierls.puzzle">DfsPuzzleSolver</a></dd>
+</dl>
 <hr>
 <br>
 <pre>public abstract class <a href="../../../src-html/net/peierls/puzzle/AbstractPuzzleSolver.html#line.25">AbstractPuzzleSolver</a>&lt;T extends <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;T&gt;&gt;
@@ -145,6 +149,14 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>protected <a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#firstSeen-T-net.peierls.puzzle.PuzzleStateFilter-">firstSeen</a></span>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;state,
+         <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&nbsp;filter)</code>
+<div class="block">Helper method to check if a state has (probably) been seen and to initialize
+ it if so.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#solution-T-">solution</a></span>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;initialState)</code>
 <div class="block">Finds a solution to puzzle defined by initial state, using
@@ -178,7 +190,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
 </a><a name="solution-T-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>solution</h4>
 <pre>public final&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/AbstractPuzzleSolver.html#line.58">solution</a>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;initialState)</pre>
@@ -193,6 +205,20 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
  the initial state to a solved state (inclusive), or an empty
  optional if solution is unreachable from initial state.</dd>
 </dl>
+</li>
+</ul>
+<a name="firstSeen-net.peierls.puzzle.PuzzleState-net.peierls.puzzle.PuzzleStateFilter-">
+<!--   -->
+</a><a name="firstSeen-T-net.peierls.puzzle.PuzzleStateFilter-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>firstSeen</h4>
+<pre>protected&nbsp;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;<a href="../../../src-html/net/peierls/puzzle/AbstractPuzzleSolver.html#line.79">firstSeen</a>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;state,
+                      <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&nbsp;filter)</pre>
+<div class="block">Helper method to check if a state has (probably) been seen and to initialize
+ it if so. Uses null return instead of optional; maybe premature optimization.</div>
 </li>
 </ul>
 </li>
@@ -222,7 +248,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
 <div class="subNav">
 <ul class="navList">
 <li>Prev&nbsp;Class</li>
-<li><a href="../../../net/peierls/puzzle/BloomPuzzleStateFilter.html" title="class in net.peierls.puzzle"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html" title="class in net.peierls.puzzle"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../index.html?net/peierls/puzzle/AbstractPuzzleSolver.html" target="_top">Frames</a></li>

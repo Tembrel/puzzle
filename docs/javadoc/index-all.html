@@ -66,7 +66,7 @@
 <!--   -->
 </a></div>
 <!-- ========= END OF TOP NAVBAR ========= -->
-<div class="contentContainer"><a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a name="I:A">
+<div class="contentContainer"><a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a name="I:A">
 <!--   -->
 </a>
 <h2 class="title">A</h2>
@@ -92,10 +92,42 @@
 </a>
 <h2 class="title">B</h2>
 <dl>
+<dt><a href="net/peierls/puzzle/BfsPuzzleSolver.html" title="class in net.peierls.puzzle"><span class="typeNameLink">BfsPuzzleSolver</span></a>&lt;<a href="net/peierls/puzzle/BfsPuzzleSolver.html" title="type parameter in BfsPuzzleSolver">T</a> extends <a href="net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;<a href="net/peierls/puzzle/BfsPuzzleSolver.html" title="type parameter in BfsPuzzleSolver">T</a>&gt;&gt; - Class in <a href="net/peierls/puzzle/package-summary.html">net.peierls.puzzle</a></dt>
+<dd>
+<div class="block">Breadth-first-search puzzle solver.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="net/peierls/puzzle/BfsPuzzleSolver.html#BfsPuzzleSolver--">BfsPuzzleSolver()</a></span> - Constructor for class net.peierls.puzzle.<a href="net/peierls/puzzle/BfsPuzzleSolver.html" title="class in net.peierls.puzzle">BfsPuzzleSolver</a></dt>
+<dd>
+<div class="block">Constructs a DFS solver with an exact filter.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="net/peierls/puzzle/BfsPuzzleSolver.html#BfsPuzzleSolver-int-double-">BfsPuzzleSolver(int, double)</a></span> - Constructor for class net.peierls.puzzle.<a href="net/peierls/puzzle/BfsPuzzleSolver.html" title="class in net.peierls.puzzle">BfsPuzzleSolver</a></dt>
+<dd>
+<div class="block">Constructs a DFS solver that will use a Bloom filter for states
+ that support it, otherwise an exact filter.</div>
+</dd>
 <dt><a href="net/peierls/puzzle/BloomPuzzleStateFilter.html" title="class in net.peierls.puzzle"><span class="typeNameLink">BloomPuzzleStateFilter</span></a>&lt;<a href="net/peierls/puzzle/BloomPuzzleStateFilter.html" title="type parameter in BloomPuzzleStateFilter">T</a> extends <a href="net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;<a href="net/peierls/puzzle/BloomPuzzleStateFilter.html" title="type parameter in BloomPuzzleStateFilter">T</a>&gt;&gt; - Class in <a href="net/peierls/puzzle/package-summary.html">net.peierls.puzzle</a></dt>
 <dd>
 <div class="block">An implementation of <a href="net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle"><code>PuzzleStateFilter</code></a> with approximate containment
  that uses a BloomFilter internally.</div>
+</dd>
+</dl>
+<a name="I:D">
+<!--   -->
+</a>
+<h2 class="title">D</h2>
+<dl>
+<dt><a href="net/peierls/puzzle/DfsPuzzleSolver.html" title="class in net.peierls.puzzle"><span class="typeNameLink">DfsPuzzleSolver</span></a>&lt;<a href="net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a> extends <a href="net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;<a href="net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&gt;&gt; - Class in <a href="net/peierls/puzzle/package-summary.html">net.peierls.puzzle</a></dt>
+<dd>
+<div class="block">Depth-first-search puzzle solver.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="net/peierls/puzzle/DfsPuzzleSolver.html#DfsPuzzleSolver--">DfsPuzzleSolver()</a></span> - Constructor for class net.peierls.puzzle.<a href="net/peierls/puzzle/DfsPuzzleSolver.html" title="class in net.peierls.puzzle">DfsPuzzleSolver</a></dt>
+<dd>
+<div class="block">Constructs a DFS solver with an exact filter.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="net/peierls/puzzle/DfsPuzzleSolver.html#DfsPuzzleSolver-int-double-">DfsPuzzleSolver(int, double)</a></span> - Constructor for class net.peierls.puzzle.<a href="net/peierls/puzzle/DfsPuzzleSolver.html" title="class in net.peierls.puzzle">DfsPuzzleSolver</a></dt>
+<dd>
+<div class="block">Constructs a DFS solver that will use a Bloom filter for states
+ that support it, otherwise an exact filter.</div>
 </dd>
 </dl>
 <a name="I:E">
@@ -140,6 +172,11 @@
 </a>
 <h2 class="title">F</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="net/peierls/puzzle/AbstractPuzzleSolver.html#firstSeen-T-net.peierls.puzzle.PuzzleStateFilter-">firstSeen(T, PuzzleStateFilter&lt;T&gt;)</a></span> - Method in class net.peierls.puzzle.<a href="net/peierls/puzzle/AbstractPuzzleSolver.html" title="class in net.peierls.puzzle">AbstractPuzzleSolver</a></dt>
+<dd>
+<div class="block">Helper method to check if a state has (probably) been seen and to initialize
+ it if so.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="net/peierls/puzzle/PuzzleState.html#funnel--">funnel()</a></span> - Method in interface net.peierls.puzzle.<a href="net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a></dt>
 <dd>
 <div class="block">Optionally returns a funnel for encoding arbitrary instances
@@ -195,6 +232,10 @@
 </a>
 <h2 class="title">P</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="net/peierls/puzzle/PuzzleState.html#predecessor--">predecessor()</a></span> - Method in interface net.peierls.puzzle.<a href="net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a></dt>
+<dd>
+<div class="block">The state from which this state was reached.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="net/peierls/puzzle/BloomPuzzleStateFilter.html#put-T-">put(T)</a></span> - Method in class net.peierls.puzzle.<a href="net/peierls/puzzle/BloomPuzzleStateFilter.html" title="class in net.peierls.puzzle">BloomPuzzleStateFilter</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="net/peierls/puzzle/ExactPuzzleStateFilter.html#put-T-">put(T)</a></span> - Method in class net.peierls.puzzle.<a href="net/peierls/puzzle/ExactPuzzleStateFilter.html" title="class in net.peierls.puzzle">ExactPuzzleStateFilter</a></dt>
@@ -241,7 +282,17 @@
  a single move from this state.</div>
 </dd>
 </dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:S">S</a>&nbsp;</div>
+<a name="I:T">
+<!--   -->
+</a>
+<h2 class="title">T</h2>
+<dl>
+<dt><span class="memberNameLink"><a href="net/peierls/puzzle/PuzzleState.html#toSolution--">toSolution()</a></span> - Method in interface net.peierls.puzzle.<a href="net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a></dt>
+<dd>
+<div class="block">Convert this state into a solution.</div>
+</dd>
+</dl>
+<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;</div>
 <!-- ======= START OF BOTTOM NAVBAR ====== -->
 <div class="bottomNav"><a name="navbar.bottom">
 <!--   -->

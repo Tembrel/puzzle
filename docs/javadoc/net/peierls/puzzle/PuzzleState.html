@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":18,"i1":18,"i2":6,"i3":6,"i4":18,"i5":6};
+var methods = {"i0":18,"i1":18,"i2":6,"i3":6,"i4":18,"i5":18,"i6":6,"i7":18};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -98,7 +98,7 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <hr>
 <br>
-<pre>public interface <a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.14">PuzzleState</a>&lt;T extends PuzzleState&lt;T&gt;&gt;</pre>
+<pre>public interface <a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.15">PuzzleState</a>&lt;T extends PuzzleState&lt;T&gt;&gt;</pre>
 <div class="block">A state that a puzzle of parameterized type T can be in.</div>
 </li>
 </ul>
@@ -147,16 +147,28 @@ var activeTableTab = "activeTableTab";
 </td>
 </tr>
 <tr id="i4" class="altColor">
+<td class="colFirst"><code>default <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleState.html" title="type parameter in PuzzleState">T</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/PuzzleState.html#predecessor--">predecessor</a></span>()</code>
+<div class="block">The state from which this state was reached.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>default int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/PuzzleState.html#score--">score</a></span>()</code>
 <div class="block">A rating of how good this state is.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html?is-external=true" title="class or interface in java.util.stream">Stream</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleState.html" title="type parameter in PuzzleState">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/PuzzleState.html#successors--">successors</a></span>()</code>
 <div class="block">The stream of puzzle states obtainable by
  a single move from this state.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>default <a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleState.html" title="type parameter in PuzzleState">T</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/PuzzleState.html#toSolution--">toSolution</a></span>()</code>
+<div class="block">Convert this state into a solution.</div>
 </td>
 </tr>
 </table>
@@ -180,7 +192,7 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>isSolution</h4>
-<pre>boolean&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.19">isSolution</a>()</pre>
+<pre>boolean&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.20">isSolution</a>()</pre>
 <div class="block">Returns whether this is a solution state.</div>
 </li>
 </ul>
@@ -190,7 +202,7 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>isHopeless</h4>
-<pre>boolean&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.29">isHopeless</a>()</pre>
+<pre>boolean&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.30">isHopeless</a>()</pre>
 <div class="block">Returns true if it is known that no solution
  state can be reached from this state.
  Returns false otherwise, i.e., if it is not known
@@ -205,9 +217,19 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>successors</h4>
-<pre><a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html?is-external=true" title="class or interface in java.util.stream">Stream</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleState.html" title="type parameter in PuzzleState">T</a>&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.35">successors</a>()</pre>
+<pre><a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html?is-external=true" title="class or interface in java.util.stream">Stream</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleState.html" title="type parameter in PuzzleState">T</a>&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.36">successors</a>()</pre>
 <div class="block">The stream of puzzle states obtainable by
  a single move from this state.</div>
+</li>
+</ul>
+<a name="predecessor--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>predecessor</h4>
+<pre>default&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleState.html" title="type parameter in PuzzleState">T</a>&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.42">predecessor</a>()</pre>
+<div class="block">The state from which this state was reached.</div>
 </li>
 </ul>
 <a name="initialized--">
@@ -216,7 +238,7 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>initialized</h4>
-<pre>default&nbsp;<a href="../../../net/peierls/puzzle/PuzzleState.html" title="type parameter in PuzzleState">T</a>&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.46">initialized</a>()</pre>
+<pre>default&nbsp;<a href="../../../net/peierls/puzzle/PuzzleState.html" title="type parameter in PuzzleState">T</a>&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.55">initialized</a>()</pre>
 <div class="block">Returns a state that is equivalent to this state,
  but which might implement some methods more efficiently,
  e.g., by precomputing commonly needed values.
@@ -230,7 +252,7 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>score</h4>
-<pre>default&nbsp;int&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.55">score</a>()</pre>
+<pre>default&nbsp;int&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.64">score</a>()</pre>
 <div class="block">A rating of how good this state is. Lower is better. You can
  return the same value for all states if you don't know.</div>
 </li>
@@ -238,12 +260,22 @@ var activeTableTab = "activeTableTab";
 <a name="funnel--">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>funnel</h4>
-<pre>default&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;com.google.common.hash.Funnel&lt;<a href="../../../net/peierls/puzzle/PuzzleState.html" title="type parameter in PuzzleState">T</a>&gt;&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.64">funnel</a>()</pre>
+<pre>default&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;com.google.common.hash.Funnel&lt;<a href="../../../net/peierls/puzzle/PuzzleState.html" title="type parameter in PuzzleState">T</a>&gt;&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.73">funnel</a>()</pre>
 <div class="block">Optionally returns a funnel for encoding arbitrary instances
  of this type, for use in approximate containment tests.</div>
+</li>
+</ul>
+<a name="toSolution--">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toSolution</h4>
+<pre>default&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleState.html" title="type parameter in PuzzleState">T</a>&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.80">toSolution</a>()</pre>
+<div class="block">Convert this state into a solution.</div>
 </li>
 </ul>
 </li>
