@@ -1,5 +1,7 @@
 package net.peierls.puzzle;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Optional;
 
 import one.util.streamex.StreamEx;
@@ -28,27 +30,36 @@ public class BfsPuzzleSolver<T extends PuzzleState<T>> extends AbstractPuzzleSol
 
     @Override
     Optional<T> solutionState(T initialState, PuzzleStateFilter<T> filter) {
-        return bfs(StreamEx.of(initialState), filter)
+        return bfs(initialState, filter)
             //.peek(this::trace)
             .findAny(PuzzleState::isSolution);
     }
 
-    StreamEx<T> bfs(StreamEx<T> states, PuzzleStateFilter<T> filter) {
-        return states.headTail((state, rest) ->
-            bfs(maybeAddSuccessors(state, rest, filter), filter)
-                .prepend(state));
+    private StreamEx<T> bfs(T initialState, PuzzleStateFilter<T> filter) {
+        Deque<T> queue = new ArrayDeque<>();
+        queue.offer(initialState);
+        return StreamEx.produce(action -> {
+            T state = queue.poll();
+            if (state == null) {
+                return false;
+            }
+            action.accept(state);
+            if (canSearch(state, filter)) {
+                state.successors().forEach(queue::offer);
+            }
+            return true;
+        });
     }
 
-    StreamEx<T> maybeAddSuccessors(T state, StreamEx<T> rest, PuzzleStateFilter<T> filter) {
+    private boolean canSearch(T state, PuzzleStateFilter<T> filter) {
         if (filter.put(state) && !state.isHopeless()) {
             // We haven't seen this state before and it isn't hopeless to search
-            // further from it, so we append its successors to whatever is left
-            // in the queue.
-            return rest.append(state.successors());
+            // further from it.
+            return true;
         } else {
             // Either we've seen this state before or it's hopeless to search
-            // its successors, so we just return whatever's left in the queue.
-            return rest;
+            // its successors.
+            return false;
         }
     }
 

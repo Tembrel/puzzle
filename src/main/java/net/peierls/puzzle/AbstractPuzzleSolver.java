@@ -26,6 +26,9 @@ public abstract class AbstractPuzzleSolver<T extends PuzzleState<T>> implements 
 
     private final Function<Funnel<T>, PuzzleStateFilter<T>> funnelToFilter;
 
+    private volatile long lastApproximateElementCount = 0L;
+    private volatile double lastExpectedFpp = 0f;
+
 
     /**
      * Constructs a solver that will always use an exact filter, which
@@ -59,8 +62,13 @@ public abstract class AbstractPuzzleSolver<T extends PuzzleState<T>> implements 
         PuzzleStateFilter<T> filter = initialState.funnel()
             .map(funnel -> funnelToFilter.apply(funnel))
             .orElseGet(this::exactFilter);
-        Optional<T> finalState = solutionState(initialState, filter);
-        return finalState.map(PuzzleState::toSolution);
+        try {
+            Optional<T> finalState = solutionState(initialState, filter);
+            return finalState.map(PuzzleState::toSolution);
+        } finally {
+            lastApproximateElementCount = filter.approximateElementCount();
+            lastExpectedFpp = filter.expectedFalsePositiveProbability();
+        }
     }
 
 
@@ -82,6 +90,14 @@ public abstract class AbstractPuzzleSolver<T extends PuzzleState<T>> implements 
         } else /* state seen for first time, initialize */ {
             return state.initialized();
         }
+    }
+
+    long lastApproximateElementCount() {
+        return lastApproximateElementCount;
+    }
+
+    double lastExpectedFpp() {
+        return lastExpectedFpp;
     }
 
     private PuzzleStateFilter<T> bloomFilter(Funnel<T> funnel, int expectedInsertions, double fpp) {

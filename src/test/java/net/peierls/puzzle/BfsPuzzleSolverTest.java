@@ -1,5 +1,6 @@
 package net.peierls.puzzle;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.hash.*;
 
 import java.util.List;
@@ -16,8 +17,8 @@ import static org.junit.Assert.*;
 
 public class BfsPuzzleSolverTest {
 
-    final static int INIT = 1;
-    final static int FINAL = 100;
+    final static long INIT = 1L;
+    final static long FINAL = 1_000_000L;
 
     static class CounterState implements PuzzleState<CounterState> {
         final long count;
@@ -56,15 +57,28 @@ public class BfsPuzzleSolverTest {
 
     @Test public void bfs() {
         CounterState initialState = new CounterState(INIT, null);
-        PuzzleSolver<CounterState> solver = new BfsPuzzleSolver<>();
+        AbstractPuzzleSolver<CounterState> solver = new BfsPuzzleSolver<>(28_000_000, 0.001);
+        Stopwatch stopwatch = Stopwatch.createStarted();
         Optional<List<CounterState>> solution = solver.solution(initialState);
         if (solution.isPresent()) {
-            String solutionString = StreamEx.of(solution.get())
+            List<Long> moves = StreamEx.of(solution.get())
                 .mapToLong(CounterState::getCount)
-                .joining(", ", "[", "]");
-            System.out.println("solved: " + solutionString);
+                .boxed()
+                .toList();
+            System.out.printf(
+                "solved in %s with %d moves, approx count %d, expected fpp %f%n",
+                stopwatch,
+                moves.size(),
+                solver.lastApproximateElementCount(),
+                solver.lastExpectedFpp()
+            );
         } else {
-            System.out.println("no solution found");
+            System.out.printf(
+                "no solution found in %s, approx count %d, expected fpp %f%n",
+                stopwatch,
+                solver.lastApproximateElementCount(),
+                solver.lastExpectedFpp()
+            );
         }
     }
 }
