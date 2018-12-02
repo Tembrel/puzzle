@@ -3,7 +3,7 @@ package net.peierls.puzzle;
 import java.util.Optional;
 
 import one.util.streamex.StreamEx;
-s
+
 
 /**
  * Breadth-first-search puzzle solver.
