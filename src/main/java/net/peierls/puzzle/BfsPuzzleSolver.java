@@ -3,7 +3,7 @@ package net.peierls.puzzle;
 import java.util.Optional;
 
 import one.util.streamex.StreamEx;
-
+s
 
 /**
  * Breadth-first-search puzzle solver.
@@ -11,14 +11,14 @@ import one.util.streamex.StreamEx;
 public class BfsPuzzleSolver<T extends PuzzleState<T>> extends AbstractPuzzleSolver<T> {
 
     /**
-     * Constructs a DFS solver with an exact filter.
+     * Constructs a BFS solver with an exact filter.
      */
     public BfsPuzzleSolver() {
         super();
     }
 
     /**
-     * Constructs a DFS solver that will use a Bloom filter for states
+     * Constructs a BFS solver that will use a Bloom filter for states
      * that support it, otherwise an exact filter.
      */
     public BfsPuzzleSolver(int expectedInsertions, double fpp) {
