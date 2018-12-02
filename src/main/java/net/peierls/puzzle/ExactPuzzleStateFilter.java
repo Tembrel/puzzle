@@ -3,7 +3,8 @@ package net.peierls.puzzle;
 import java.util.concurrent.*;
 
 /**
- * An implementation of {@link PuzzleStateFilter} with exact containment:
+ * An implementation of {@link PuzzleStateFilter} with exact containment.
+ * It has these properties:
  * <ul>
  * <li>
  * {@link #mightContain} returns true <em>iff</em> the given
@@ -18,7 +19,7 @@ import java.util.concurrent.*;
  * and
  * </li>
  * <li>
- * {@link #approximateElementCount} is always true number of
+ * {@link #approximateElementCount} is always the true number of
  * distinct elements added.
  * </li>
  * </ul>

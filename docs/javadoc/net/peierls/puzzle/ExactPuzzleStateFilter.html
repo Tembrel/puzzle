@@ -110,10 +110,11 @@ var activeTableTab = "activeTableTab";
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../src-html/net/peierls/puzzle/ExactPuzzleStateFilter.html#line.26">ExactPuzzleStateFilter</a>&lt;T extends <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;T&gt;&gt;
+<pre>public class <a href="../../../src-html/net/peierls/puzzle/ExactPuzzleStateFilter.html#line.27">ExactPuzzleStateFilter</a>&lt;T extends <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;T&gt;&gt;
 extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>
 implements <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;T&gt;</pre>
-<div class="block">An implementation of <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle"><code>PuzzleStateFilter</code></a> with exact containment:
+<div class="block">An implementation of <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle"><code>PuzzleStateFilter</code></a> with exact containment.
+ It has these properties:
  <ul>
  <li>
  <a href="../../../net/peierls/puzzle/ExactPuzzleStateFilter.html#mightContain-T-"><code>mightContain(T)</code></a> returns true <em>iff</em> the given
@@ -128,7 +129,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="i
  and
  </li>
  <li>
- <a href="../../../net/peierls/puzzle/ExactPuzzleStateFilter.html#approximateElementCount--"><code>approximateElementCount()</code></a> is always true number of
+ <a href="../../../net/peierls/puzzle/ExactPuzzleStateFilter.html#approximateElementCount--"><code>approximateElementCount()</code></a> is always the true number of
  distinct elements added.
  </li>
  </ul></div>
@@ -222,7 +223,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="i
 <ul class="blockListLast">
 <li class="blockList">
 <h4>ExactPuzzleStateFilter</h4>
-<pre>public&nbsp;<a href="../../../src-html/net/peierls/puzzle/ExactPuzzleStateFilter.html#line.26">ExactPuzzleStateFilter</a>()</pre>
+<pre>public&nbsp;<a href="../../../src-html/net/peierls/puzzle/ExactPuzzleStateFilter.html#line.27">ExactPuzzleStateFilter</a>()</pre>
 </li>
 </ul>
 </li>
@@ -241,7 +242,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="i
 <ul class="blockList">
 <li class="blockList">
 <h4>mightContain</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../src-html/net/peierls/puzzle/ExactPuzzleStateFilter.html#line.33">mightContain</a>(<a href="../../../net/peierls/puzzle/ExactPuzzleStateFilter.html" title="type parameter in ExactPuzzleStateFilter">T</a>&nbsp;state)</pre>
+<pre>public&nbsp;boolean&nbsp;<a href="../../../src-html/net/peierls/puzzle/ExactPuzzleStateFilter.html#line.34">mightContain</a>(<a href="../../../net/peierls/puzzle/ExactPuzzleStateFilter.html" title="type parameter in ExactPuzzleStateFilter">T</a>&nbsp;state)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../net/peierls/puzzle/PuzzleStateFilter.html#mightContain-T-">PuzzleStateFilter</a></code></span></div>
 <div class="block">Returns true if the given state might have been put in
  this tracker, false if this is definitely not the case.</div>
@@ -259,7 +260,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="i
 <ul class="blockList">
 <li class="blockList">
 <h4>put</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../src-html/net/peierls/puzzle/ExactPuzzleStateFilter.html#line.38">put</a>(<a href="../../../net/peierls/puzzle/ExactPuzzleStateFilter.html" title="type parameter in ExactPuzzleStateFilter">T</a>&nbsp;state)</pre>
+<pre>public&nbsp;boolean&nbsp;<a href="../../../src-html/net/peierls/puzzle/ExactPuzzleStateFilter.html#line.39">put</a>(<a href="../../../net/peierls/puzzle/ExactPuzzleStateFilter.html" title="type parameter in ExactPuzzleStateFilter">T</a>&nbsp;state)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../net/peierls/puzzle/PuzzleStateFilter.html#put-T-">PuzzleStateFilter</a></code></span></div>
 <div class="block">Adds the given state to the tracker.</div>
 <dl>
@@ -274,7 +275,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="i
 <ul class="blockList">
 <li class="blockList">
 <h4>approximateElementCount</h4>
-<pre>public&nbsp;long&nbsp;<a href="../../../src-html/net/peierls/puzzle/ExactPuzzleStateFilter.html#line.43">approximateElementCount</a>()</pre>
+<pre>public&nbsp;long&nbsp;<a href="../../../src-html/net/peierls/puzzle/ExactPuzzleStateFilter.html#line.44">approximateElementCount</a>()</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../net/peierls/puzzle/PuzzleStateFilter.html#approximateElementCount--">PuzzleStateFilter</a></code></span></div>
 <div class="block">Returns an approximation of the number of distinct
  states that have been added to the tracker.</div>
@@ -290,7 +291,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="i
 <ul class="blockListLast">
 <li class="blockList">
 <h4>expectedFalsePositiveProbability</h4>
-<pre>public&nbsp;double&nbsp;<a href="../../../src-html/net/peierls/puzzle/ExactPuzzleStateFilter.html#line.48">expectedFalsePositiveProbability</a>()</pre>
+<pre>public&nbsp;double&nbsp;<a href="../../../src-html/net/peierls/puzzle/ExactPuzzleStateFilter.html#line.49">expectedFalsePositiveProbability</a>()</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../net/peierls/puzzle/PuzzleStateFilter.html#expectedFalsePositiveProbability--">PuzzleStateFilter</a></code></span></div>
 <div class="block">Expected probability that <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html#mightContain-T-"><code>PuzzleStateFilter.mightContain(T)</code></a> will return
  a false positive.</div>
