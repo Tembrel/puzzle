@@ -3,8 +3,9 @@ package net.peierls.puzzle;
 
 /**
  * A container for states that offers only an approximate containment
- * test, no removal, and no iteration, modeled on the idea of a Bloom
- * filter and mimicking the Guava BloomFilter interface.
+ * test, no removal, and no iteration. The interface is modeled on the
+ * idea of a Bloom filter and closely adheres to the Guava BloomFilter
+ * API.
  * <p>
  * Implementations of this interface are free to make the containment
  * test exact, in which case:
@@ -14,7 +15,7 @@ package net.peierls.puzzle;
  * state has been added;
  * </li>
  * <li>
- * the return value of {@link #put} will accurately reflect whether the
+ * the return value of {@link #put} will return true <em>iff</em> the
  * state was added for the first time;
  * </li>
  * <li>
