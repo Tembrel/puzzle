@@ -138,14 +138,27 @@ extends <a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="c
 </tr>
 <tr class="altColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html#DfsPuzzleSolver--">DfsPuzzleSolver</a></span>()</code>
-<div class="block">Constructs a DFS solver with an exact filter.</div>
+<div class="block">Constructs a DFS solver with an exact filter and the default max depth.</div>
 </td>
 </tr>
 <tr class="rowColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html#DfsPuzzleSolver-int-">DfsPuzzleSolver</a></span>(int&nbsp;maxDepth)</code>
+<div class="block">Constructs a DFS solver with an exact filter and the given max depth.</div>
+</td>
+</tr>
+<tr class="altColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html#DfsPuzzleSolver-int-double-">DfsPuzzleSolver</a></span>(int&nbsp;expectedInsertions,
                double&nbsp;fpp)</code>
-<div class="block">Constructs a DFS solver that will use a Bloom filter for states
- that support it, otherwise an exact filter.</div>
+<div class="block">Constructs a DFS solver with the default max depth that will use
+ a Bloom filter for states that support it, otherwise an exact filter.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html#DfsPuzzleSolver-int-int-double-">DfsPuzzleSolver</a></span>(int&nbsp;maxDepth,
+               int&nbsp;expectedInsertions,
+               double&nbsp;fpp)</code>
+<div class="block">Constructs a DFS solver with the given max depth that will use
+ a Bloom filter for states that support it, otherwise an exact filter.</div>
 </td>
 </tr>
 </table>
@@ -178,7 +191,7 @@ extends <a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="c
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;net.peierls.puzzle.<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="class in net.peierls.puzzle">AbstractPuzzleSolver</a></h3>
-<code><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#solution-T-">solution</a>, <a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#usableState-T-net.peierls.puzzle.PuzzleStateFilter-">usableState</a></code></li>
+<code><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#searchableState-T-net.peierls.puzzle.PuzzleStateFilter-">searchableState</a>, <a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#solution-T-">solution</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
@@ -207,20 +220,43 @@ extends <a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="c
 <ul class="blockList">
 <li class="blockList">
 <h4>DfsPuzzleSolver</h4>
-<pre>public&nbsp;<a href="../../../src-html/net/peierls/puzzle/DfsPuzzleSolver.html#line.19">DfsPuzzleSolver</a>()</pre>
-<div class="block">Constructs a DFS solver with an exact filter.</div>
+<pre>public&nbsp;<a href="../../../src-html/net/peierls/puzzle/DfsPuzzleSolver.html#line.23">DfsPuzzleSolver</a>()</pre>
+<div class="block">Constructs a DFS solver with an exact filter and the default max depth.</div>
+</li>
+</ul>
+<a name="DfsPuzzleSolver-int-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>DfsPuzzleSolver</h4>
+<pre>public&nbsp;<a href="../../../src-html/net/peierls/puzzle/DfsPuzzleSolver.html#line.30">DfsPuzzleSolver</a>(int&nbsp;maxDepth)</pre>
+<div class="block">Constructs a DFS solver with an exact filter and the given max depth.</div>
 </li>
 </ul>
 <a name="DfsPuzzleSolver-int-double-">
 <!--   -->
 </a>
+<ul class="blockList">
+<li class="blockList">
+<h4>DfsPuzzleSolver</h4>
+<pre>public&nbsp;<a href="../../../src-html/net/peierls/puzzle/DfsPuzzleSolver.html#line.39">DfsPuzzleSolver</a>(int&nbsp;expectedInsertions,
+                       double&nbsp;fpp)</pre>
+<div class="block">Constructs a DFS solver with the default max depth that will use
+ a Bloom filter for states that support it, otherwise an exact filter.</div>
+</li>
+</ul>
+<a name="DfsPuzzleSolver-int-int-double-">
+<!--   -->
+</a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>DfsPuzzleSolver</h4>
-<pre>public&nbsp;<a href="../../../src-html/net/peierls/puzzle/DfsPuzzleSolver.html#line.27">DfsPuzzleSolver</a>(int&nbsp;expectedInsertions,
+<pre>public&nbsp;<a href="../../../src-html/net/peierls/puzzle/DfsPuzzleSolver.html#line.47">DfsPuzzleSolver</a>(int&nbsp;maxDepth,
+                       int&nbsp;expectedInsertions,
                        double&nbsp;fpp)</pre>
-<div class="block">Constructs a DFS solver that will use a Bloom filter for states
- that support it, otherwise an exact filter.</div>
+<div class="block">Constructs a DFS solver with the given max depth that will use
+ a Bloom filter for states that support it, otherwise an exact filter.</div>
 </li>
 </ul>
 </li>
@@ -239,7 +275,7 @@ extends <a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="c
 <ul class="blockListLast">
 <li class="blockList">
 <h4>solutionState</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/DfsPuzzleSolver.html#line.33">solutionState</a>(<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&nbsp;initialState,
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/DfsPuzzleSolver.html#line.54">solutionState</a>(<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&nbsp;initialState,
                                     <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&gt;&nbsp;filter)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-">AbstractPuzzleSolver</a></code></span></div>
 <div class="block">Concrete subclasses must implement this method to

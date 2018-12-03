@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":6,"i2":10};
+var methods = {"i0":10,"i1":10,"i2":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -149,29 +149,29 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>protected <a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#searchableState-T-net.peierls.puzzle.PuzzleStateFilter-">searchableState</a></span>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;state,
+               <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&nbsp;filter)</code>
+<div class="block">If state is not null or hopeless and has definitely not been
+ seen by the filter, returns an initialized copy of state
+ (and as a side-effect marks state as seen in the filter),
+ otherwise returns null.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#solution-T-">solution</a></span>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;initialState)</code>
 <div class="block">Finds a solution to puzzle defined by initial state, using
  the state filter supplied by that initial state.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>protected abstract <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-">solutionState</a></span>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;initialState,
              <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&nbsp;filter)</code>
 <div class="block">Concrete subclasses must implement this method to
  find a solution from the given initial state, using
  the given state filter.</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
-<td class="colFirst"><code>protected <a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#usableState-T-net.peierls.puzzle.PuzzleStateFilter-">usableState</a></span>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;state,
-           <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&nbsp;filter)</code>
-<div class="block">If state is not null or hopeless and has definitely not been
- seen by the filter, returns an initialized copy of state
- (and as a side-effect marks state as seen in the filter),
- otherwise returns null.</div>
 </td>
 </tr>
 </table>
@@ -233,20 +233,21 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
  the given state filter.</div>
 </li>
 </ul>
-<a name="usableState-net.peierls.puzzle.PuzzleState-net.peierls.puzzle.PuzzleStateFilter-">
+<a name="searchableState-net.peierls.puzzle.PuzzleState-net.peierls.puzzle.PuzzleStateFilter-">
 <!--   -->
-</a><a name="usableState-T-net.peierls.puzzle.PuzzleStateFilter-">
+</a><a name="searchableState-T-net.peierls.puzzle.PuzzleStateFilter-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>usableState</h4>
-<pre>protected&nbsp;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;<a href="../../../src-html/net/peierls/puzzle/AbstractPuzzleSolver.html#line.89">usableState</a>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;state,
-                        <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&nbsp;filter)</pre>
+<h4>searchableState</h4>
+<pre>protected&nbsp;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;<a href="../../../src-html/net/peierls/puzzle/AbstractPuzzleSolver.html#line.90">searchableState</a>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;state,
+                            <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&nbsp;filter)</pre>
 <div class="block">If state is not null or hopeless and has definitely not been
  seen by the filter, returns an initialized copy of state
  (and as a side-effect marks state as seen in the filter),
- otherwise returns null.</div>
+ otherwise returns null. The test for hopelessness is made
+ on the initialized copy.</div>
 </li>
 </ul>
 </li>
