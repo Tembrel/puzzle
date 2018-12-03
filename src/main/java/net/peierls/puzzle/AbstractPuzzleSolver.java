@@ -84,10 +84,10 @@ public abstract class AbstractPuzzleSolver<T extends PuzzleState<T>> implements 
      * Helper method to check if a state has (probably) been seen and to initialize
      * it if so. Uses null return instead of optional; maybe premature optimization.
      */
-    protected T firstSeen(T state, PuzzleStateFilter<T> filter) {
-        if (!filter.put(state)) {
+    protected T usableState(T state, PuzzleStateFilter<T> filter) {
+        if (state == null || state.isHopeless() || !filter.put(state)) {
             return null;
-        } else /* state seen for first time, initialize */ {
+        } else /* first time seeing non-null, non-hopeless state, so initialize it */ {
             return state.initialized();
         }
     }

@@ -31,20 +31,26 @@ public class DfsPuzzleSolver<T extends PuzzleState<T>> extends AbstractPuzzleSol
 
     @Override
     protected Optional<T> solutionState(T initialState, PuzzleStateFilter<T> filter) {
-        return solutionState(initialState, filter, 0);
+        if (initialState == null || filter == null) {
+            throw new NullPointerException();
+        }
+        return Optional.ofNullable(solutionState(initialState, filter, 0));
     }
 
-    Optional<T> solutionState(T state, PuzzleStateFilter<T> filter, int depth) {
-        if (state.isSolution()) {
-            return Optional.of(state);
-        } else if (!state.isHopeless() && depth < MAX_DEPTH) {
-            for (T next : StreamEx.of(state.successors())) {
-                Optional<T> solved = solutionState(next, filter, depth + 1);
-                if (solved.isPresent()) {
-                    return solved;
-                }
-            }
+    T solutionState(T state, PuzzleStateFilter<T> filter, int depth) {
+        state = usableState(state, filter);
+        if (state == null) {
+            return null;
+        } else if (state.isSolution()) {
+            return state;
+        } else if (depth < MAX_DEPTH) {
+            return StreamEx.of(state.successors())
+                .map(next -> solutionState(next, filter, depth + 1))
+                .nonNull()
+                .findAny()
+                .orElse(null);
+        } else {
+            return null;
         }
-        return Optional.empty();
     }
 }

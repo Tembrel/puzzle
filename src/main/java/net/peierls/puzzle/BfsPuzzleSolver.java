@@ -43,24 +43,13 @@ public class BfsPuzzleSolver<T extends PuzzleState<T>> extends AbstractPuzzleSol
             if (state == null) {
                 return false;
             }
-            action.accept(state);
-            if (canSearch(state, filter)) {
+            state = usableState(state, filter);
+            if (state != null) {
+                action.accept(state);
                 state.successors().forEach(queue::offer);
             }
             return true;
         });
-    }
-
-    private boolean canSearch(T state, PuzzleStateFilter<T> filter) {
-        if (filter.put(state) && !state.isHopeless()) {
-            // We haven't seen this state before and it isn't hopeless to search
-            // further from it.
-            return true;
-        } else {
-            // Either we've seen this state before or it's hopeless to search
-            // its successors.
-            return false;
-        }
     }
 
     private void trace(T state) {
