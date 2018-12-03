@@ -43,13 +43,30 @@ public class BfsPuzzleSolver<T extends PuzzleState<T>> extends AbstractPuzzleSol
             if (state == null) {
                 return false;
             }
-            state = usableState(state, filter);
+            state = searchableState(state, filter);
             if (state != null) {
                 action.accept(state);
                 state.successors().forEach(queue::offer);
             }
             return true;
         });
+    }
+
+    private StreamEx<T> bfs2(T state, PuzzleStateFilter<T> filter) {
+        if (state == null) {
+            throw new NullPointerException();
+        }
+        return bfs_(filter, StreamEx.of(state));
+    }
+
+    private StreamEx<T> bfs_(PuzzleStateFilter<T> filter, StreamEx<T> states) {
+        return states.headTail((state, rest) ->
+            bfs_(filter, StreamEx.of(state.successors())
+                .map(next -> searchableState(next, filter))
+                .nonNull()
+                .prepend(rest)
+            ).prepend(state)
+        );
     }
 
     private void trace(T state) {

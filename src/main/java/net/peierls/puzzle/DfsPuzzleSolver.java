@@ -11,46 +11,63 @@ import one.util.streamex.StreamEx;
  */
 public class DfsPuzzleSolver<T extends PuzzleState<T>> extends AbstractPuzzleSolver<T> {
 
-    final int MAX_DEPTH = 20;
+    private static final int MAX_DEPTH = 20;
+
+
+    private final int maxDepth;
+
 
     /**
-     * Constructs a DFS solver with an exact filter.
+     * Constructs a DFS solver with an exact filter and the default max depth.
      */
     public DfsPuzzleSolver() {
-        super();
+        this(MAX_DEPTH);
     }
 
     /**
-     * Constructs a DFS solver that will use a Bloom filter for states
-     * that support it, otherwise an exact filter.
+     * Constructs a DFS solver with an exact filter and the given max depth.
+     */
+    public DfsPuzzleSolver(int maxDepth) {
+        super();
+        this.maxDepth = maxDepth;
+    }
+
+    /**
+     * Constructs a DFS solver with the default max depth that will use
+     * a Bloom filter for states that support it, otherwise an exact filter.
      */
     public DfsPuzzleSolver(int expectedInsertions, double fpp) {
+        this(MAX_DEPTH, expectedInsertions, fpp);
+    }
+
+    /**
+     * Constructs a DFS solver with the given max depth that will use
+     * a Bloom filter for states that support it, otherwise an exact filter.
+     */
+    public DfsPuzzleSolver(int maxDepth, int expectedInsertions, double fpp) {
         super(expectedInsertions, fpp);
+        this.maxDepth = maxDepth;
     }
 
 
     @Override
     protected Optional<T> solutionState(T initialState, PuzzleStateFilter<T> filter) {
         if (initialState == null || filter == null) {
-            throw new NullPointerException();
+            throw new NullPointerException("arguments must be non-null");
         }
-        return Optional.ofNullable(solutionState(initialState, filter, 0));
+        return dfs(initialState, filter, 0)
+            .findAny(PuzzleState::isSolution);
     }
 
-    T solutionState(T state, PuzzleStateFilter<T> filter, int depth) {
-        state = usableState(state, filter);
-        if (state == null) {
-            return null;
-        } else if (state.isSolution()) {
-            return state;
-        } else if (depth < MAX_DEPTH) {
+    StreamEx<T> dfs(T state, PuzzleStateFilter<T> filter, int depth) {
+        state = searchableState(state, filter);
+        if (state != null && depth < maxDepth) {
             return StreamEx.of(state.successors())
-                .map(next -> solutionState(next, filter, depth + 1))
-                .nonNull()
-                .findAny()
-                .orElse(null);
+                .parallel()
+                .flatMap(next -> dfs(next, filter, depth + 1))
+                .prepend(state);
         } else {
-            return null;
+            return StreamEx.empty();
         }
     }
 }

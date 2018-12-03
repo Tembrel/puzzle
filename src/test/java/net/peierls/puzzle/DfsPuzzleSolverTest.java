@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 public class DfsPuzzleSolverTest {
 
     final static int INIT = 1;
-    final static int FINAL = 7;
+    final static int FINAL = 20;
 
     static class CounterState implements PuzzleState<CounterState> {
         final long count;
@@ -54,7 +54,7 @@ public class DfsPuzzleSolverTest {
 
     @Test public void dfs() {
         CounterState initialState = new CounterState(INIT, null);
-        PuzzleSolver<CounterState> solver = new DfsPuzzleSolver<>();
+        PuzzleSolver<CounterState> solver = new DfsPuzzleSolver<>(20);
         Optional<List<CounterState>> solution = solver.solution(initialState);
         assertTrue(solution.isPresent());
         String solutionString = StreamEx.of(solution.get())

@@ -84,13 +84,21 @@ public abstract class AbstractPuzzleSolver<T extends PuzzleState<T>> implements 
      * If state is not null or hopeless and has definitely not been
      * seen by the filter, returns an initialized copy of state
      * (and as a side-effect marks state as seen in the filter),
-     * otherwise returns null.
+     * otherwise returns null. The test for hopelessness is made
+     * on the initialized copy.
      */
-    protected T usableState(T state, PuzzleStateFilter<T> filter) {
-        if (state == null || state.isHopeless() || !filter.put(state)) {
+    protected T searchableState(T state, PuzzleStateFilter<T> filter) {
+        if (state == null || !filter.put(state)) {
             return null;
-        } else /* first time seeing non-null, non-hopeless state, so initialize it */ {
-            return state.initialized();
+        }
+
+        // First time seeing state, so initialize it.
+        state = state.initialized();
+
+        if (state.isHopeless()) {
+            return null;
+        } else {
+            return state;
         }
     }
 
