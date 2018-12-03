@@ -35,15 +35,8 @@ public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements 
      * will store each state seen but will always report correctly on
      * whether a state has been seen.
      */
-    FilteredPuzzleSolver() {
+    protected FilteredPuzzleSolver() {
         this.funnelToFilter = funnel -> exactFilter();
-    }
-
-    /**
-     * Constructs a solver that will always use the given state filter.
-     */
-    FilteredPuzzleSolver(PuzzleStateFilter<T> filter) {
-        this.funnelToFilter = funnel -> filter;
     }
 
     /**
@@ -52,8 +45,15 @@ public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements 
      * when solving initial states that do define a funnel. The two
      * parameters to this method will be ignored in the former case.
      */
-    FilteredPuzzleSolver(int expectedInsertions, double fpp) {
+    protected FilteredPuzzleSolver(int expectedInsertions, double fpp) {
         this.funnelToFilter = funnel -> bloomFilter(funnel, expectedInsertions, fpp);
+    }
+
+    /**
+     * Constructs a solver that will always use the given state filter.
+     */
+    protected FilteredPuzzleSolver(PuzzleStateFilter<T> filter) {
+        this.funnelToFilter = funnel -> filter;
     }
 
 
@@ -81,7 +81,7 @@ public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements 
 
 
     /**
-     * If state is not null or hopeless and has definitely not been
+     * If state is not null or hopeless and might not have been
      * seen by the filter, returns an precomputed copy of state
      * (and as a side-effect marks state as seen in the filter),
      * otherwise returns null. The test for hopelessness is made
@@ -89,6 +89,7 @@ public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements 
      */
     protected T filterState(T state, PuzzleStateFilter<T> filter) {
         if (state == null || !filter.put(state)) {
+            // Null state or state might not have been seen.
             return null;
         }
 
