@@ -31,8 +31,8 @@
 <span class="sourceLineNo">023</span> * occasionally to search a valid branch.<a name="line.23"></a>
 <span class="sourceLineNo">024</span> * &lt;p&gt;<a name="line.24"></a>
 <span class="sourceLineNo">025</span> * The {@link #solution} method is final; subclasses should implement<a name="line.25"></a>
-<span class="sourceLineNo">026</span> * {@link #solutionState} and use the {@link #filterState} method before<a name="line.26"></a>
-<span class="sourceLineNo">027</span> * searching a state.<a name="line.27"></a>
+<span class="sourceLineNo">026</span> * {@link #solutionState solutionState(initialState, filter)} and use the<a name="line.26"></a>
+<span class="sourceLineNo">027</span> * {@link #filterState filterState(state, filter)} method before searching a state.<a name="line.27"></a>
 <span class="sourceLineNo">028</span> */<a name="line.28"></a>
 <span class="sourceLineNo">029</span>public abstract class FilteredPuzzleSolver&lt;T extends PuzzleState&lt;T&gt;&gt; implements PuzzleSolver&lt;T&gt; {<a name="line.29"></a>
 <span class="sourceLineNo">030</span><a name="line.30"></a>

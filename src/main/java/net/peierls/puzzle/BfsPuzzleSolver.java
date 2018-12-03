@@ -31,6 +31,7 @@ public class BfsPuzzleSolver<T extends PuzzleState<T>> extends FilteredPuzzleSol
     @Override
     protected Optional<T> solutionState(T initialState, PuzzleStateFilter<T> filter) {
         return bfs(initialState, filter)
+            .parallel()
             //.peek(this::trace)
             .findAny(PuzzleState::isSolution);
     }
@@ -50,23 +51,6 @@ public class BfsPuzzleSolver<T extends PuzzleState<T>> extends FilteredPuzzleSol
             }
             return true;
         });
-    }
-
-    private StreamEx<T> bfs2(T state, PuzzleStateFilter<T> filter) {
-        if (state == null) {
-            throw new NullPointerException();
-        }
-        return bfs_(filter, StreamEx.of(state));
-    }
-
-    private StreamEx<T> bfs_(PuzzleStateFilter<T> filter, StreamEx<T> states) {
-        return states.headTail((state, rest) ->
-            bfs_(filter, StreamEx.of(state.successors())
-                .map(next -> filterState(next, filter))
-                .nonNull()
-                .prepend(rest)
-            ).prepend(state)
-        );
     }
 
     private void trace(T state) {

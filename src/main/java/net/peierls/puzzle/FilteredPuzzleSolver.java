@@ -23,8 +23,8 @@ import java.util.function.Function;
  * occasionally to search a valid branch.
  * <p>
  * The {@link #solution} method is final; subclasses should implement
- * {@link #solutionState} and use the {@link #filterState} method before
- * searching a state.
+ * {@link #solutionState solutionState(initialState, filter)} and use the
+ * {@link #filterState filterState(state, filter)} method before searching a state.
  */
 public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements PuzzleSolver<T> {
 
