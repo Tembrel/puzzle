@@ -165,7 +165,22 @@
  instance essentially defines a puzzle: Find a sequence of states
  starting with the initial state and ending with a solution state
  with each element of the sequence other than first being a successor
- of the previous element of the sequence.</div>
+ of the previous element of the sequence.
+ <p>
+ To define a new kind of puzzle, implement <code>PuzzleState</code>'s
+ <code>isSolution</code>,
+ <code>successors</code>,
+ and <code>predecessor</code> methods, and optionally any
+ of the other methods. The predecessor method should be defined
+ for states that are produced by <code>s0.successors()</code> to be
+ <code>s0</code>, otherwise it should be empty (initial states have no predecessor).
+ <p>
+ To define a new general-purpose solver, extend
+ <code>FilteredPuzzleSolver</code> by
+ implementing <code>solutionState</code>.
+ Use <code>filterState</code> before searching
+ from any state returned by the <code>state.successors()</code> method.
+ <p></div>
 </div>
 <!-- ======= START OF BOTTOM NAVBAR ====== -->
 <div class="bottomNav"><a name="navbar.bottom">

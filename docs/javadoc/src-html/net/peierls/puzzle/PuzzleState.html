@@ -68,69 +68,72 @@
 <span class="sourceLineNo">060</span>     * or if it is known that a solution state can be reached<a name="line.60"></a>
 <span class="sourceLineNo">061</span>     * from this state.<a name="line.61"></a>
 <span class="sourceLineNo">062</span>     */<a name="line.62"></a>
-<span class="sourceLineNo">063</span>    boolean isHopeless();<a name="line.63"></a>
-<span class="sourceLineNo">064</span><a name="line.64"></a>
-<span class="sourceLineNo">065</span>    /**<a name="line.65"></a>
-<span class="sourceLineNo">066</span>     * The stream of puzzle states obtainable by<a name="line.66"></a>
-<span class="sourceLineNo">067</span>     * a single move from this state.<a name="line.67"></a>
-<span class="sourceLineNo">068</span>     */<a name="line.68"></a>
-<span class="sourceLineNo">069</span>    Stream&lt;T&gt; successors();<a name="line.69"></a>
-<span class="sourceLineNo">070</span><a name="line.70"></a>
-<span class="sourceLineNo">071</span><a name="line.71"></a>
-<span class="sourceLineNo">072</span>    /**<a name="line.72"></a>
-<span class="sourceLineNo">073</span>     * The state from which this state was reached.<a name="line.73"></a>
-<span class="sourceLineNo">074</span>     */<a name="line.74"></a>
-<span class="sourceLineNo">075</span>    default Optional&lt;T&gt; predecessor() {<a name="line.75"></a>
-<span class="sourceLineNo">076</span>        return Optional.empty();<a name="line.76"></a>
-<span class="sourceLineNo">077</span>    }<a name="line.77"></a>
-<span class="sourceLineNo">078</span><a name="line.78"></a>
-<span class="sourceLineNo">079</span><a name="line.79"></a>
-<span class="sourceLineNo">080</span>    /**<a name="line.80"></a>
-<span class="sourceLineNo">081</span>     * Returns a state that is equivalent to this state,<a name="line.81"></a>
-<span class="sourceLineNo">082</span>     * but which might implement some methods more efficiently,<a name="line.82"></a>
-<span class="sourceLineNo">083</span>     * e.g., by precomputing commonly needed values.<a name="line.83"></a>
-<span class="sourceLineNo">084</span>     * The return value can be this instance itself, and that is<a name="line.84"></a>
-<span class="sourceLineNo">085</span>     * how the method is implemented by default.<a name="line.85"></a>
-<span class="sourceLineNo">086</span>     */<a name="line.86"></a>
-<span class="sourceLineNo">087</span>    @SuppressWarnings("unchecked")<a name="line.87"></a>
-<span class="sourceLineNo">088</span>    default T precomputed() {<a name="line.88"></a>
-<span class="sourceLineNo">089</span>        return (T) this;<a name="line.89"></a>
-<span class="sourceLineNo">090</span>    }<a name="line.90"></a>
-<span class="sourceLineNo">091</span><a name="line.91"></a>
-<span class="sourceLineNo">092</span><a name="line.92"></a>
-<span class="sourceLineNo">093</span>    /**<a name="line.93"></a>
-<span class="sourceLineNo">094</span>     * A rating of how good this state is. Lower is better. You can<a name="line.94"></a>
-<span class="sourceLineNo">095</span>     * return the same value for all states if you don't know.<a name="line.95"></a>
-<span class="sourceLineNo">096</span>     * &lt;strong&gt;This value is currently ignored by the framework.&lt;/strong&gt;<a name="line.96"></a>
-<span class="sourceLineNo">097</span>     */<a name="line.97"></a>
-<span class="sourceLineNo">098</span>    default int score() {<a name="line.98"></a>
-<span class="sourceLineNo">099</span>        return 0;<a name="line.99"></a>
-<span class="sourceLineNo">100</span>    }<a name="line.100"></a>
-<span class="sourceLineNo">101</span><a name="line.101"></a>
-<span class="sourceLineNo">102</span><a name="line.102"></a>
-<span class="sourceLineNo">103</span>    /**<a name="line.103"></a>
-<span class="sourceLineNo">104</span>     * Optionally returns a funnel for encoding arbitrary instances<a name="line.104"></a>
-<span class="sourceLineNo">105</span>     * of this type, for use in approximate containment tests.<a name="line.105"></a>
-<span class="sourceLineNo">106</span>     */<a name="line.106"></a>
-<span class="sourceLineNo">107</span>    default Optional&lt;Funnel&lt;T&gt;&gt; funnel() {<a name="line.107"></a>
-<span class="sourceLineNo">108</span>        return Optional.empty();<a name="line.108"></a>
-<span class="sourceLineNo">109</span>    }<a name="line.109"></a>
-<span class="sourceLineNo">110</span><a name="line.110"></a>
-<span class="sourceLineNo">111</span>    /**<a name="line.111"></a>
-<span class="sourceLineNo">112</span>     * Convert this state into a solution.<a name="line.112"></a>
-<span class="sourceLineNo">113</span>     */<a name="line.113"></a>
-<span class="sourceLineNo">114</span>    default List&lt;T&gt; toSolution() {<a name="line.114"></a>
-<span class="sourceLineNo">115</span>        @SuppressWarnings("unchecked")<a name="line.115"></a>
-<span class="sourceLineNo">116</span>        List&lt;T&gt; reversed = StreamEx.iterate(<a name="line.116"></a>
-<span class="sourceLineNo">117</span>            (T) this,<a name="line.117"></a>
-<span class="sourceLineNo">118</span>            s -&gt; s != null,<a name="line.118"></a>
-<span class="sourceLineNo">119</span>            s -&gt; s.predecessor().orElse(null)<a name="line.119"></a>
-<span class="sourceLineNo">120</span>        ).toList();<a name="line.120"></a>
-<span class="sourceLineNo">121</span><a name="line.121"></a>
-<span class="sourceLineNo">122</span>        return StreamEx.ofReversed(reversed).toList();<a name="line.122"></a>
-<span class="sourceLineNo">123</span>    }<a name="line.123"></a>
+<span class="sourceLineNo">063</span>    default boolean isHopeless() {<a name="line.63"></a>
+<span class="sourceLineNo">064</span>        return false;<a name="line.64"></a>
+<span class="sourceLineNo">065</span>    }<a name="line.65"></a>
+<span class="sourceLineNo">066</span><a name="line.66"></a>
+<span class="sourceLineNo">067</span>    /**<a name="line.67"></a>
+<span class="sourceLineNo">068</span>     * The stream of puzzle states obtainable by<a name="line.68"></a>
+<span class="sourceLineNo">069</span>     * a single move from this state.<a name="line.69"></a>
+<span class="sourceLineNo">070</span>     */<a name="line.70"></a>
+<span class="sourceLineNo">071</span>    Stream&lt;T&gt; successors();<a name="line.71"></a>
+<span class="sourceLineNo">072</span><a name="line.72"></a>
+<span class="sourceLineNo">073</span><a name="line.73"></a>
+<span class="sourceLineNo">074</span>    /**<a name="line.74"></a>
+<span class="sourceLineNo">075</span>     * The state from which this state was reached.<a name="line.75"></a>
+<span class="sourceLineNo">076</span>     */<a name="line.76"></a>
+<span class="sourceLineNo">077</span>    default Optional&lt;T&gt; predecessor() {<a name="line.77"></a>
+<span class="sourceLineNo">078</span>        return Optional.empty();<a name="line.78"></a>
+<span class="sourceLineNo">079</span>    }<a name="line.79"></a>
+<span class="sourceLineNo">080</span><a name="line.80"></a>
+<span class="sourceLineNo">081</span><a name="line.81"></a>
+<span class="sourceLineNo">082</span>    /**<a name="line.82"></a>
+<span class="sourceLineNo">083</span>     * Returns a state that is equivalent to this state,<a name="line.83"></a>
+<span class="sourceLineNo">084</span>     * but which might implement some methods more efficiently,<a name="line.84"></a>
+<span class="sourceLineNo">085</span>     * e.g., by precomputing commonly needed values.<a name="line.85"></a>
+<span class="sourceLineNo">086</span>     * The return value can be this instance itself, and that is<a name="line.86"></a>
+<span class="sourceLineNo">087</span>     * how the method is implemented by default.<a name="line.87"></a>
+<span class="sourceLineNo">088</span>     */<a name="line.88"></a>
+<span class="sourceLineNo">089</span>    @SuppressWarnings("unchecked")<a name="line.89"></a>
+<span class="sourceLineNo">090</span>    default T precomputed() {<a name="line.90"></a>
+<span class="sourceLineNo">091</span>        return (T) this;<a name="line.91"></a>
+<span class="sourceLineNo">092</span>    }<a name="line.92"></a>
+<span class="sourceLineNo">093</span><a name="line.93"></a>
+<span class="sourceLineNo">094</span><a name="line.94"></a>
+<span class="sourceLineNo">095</span>    /**<a name="line.95"></a>
+<span class="sourceLineNo">096</span>     * A rating of how good this state is. Lower is better. You can<a name="line.96"></a>
+<span class="sourceLineNo">097</span>     * return the same value for all states if you don't know.<a name="line.97"></a>
+<span class="sourceLineNo">098</span>     * Puzzle solvers are not required to pay attention to scores<a name="line.98"></a>
+<span class="sourceLineNo">099</span>     * unless they are looking for a best solution.<a name="line.99"></a>
+<span class="sourceLineNo">100</span>     */<a name="line.100"></a>
+<span class="sourceLineNo">101</span>    default int score() {<a name="line.101"></a>
+<span class="sourceLineNo">102</span>        return 0;<a name="line.102"></a>
+<span class="sourceLineNo">103</span>    }<a name="line.103"></a>
+<span class="sourceLineNo">104</span><a name="line.104"></a>
+<span class="sourceLineNo">105</span><a name="line.105"></a>
+<span class="sourceLineNo">106</span>    /**<a name="line.106"></a>
+<span class="sourceLineNo">107</span>     * Optionally returns a funnel for encoding arbitrary instances<a name="line.107"></a>
+<span class="sourceLineNo">108</span>     * of this type, for use in approximate containment tests.<a name="line.108"></a>
+<span class="sourceLineNo">109</span>     */<a name="line.109"></a>
+<span class="sourceLineNo">110</span>    default Optional&lt;Funnel&lt;T&gt;&gt; funnel() {<a name="line.110"></a>
+<span class="sourceLineNo">111</span>        return Optional.empty();<a name="line.111"></a>
+<span class="sourceLineNo">112</span>    }<a name="line.112"></a>
+<span class="sourceLineNo">113</span><a name="line.113"></a>
+<span class="sourceLineNo">114</span>    /**<a name="line.114"></a>
+<span class="sourceLineNo">115</span>     * Convert this state into a solution.<a name="line.115"></a>
+<span class="sourceLineNo">116</span>     */<a name="line.116"></a>
+<span class="sourceLineNo">117</span>    default List&lt;T&gt; toSolution() {<a name="line.117"></a>
+<span class="sourceLineNo">118</span>        @SuppressWarnings("unchecked")<a name="line.118"></a>
+<span class="sourceLineNo">119</span>        List&lt;T&gt; reversed = StreamEx.iterate(<a name="line.119"></a>
+<span class="sourceLineNo">120</span>            (T) this,<a name="line.120"></a>
+<span class="sourceLineNo">121</span>            s -&gt; s != null,<a name="line.121"></a>
+<span class="sourceLineNo">122</span>            s -&gt; s.predecessor().orElse(null)<a name="line.122"></a>
+<span class="sourceLineNo">123</span>        ).toList();<a name="line.123"></a>
 <span class="sourceLineNo">124</span><a name="line.124"></a>
-<span class="sourceLineNo">125</span>}<a name="line.125"></a>
+<span class="sourceLineNo">125</span>        return StreamEx.ofReversed(reversed).toList();<a name="line.125"></a>
+<span class="sourceLineNo">126</span>    }<a name="line.126"></a>
+<span class="sourceLineNo">127</span><a name="line.127"></a>
+<span class="sourceLineNo">128</span>}<a name="line.128"></a>
 
 
 
