@@ -32,12 +32,13 @@ public interface PuzzleStateFilter<T extends PuzzleState<T>> {
 
     /**
      * Returns true if the given state might have been put in
-     * this tracker, false if this is definitely not the case.
+     * this filter, false if this is definitely not the case.
      */
     boolean mightContain(T state);
 
     /**
-     * Adds the given state to the tracker.
+     * Adds the given state to the filter, returning true if
+     * this was definitely the first time the state was added.
      * @returns true if this is definitely the first time the
      * state has been added to the tracker, false otherwise,
      * i.e., if this might not be the first time it has been

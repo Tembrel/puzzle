@@ -164,13 +164,14 @@ var activeTableTab = "activeTableTab";
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/PuzzleStateFilter.html#mightContain-T-">mightContain</a></span>(<a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="type parameter in PuzzleStateFilter">T</a>&nbsp;state)</code>
 <div class="block">Returns true if the given state might have been put in
- this tracker, false if this is definitely not the case.</div>
+ this filter, false if this is definitely not the case.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/PuzzleStateFilter.html#put-T-">put</a></span>(<a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="type parameter in PuzzleStateFilter">T</a>&nbsp;state)</code>
-<div class="block">Adds the given state to the tracker.</div>
+<div class="block">Adds the given state to the filter, returning true if
+ this was definitely the first time the state was added.</div>
 </td>
 </tr>
 </table>
@@ -198,7 +199,7 @@ var activeTableTab = "activeTableTab";
 <h4>mightContain</h4>
 <pre>boolean&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleStateFilter.html#line.37">mightContain</a>(<a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="type parameter in PuzzleStateFilter">T</a>&nbsp;state)</pre>
 <div class="block">Returns true if the given state might have been put in
- this tracker, false if this is definitely not the case.</div>
+ this filter, false if this is definitely not the case.</div>
 </li>
 </ul>
 <a name="put-net.peierls.puzzle.PuzzleState-">
@@ -209,8 +210,9 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>put</h4>
-<pre>boolean&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleStateFilter.html#line.46">put</a>(<a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="type parameter in PuzzleStateFilter">T</a>&nbsp;state)</pre>
-<div class="block">Adds the given state to the tracker.</div>
+<pre>boolean&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleStateFilter.html#line.47">put</a>(<a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="type parameter in PuzzleStateFilter">T</a>&nbsp;state)</pre>
+<div class="block">Adds the given state to the filter, returning true if
+ this was definitely the first time the state was added.</div>
 </li>
 </ul>
 <a name="approximateElementCount--">
@@ -219,7 +221,7 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>approximateElementCount</h4>
-<pre>long&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleStateFilter.html#line.52">approximateElementCount</a>()</pre>
+<pre>long&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleStateFilter.html#line.53">approximateElementCount</a>()</pre>
 <div class="block">Returns an approximation of the number of distinct
  states that have been added to the tracker.</div>
 </li>
@@ -230,7 +232,7 @@ var activeTableTab = "activeTableTab";
 <ul class="blockListLast">
 <li class="blockList">
 <h4>expectedFalsePositiveProbability</h4>
-<pre>double&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleStateFilter.html#line.58">expectedFalsePositiveProbability</a>()</pre>
+<pre>double&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleStateFilter.html#line.59">expectedFalsePositiveProbability</a>()</pre>
 <div class="block">Expected probability that <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html#mightContain-T-"><code>mightContain(T)</code></a> will return
  a false positive.</div>
 </li>

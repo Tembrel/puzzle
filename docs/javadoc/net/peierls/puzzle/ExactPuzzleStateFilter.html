@@ -186,13 +186,14 @@ implements <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="i
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/ExactPuzzleStateFilter.html#mightContain-T-">mightContain</a></span>(<a href="../../../net/peierls/puzzle/ExactPuzzleStateFilter.html" title="type parameter in ExactPuzzleStateFilter">T</a>&nbsp;state)</code>
 <div class="block">Returns true if the given state might have been put in
- this tracker, false if this is definitely not the case.</div>
+ this filter, false if this is definitely not the case.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/ExactPuzzleStateFilter.html#put-T-">put</a></span>(<a href="../../../net/peierls/puzzle/ExactPuzzleStateFilter.html" title="type parameter in ExactPuzzleStateFilter">T</a>&nbsp;state)</code>
-<div class="block">Adds the given state to the tracker.</div>
+<div class="block">Adds the given state to the filter, returning true if
+ this was definitely the first time the state was added.</div>
 </td>
 </tr>
 </table>
@@ -245,7 +246,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="i
 <pre>public&nbsp;boolean&nbsp;<a href="../../../src-html/net/peierls/puzzle/ExactPuzzleStateFilter.html#line.34">mightContain</a>(<a href="../../../net/peierls/puzzle/ExactPuzzleStateFilter.html" title="type parameter in ExactPuzzleStateFilter">T</a>&nbsp;state)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../net/peierls/puzzle/PuzzleStateFilter.html#mightContain-T-">PuzzleStateFilter</a></code></span></div>
 <div class="block">Returns true if the given state might have been put in
- this tracker, false if this is definitely not the case.</div>
+ this filter, false if this is definitely not the case.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../net/peierls/puzzle/PuzzleStateFilter.html#mightContain-T-">mightContain</a></code>&nbsp;in interface&nbsp;<code><a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/ExactPuzzleStateFilter.html" title="type parameter in ExactPuzzleStateFilter">T</a> extends <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;<a href="../../../net/peierls/puzzle/ExactPuzzleStateFilter.html" title="type parameter in ExactPuzzleStateFilter">T</a>&gt;&gt;</code></dd>
@@ -262,7 +263,8 @@ implements <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="i
 <h4>put</h4>
 <pre>public&nbsp;boolean&nbsp;<a href="../../../src-html/net/peierls/puzzle/ExactPuzzleStateFilter.html#line.39">put</a>(<a href="../../../net/peierls/puzzle/ExactPuzzleStateFilter.html" title="type parameter in ExactPuzzleStateFilter">T</a>&nbsp;state)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../net/peierls/puzzle/PuzzleStateFilter.html#put-T-">PuzzleStateFilter</a></code></span></div>
-<div class="block">Adds the given state to the tracker.</div>
+<div class="block">Adds the given state to the filter, returning true if
+ this was definitely the first time the state was added.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../net/peierls/puzzle/PuzzleStateFilter.html#put-T-">put</a></code>&nbsp;in interface&nbsp;<code><a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/ExactPuzzleStateFilter.html" title="type parameter in ExactPuzzleStateFilter">T</a> extends <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;<a href="../../../net/peierls/puzzle/ExactPuzzleStateFilter.html" title="type parameter in ExactPuzzleStateFilter">T</a>&gt;&gt;</code></dd>

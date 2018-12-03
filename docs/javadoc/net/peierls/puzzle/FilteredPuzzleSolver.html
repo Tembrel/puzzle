@@ -132,7 +132,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
  occasionally to search a valid branch.
  <p>
  The <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html#solution-T-"><code>solution(T)</code></a> method is final; subclasses should implement
- <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-"><code>solutionState(T, net.peierls.puzzle.PuzzleStateFilter&lt;T&gt;)</code></a> and use the <code>#filerState</code> method before
+ <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-"><code>solutionState(T, net.peierls.puzzle.PuzzleStateFilter&lt;T&gt;)</code></a> and use the <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html#filterState-T-net.peierls.puzzle.PuzzleStateFilter-"><code>filterState(T, net.peierls.puzzle.PuzzleStateFilter&lt;T&gt;)</code></a> method before
  searching a state.</div>
 </li>
 </ul>
@@ -194,8 +194,8 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
 <td class="colFirst"><code>protected <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html#filterState-T-net.peierls.puzzle.PuzzleStateFilter-">filterState</a></span>(<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&nbsp;state,
            <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&gt;&nbsp;filter)</code>
-<div class="block">If state is not null or hopeless and might not have been
- seen by the filter, returns an precomputed copy of state
+<div class="block">If state is neither null nor hopeless and definitely hasn't
+ been seen by the filter, returns an precomputed copy of state
  (and as a side-effect marks state as seen in the filter),
  otherwise returns null.</div>
 </td>
@@ -327,8 +327,8 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
 <h4>filterState</h4>
 <pre>protected&nbsp;<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&nbsp;<a href="../../../src-html/net/peierls/puzzle/FilteredPuzzleSolver.html#line.94">filterState</a>(<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&nbsp;state,
                         <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&gt;&nbsp;filter)</pre>
-<div class="block">If state is not null or hopeless and might not have been
- seen by the filter, returns an precomputed copy of state
+<div class="block">If state is neither null nor hopeless and definitely hasn't
+ been seen by the filter, returns an precomputed copy of state
  (and as a side-effect marks state as seen in the filter),
  otherwise returns null. The test for hopelessness is made
  on the precomputed copy.</div>

@@ -23,7 +23,7 @@ import java.util.function.Function;
  * occasionally to search a valid branch.
  * <p>
  * The {@link #solution} method is final; subclasses should implement
- * {@link #solutionState} and use the {@link #filerState} method before
+ * {@link #solutionState} and use the {@link #filterState} method before
  * searching a state.
  */
 public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements PuzzleSolver<T> {
@@ -85,8 +85,8 @@ public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements 
 
 
     /**
-     * If state is not null or hopeless and might not have been
-     * seen by the filter, returns an precomputed copy of state
+     * If state is neither null nor hopeless and definitely hasn't
+     * been seen by the filter, returns an precomputed copy of state
      * (and as a side-effect marks state as seen in the filter),
      * otherwise returns null. The test for hopelessness is made
      * on the precomputed copy.
