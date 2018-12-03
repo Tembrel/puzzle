@@ -5,6 +5,7 @@ import com.google.common.hash.Funnel;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 
 /**
@@ -63,6 +64,9 @@ public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements 
 
     @Override
     public final Optional<List<T>> solution(T initialState) {
+        if (initialState == null) {
+            throw new NullPointerException("initial state must not be null");
+        }
         PuzzleStateFilter<T> filter = initialState.funnel()
             .map(funnel -> funnelToFilter.apply(funnel))
             .orElseGet(this::exactFilter);
@@ -105,6 +109,18 @@ public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements 
         } else {
             return state;
         }
+    }
+    
+    /**
+     * Returns the successors of state, filtering out already-seen
+     * or hopeless states, and marking these successors as seen and
+     * converting them to their precomputed versions. This is
+     * an alternative to using separate calls to {@link PuzzleState#successors}
+     * and {@link #filterState filterState}.
+     */
+    protected Stream<T> successors(T state, PuzzleStateFilter<T> filter) {
+        return state.successors()
+            .filter(s -> filter.put(s));
     }
 
     long lastApproximateElementCount() {

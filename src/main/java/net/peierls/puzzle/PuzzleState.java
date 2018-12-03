@@ -60,7 +60,9 @@ public interface PuzzleState<T extends PuzzleState<T>> {
      * or if it is known that a solution state can be reached
      * from this state.
      */
-    boolean isHopeless();
+    default boolean isHopeless() {
+        return false;
+    }
 
     /**
      * The stream of puzzle states obtainable by
@@ -93,7 +95,8 @@ public interface PuzzleState<T extends PuzzleState<T>> {
     /**
      * A rating of how good this state is. Lower is better. You can
      * return the same value for all states if you don't know.
-     * <strong>This value is currently ignored by the framework.</strong>
+     * Puzzle solvers are not required to pay attention to scores
+     * unless they are looking for a best solution.
      */
     default int score() {
         return 0;

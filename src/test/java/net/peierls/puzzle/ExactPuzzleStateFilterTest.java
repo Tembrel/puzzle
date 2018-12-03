@@ -21,7 +21,6 @@ public class ExactPuzzleStateFilterTest {
         }
         @Override public int hashCode() { return text.hashCode(); }
         @Override public boolean isSolution() { return false; }
-        @Override public boolean isHopeless() { return false; }
         @Override public Stream<NullState> successors() { return StreamEx.empty(); }
     }
 
