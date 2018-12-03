@@ -10,7 +10,7 @@ import one.util.streamex.StreamEx;
 /**
  * Breadth-first-search puzzle solver.
  */
-public class BfsPuzzleSolver<T extends PuzzleState<T>> extends AbstractPuzzleSolver<T> {
+public class BfsPuzzleSolver<T extends PuzzleState<T>> extends FilteredPuzzleSolver<T> {
 
     /**
      * Constructs a BFS solver with an exact filter.

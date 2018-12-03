@@ -22,7 +22,7 @@ import java.util.function.Function;
  * used to allow for searches that use much less memory but that may fail
  * occasionally to search a valid branch.
  */
-public abstract class AbstractPuzzleSolver<T extends PuzzleState<T>> implements PuzzleSolver<T> {
+public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements PuzzleSolver<T> {
 
     private final Function<Funnel<T>, PuzzleStateFilter<T>> funnelToFilter;
 
@@ -35,14 +35,14 @@ public abstract class AbstractPuzzleSolver<T extends PuzzleState<T>> implements 
      * will store each state seen but will always report correctly on
      * whether a state has been seen.
      */
-    AbstractPuzzleSolver() {
+    FilteredPuzzleSolver() {
         this.funnelToFilter = funnel -> exactFilter();
     }
 
     /**
      * Constructs a solver that will always use the given state filter.
      */
-    AbstractPuzzleSolver(PuzzleStateFilter<T> filter) {
+    FilteredPuzzleSolver(PuzzleStateFilter<T> filter) {
         this.funnelToFilter = funnel -> filter;
     }
 
@@ -52,7 +52,7 @@ public abstract class AbstractPuzzleSolver<T extends PuzzleState<T>> implements 
      * when solving initial states that do define a funnel. The two
      * parameters to this method will be ignored in the former case.
      */
-    AbstractPuzzleSolver(int expectedInsertions, double fpp) {
+    FilteredPuzzleSolver(int expectedInsertions, double fpp) {
         this.funnelToFilter = funnel -> bloomFilter(funnel, expectedInsertions, fpp);
     }
 

@@ -57,7 +57,7 @@ public class BfsPuzzleSolverTest {
 
     @Test public void bfs() {
         CounterState initialState = new CounterState(INIT, null);
-        AbstractPuzzleSolver<CounterState> solver = new BfsPuzzleSolver<>(2_453_203, 0.0001);
+        FilteredPuzzleSolver<CounterState> solver = new BfsPuzzleSolver<>(2_453_203, 0.0001);
         Stopwatch stopwatch = Stopwatch.createStarted();
         Optional<List<CounterState>> solution = solver.solution(initialState);
         if (solution.isPresent()) {

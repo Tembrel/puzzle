@@ -9,7 +9,7 @@ import one.util.streamex.StreamEx;
  * Depth-first-search puzzle solver. Warning: This doesn't work very well unless
  * the puzzle state can recognize hopelessness before the stack overflows.
  */
-public class DfsPuzzleSolver<T extends PuzzleState<T>> extends AbstractPuzzleSolver<T> {
+public class DfsPuzzleSolver<T extends PuzzleState<T>> extends FilteredPuzzleSolver<T> {
 
     private static final int MAX_DEPTH = 20;
 
