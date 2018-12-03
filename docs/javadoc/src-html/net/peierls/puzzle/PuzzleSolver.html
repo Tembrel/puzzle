@@ -19,15 +19,14 @@
 <span class="sourceLineNo">011</span>public interface PuzzleSolver&lt;T extends PuzzleState&lt;T&gt;&gt; {<a name="line.11"></a>
 <span class="sourceLineNo">012</span><a name="line.12"></a>
 <span class="sourceLineNo">013</span>    /**<a name="line.13"></a>
-<span class="sourceLineNo">014</span>     * Finds a solution to puzzle defined by initial state, using<a name="line.14"></a>
-<span class="sourceLineNo">015</span>     * the state filter supplied by that initial state.<a name="line.15"></a>
-<span class="sourceLineNo">016</span>     *<a name="line.16"></a>
-<span class="sourceLineNo">017</span>     * @return the solution to the puzzle as a list of states from<a name="line.17"></a>
-<span class="sourceLineNo">018</span>     * the initial state to a solved state (inclusive), or an empty<a name="line.18"></a>
-<span class="sourceLineNo">019</span>     * optional if solution is unreachable from initial state.<a name="line.19"></a>
-<span class="sourceLineNo">020</span>     */<a name="line.20"></a>
-<span class="sourceLineNo">021</span>    Optional&lt;List&lt;T&gt;&gt; solution(T initialState);<a name="line.21"></a>
-<span class="sourceLineNo">022</span>}<a name="line.22"></a>
+<span class="sourceLineNo">014</span>     * Finds a solution to puzzle defined by initial state.<a name="line.14"></a>
+<span class="sourceLineNo">015</span>     *<a name="line.15"></a>
+<span class="sourceLineNo">016</span>     * @return the solution to the puzzle as a list of states from<a name="line.16"></a>
+<span class="sourceLineNo">017</span>     * the initial state to a solved state (inclusive), or an empty<a name="line.17"></a>
+<span class="sourceLineNo">018</span>     * optional if solution is unreachable from initial state.<a name="line.18"></a>
+<span class="sourceLineNo">019</span>     */<a name="line.19"></a>
+<span class="sourceLineNo">020</span>    Optional&lt;List&lt;T&gt;&gt; solution(T initialState);<a name="line.20"></a>
+<span class="sourceLineNo">021</span>}<a name="line.21"></a>
 
 
 

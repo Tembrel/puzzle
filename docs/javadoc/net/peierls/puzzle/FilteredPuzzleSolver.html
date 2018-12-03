@@ -114,7 +114,7 @@ var activeTableTab = "activeTableTab";
 </dl>
 <hr>
 <br>
-<pre>public abstract class <a href="../../../src-html/net/peierls/puzzle/FilteredPuzzleSolver.html#line.25">FilteredPuzzleSolver</a>&lt;T extends <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;T&gt;&gt;
+<pre>public abstract class <a href="../../../src-html/net/peierls/puzzle/FilteredPuzzleSolver.html#line.29">FilteredPuzzleSolver</a>&lt;T extends <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;T&gt;&gt;
 extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>
 implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interface in net.peierls.puzzle">PuzzleSolver</a>&lt;T&gt;</pre>
 <div class="block">Abstract base for puzzle solvers that use a <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle"><code>PuzzleStateFilter</code></a>
@@ -129,7 +129,11 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
  possible to store all states that have been seen (even taking advantage
  of compressed forms), the <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle"><code>PuzzleStateFilter</code></a> abstraction is
  used to allow for searches that use much less memory but that may fail
- occasionally to search a valid branch.</div>
+ occasionally to search a valid branch.
+ <p>
+ The <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html#solution-T-"><code>solution(T)</code></a> method is final; subclasses should implement
+ <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-"><code>solutionState(T, net.peierls.puzzle.PuzzleStateFilter&lt;T&gt;)</code></a> and use the <code>#filerState</code> method before
+ searching a state.</div>
 </li>
 </ul>
 </div>
@@ -199,8 +203,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&gt;&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html#solution-T-">solution</a></span>(<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&nbsp;initialState)</code>
-<div class="block">Finds a solution to puzzle defined by initial state, using
- the state filter supplied by that initial state.</div>
+<div class="block">Finds a solution to puzzle defined by initial state.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
@@ -240,7 +243,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
 <ul class="blockList">
 <li class="blockList">
 <h4>FilteredPuzzleSolver</h4>
-<pre>protected&nbsp;<a href="../../../src-html/net/peierls/puzzle/FilteredPuzzleSolver.html#line.38">FilteredPuzzleSolver</a>()</pre>
+<pre>protected&nbsp;<a href="../../../src-html/net/peierls/puzzle/FilteredPuzzleSolver.html#line.42">FilteredPuzzleSolver</a>()</pre>
 <div class="block">Constructs a solver that will always use an exact filter, which
  will store each state seen but will always report correctly on
  whether a state has been seen.</div>
@@ -252,7 +255,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
 <ul class="blockList">
 <li class="blockList">
 <h4>FilteredPuzzleSolver</h4>
-<pre>protected&nbsp;<a href="../../../src-html/net/peierls/puzzle/FilteredPuzzleSolver.html#line.48">FilteredPuzzleSolver</a>(int&nbsp;expectedInsertions,
+<pre>protected&nbsp;<a href="../../../src-html/net/peierls/puzzle/FilteredPuzzleSolver.html#line.52">FilteredPuzzleSolver</a>(int&nbsp;expectedInsertions,
                                double&nbsp;fpp)</pre>
 <div class="block">Constructs a solver that will use an exact filter when solving
  for initial states that do not define a funnel, and a BloomFilter
@@ -266,7 +269,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
 <ul class="blockListLast">
 <li class="blockList">
 <h4>FilteredPuzzleSolver</h4>
-<pre>protected&nbsp;<a href="../../../src-html/net/peierls/puzzle/FilteredPuzzleSolver.html#line.55">FilteredPuzzleSolver</a>(<a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&gt;&nbsp;filter)</pre>
+<pre>protected&nbsp;<a href="../../../src-html/net/peierls/puzzle/FilteredPuzzleSolver.html#line.59">FilteredPuzzleSolver</a>(<a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&gt;&nbsp;filter)</pre>
 <div class="block">Constructs a solver that will always use the given state filter.</div>
 </li>
 </ul>
@@ -286,10 +289,9 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
 <ul class="blockList">
 <li class="blockList">
 <h4>solution</h4>
-<pre>public final&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&gt;&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/FilteredPuzzleSolver.html#line.61">solution</a>(<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&nbsp;initialState)</pre>
+<pre>public final&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&gt;&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/FilteredPuzzleSolver.html#line.65">solution</a>(<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&nbsp;initialState)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../net/peierls/puzzle/PuzzleSolver.html#solution-T-">PuzzleSolver</a></code></span></div>
-<div class="block">Finds a solution to puzzle defined by initial state, using
- the state filter supplied by that initial state.</div>
+<div class="block">Finds a solution to puzzle defined by initial state.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../net/peierls/puzzle/PuzzleSolver.html#solution-T-">solution</a></code>&nbsp;in interface&nbsp;<code><a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interface in net.peierls.puzzle">PuzzleSolver</a>&lt;<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a> extends <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&gt;&gt;</code></dd>
@@ -308,7 +310,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
 <ul class="blockList">
 <li class="blockList">
 <h4>solutionState</h4>
-<pre>protected abstract&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/FilteredPuzzleSolver.html#line.80">solutionState</a>(<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&nbsp;initialState,
+<pre>protected abstract&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/FilteredPuzzleSolver.html#line.84">solutionState</a>(<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&nbsp;initialState,
                                              <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&gt;&nbsp;filter)</pre>
 <div class="block">Concrete subclasses must implement this method to
  find a solution from the given initial state, using
@@ -323,7 +325,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
 <ul class="blockListLast">
 <li class="blockList">
 <h4>filterState</h4>
-<pre>protected&nbsp;<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&nbsp;<a href="../../../src-html/net/peierls/puzzle/FilteredPuzzleSolver.html#line.90">filterState</a>(<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&nbsp;state,
+<pre>protected&nbsp;<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&nbsp;<a href="../../../src-html/net/peierls/puzzle/FilteredPuzzleSolver.html#line.94">filterState</a>(<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&nbsp;state,
                         <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&gt;&nbsp;filter)</pre>
 <div class="block">If state is not null or hopeless and might not have been
  seen by the filter, returns an precomputed copy of state

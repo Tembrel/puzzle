@@ -35,108 +35,102 @@
 <span class="sourceLineNo">027</span> * equivalence, i.e., two states with different predecessors are<a name="line.27"></a>
 <span class="sourceLineNo">028</span> * permitted to compare as equal.<a name="line.28"></a>
 <span class="sourceLineNo">029</span> * &lt;/li&gt;&lt;li&gt;<a name="line.29"></a>
-<span class="sourceLineNo">030</span> * There is no separate puzzle type, because an initial puzzle state<a name="line.30"></a>
-<span class="sourceLineNo">031</span> * instance essentially defines the puzzle: Find a sequence of states<a name="line.31"></a>
-<span class="sourceLineNo">032</span> * starting with the initial state and ending with a solution state<a name="line.32"></a>
-<span class="sourceLineNo">033</span> * with each element of the sequence other than first being a successor<a name="line.33"></a>
-<span class="sourceLineNo">034</span> * of the previous element of the sequence.<a name="line.34"></a>
-<span class="sourceLineNo">035</span> * &lt;/li&gt;&lt;li&gt;<a name="line.35"></a>
-<span class="sourceLineNo">036</span> * A puzzle state may be initialized with precomputed values through the<a name="line.36"></a>
-<span class="sourceLineNo">037</span> * {@link #precomputed} method. This allows solvers to avoid unnecessary<a name="line.37"></a>
-<span class="sourceLineNo">038</span> * expensive computation on states that have already been seen.<a name="line.38"></a>
-<span class="sourceLineNo">039</span> * It is permissible to return self from this method if precautions<a name="line.39"></a>
-<span class="sourceLineNo">040</span> * for mutability under concurrent access are taken, e.g., if the state<a name="line.40"></a>
-<span class="sourceLineNo">041</span> * type is immutable and no precomputation is needed.<a name="line.41"></a>
-<span class="sourceLineNo">042</span> * &lt;/li&gt;&lt;li&gt;<a name="line.42"></a>
-<span class="sourceLineNo">043</span> * A puzzle state type may optionally define a funnel, which if it exists<a name="line.43"></a>
-<span class="sourceLineNo">044</span> * can be used to produce a (potentially) lossy encoding of states of that type<a name="line.44"></a>
-<span class="sourceLineNo">045</span> * for use in approximate containment tests.<a name="line.45"></a>
-<span class="sourceLineNo">046</span> * &lt;/li&gt;&lt;li&gt;<a name="line.46"></a>
-<span class="sourceLineNo">047</span> * A puzzle state can produce a solution, i.e., a list of states from some<a name="line.47"></a>
-<span class="sourceLineNo">048</span> * initial state to the current state, where each element other than the<a name="line.48"></a>
-<span class="sourceLineNo">049</span> * first is a successor to the previous state in the list. The current state<a name="line.49"></a>
-<span class="sourceLineNo">050</span> * is not required to be a solution state.<a name="line.50"></a>
-<span class="sourceLineNo">051</span> * &lt;/li&gt;<a name="line.51"></a>
-<span class="sourceLineNo">052</span> * &lt;/ul&gt;<a name="line.52"></a>
-<span class="sourceLineNo">053</span> */<a name="line.53"></a>
-<span class="sourceLineNo">054</span>public interface PuzzleState&lt;T extends PuzzleState&lt;T&gt;&gt; {<a name="line.54"></a>
-<span class="sourceLineNo">055</span><a name="line.55"></a>
-<span class="sourceLineNo">056</span>    /**<a name="line.56"></a>
-<span class="sourceLineNo">057</span>     * Returns whether this is a solution state.<a name="line.57"></a>
-<span class="sourceLineNo">058</span>     */<a name="line.58"></a>
-<span class="sourceLineNo">059</span>    boolean isSolution();<a name="line.59"></a>
-<span class="sourceLineNo">060</span><a name="line.60"></a>
-<span class="sourceLineNo">061</span>    /**<a name="line.61"></a>
-<span class="sourceLineNo">062</span>     * Returns true if it is known that no solution<a name="line.62"></a>
-<span class="sourceLineNo">063</span>     * state can be reached from this state.<a name="line.63"></a>
-<span class="sourceLineNo">064</span>     * Returns false otherwise, i.e., if it is not known<a name="line.64"></a>
-<span class="sourceLineNo">065</span>     * that no solution state can be reached from this state,<a name="line.65"></a>
-<span class="sourceLineNo">066</span>     * or if it is known that a solution state can be reached<a name="line.66"></a>
-<span class="sourceLineNo">067</span>     * from this state.<a name="line.67"></a>
+<span class="sourceLineNo">030</span> * A puzzle state may be initialized with precomputed values through the<a name="line.30"></a>
+<span class="sourceLineNo">031</span> * {@link #precomputed} method. This allows solvers to avoid unnecessary<a name="line.31"></a>
+<span class="sourceLineNo">032</span> * expensive computation on states that have already been seen.<a name="line.32"></a>
+<span class="sourceLineNo">033</span> * It is permissible to return self from this method if precautions<a name="line.33"></a>
+<span class="sourceLineNo">034</span> * for mutability under concurrent access are taken, e.g., if the state<a name="line.34"></a>
+<span class="sourceLineNo">035</span> * type is immutable and no precomputation is needed.<a name="line.35"></a>
+<span class="sourceLineNo">036</span> * &lt;/li&gt;&lt;li&gt;<a name="line.36"></a>
+<span class="sourceLineNo">037</span> * A puzzle state type may optionally define a funnel, which if it exists<a name="line.37"></a>
+<span class="sourceLineNo">038</span> * can be used to produce a (potentially) lossy encoding of states of that type<a name="line.38"></a>
+<span class="sourceLineNo">039</span> * for use in approximate containment tests.<a name="line.39"></a>
+<span class="sourceLineNo">040</span> * &lt;/li&gt;&lt;li&gt;<a name="line.40"></a>
+<span class="sourceLineNo">041</span> * A puzzle state can produce a solution, i.e., a list of states from some<a name="line.41"></a>
+<span class="sourceLineNo">042</span> * initial state to the current state, where each element other than the<a name="line.42"></a>
+<span class="sourceLineNo">043</span> * first is a successor to the previous state in the list. The current state<a name="line.43"></a>
+<span class="sourceLineNo">044</span> * is not required to be a solution state.<a name="line.44"></a>
+<span class="sourceLineNo">045</span> * &lt;/li&gt;<a name="line.45"></a>
+<span class="sourceLineNo">046</span> * &lt;/ul&gt;<a name="line.46"></a>
+<span class="sourceLineNo">047</span> */<a name="line.47"></a>
+<span class="sourceLineNo">048</span>public interface PuzzleState&lt;T extends PuzzleState&lt;T&gt;&gt; {<a name="line.48"></a>
+<span class="sourceLineNo">049</span><a name="line.49"></a>
+<span class="sourceLineNo">050</span>    /**<a name="line.50"></a>
+<span class="sourceLineNo">051</span>     * Returns whether this is a solution state.<a name="line.51"></a>
+<span class="sourceLineNo">052</span>     */<a name="line.52"></a>
+<span class="sourceLineNo">053</span>    boolean isSolution();<a name="line.53"></a>
+<span class="sourceLineNo">054</span><a name="line.54"></a>
+<span class="sourceLineNo">055</span>    /**<a name="line.55"></a>
+<span class="sourceLineNo">056</span>     * Returns true if it is known that no solution<a name="line.56"></a>
+<span class="sourceLineNo">057</span>     * state can be reached from this state.<a name="line.57"></a>
+<span class="sourceLineNo">058</span>     * Returns false otherwise, i.e., if it is not known<a name="line.58"></a>
+<span class="sourceLineNo">059</span>     * that no solution state can be reached from this state,<a name="line.59"></a>
+<span class="sourceLineNo">060</span>     * or if it is known that a solution state can be reached<a name="line.60"></a>
+<span class="sourceLineNo">061</span>     * from this state.<a name="line.61"></a>
+<span class="sourceLineNo">062</span>     */<a name="line.62"></a>
+<span class="sourceLineNo">063</span>    boolean isHopeless();<a name="line.63"></a>
+<span class="sourceLineNo">064</span><a name="line.64"></a>
+<span class="sourceLineNo">065</span>    /**<a name="line.65"></a>
+<span class="sourceLineNo">066</span>     * The stream of puzzle states obtainable by<a name="line.66"></a>
+<span class="sourceLineNo">067</span>     * a single move from this state.<a name="line.67"></a>
 <span class="sourceLineNo">068</span>     */<a name="line.68"></a>
-<span class="sourceLineNo">069</span>    boolean isHopeless();<a name="line.69"></a>
+<span class="sourceLineNo">069</span>    Stream&lt;T&gt; successors();<a name="line.69"></a>
 <span class="sourceLineNo">070</span><a name="line.70"></a>
-<span class="sourceLineNo">071</span>    /**<a name="line.71"></a>
-<span class="sourceLineNo">072</span>     * The stream of puzzle states obtainable by<a name="line.72"></a>
-<span class="sourceLineNo">073</span>     * a single move from this state.<a name="line.73"></a>
+<span class="sourceLineNo">071</span><a name="line.71"></a>
+<span class="sourceLineNo">072</span>    /**<a name="line.72"></a>
+<span class="sourceLineNo">073</span>     * The state from which this state was reached.<a name="line.73"></a>
 <span class="sourceLineNo">074</span>     */<a name="line.74"></a>
-<span class="sourceLineNo">075</span>    Stream&lt;T&gt; successors();<a name="line.75"></a>
-<span class="sourceLineNo">076</span><a name="line.76"></a>
-<span class="sourceLineNo">077</span><a name="line.77"></a>
-<span class="sourceLineNo">078</span>    /**<a name="line.78"></a>
-<span class="sourceLineNo">079</span>     * The state from which this state was reached.<a name="line.79"></a>
-<span class="sourceLineNo">080</span>     */<a name="line.80"></a>
-<span class="sourceLineNo">081</span>    default Optional&lt;T&gt; predecessor() {<a name="line.81"></a>
-<span class="sourceLineNo">082</span>        return Optional.empty();<a name="line.82"></a>
-<span class="sourceLineNo">083</span>    }<a name="line.83"></a>
-<span class="sourceLineNo">084</span><a name="line.84"></a>
-<span class="sourceLineNo">085</span><a name="line.85"></a>
-<span class="sourceLineNo">086</span>    /**<a name="line.86"></a>
-<span class="sourceLineNo">087</span>     * Returns a state that is equivalent to this state,<a name="line.87"></a>
-<span class="sourceLineNo">088</span>     * but which might implement some methods more efficiently,<a name="line.88"></a>
-<span class="sourceLineNo">089</span>     * e.g., by precomputing commonly needed values.<a name="line.89"></a>
-<span class="sourceLineNo">090</span>     * The return value can be this instance itself, and that is<a name="line.90"></a>
-<span class="sourceLineNo">091</span>     * how the method is implemented by default.<a name="line.91"></a>
-<span class="sourceLineNo">092</span>     */<a name="line.92"></a>
-<span class="sourceLineNo">093</span>    @SuppressWarnings("unchecked")<a name="line.93"></a>
-<span class="sourceLineNo">094</span>    default T precomputed() {<a name="line.94"></a>
-<span class="sourceLineNo">095</span>        return (T) this;<a name="line.95"></a>
-<span class="sourceLineNo">096</span>    }<a name="line.96"></a>
-<span class="sourceLineNo">097</span><a name="line.97"></a>
-<span class="sourceLineNo">098</span><a name="line.98"></a>
-<span class="sourceLineNo">099</span>    /**<a name="line.99"></a>
-<span class="sourceLineNo">100</span>     * A rating of how good this state is. Lower is better. You can<a name="line.100"></a>
-<span class="sourceLineNo">101</span>     * return the same value for all states if you don't know.<a name="line.101"></a>
-<span class="sourceLineNo">102</span>     * &lt;strong&gt;This value is currently ignored by the framework.&lt;/strong&gt;<a name="line.102"></a>
-<span class="sourceLineNo">103</span>     */<a name="line.103"></a>
-<span class="sourceLineNo">104</span>    default int score() {<a name="line.104"></a>
-<span class="sourceLineNo">105</span>        return 0;<a name="line.105"></a>
-<span class="sourceLineNo">106</span>    }<a name="line.106"></a>
-<span class="sourceLineNo">107</span><a name="line.107"></a>
-<span class="sourceLineNo">108</span><a name="line.108"></a>
-<span class="sourceLineNo">109</span>    /**<a name="line.109"></a>
-<span class="sourceLineNo">110</span>     * Optionally returns a funnel for encoding arbitrary instances<a name="line.110"></a>
-<span class="sourceLineNo">111</span>     * of this type, for use in approximate containment tests.<a name="line.111"></a>
-<span class="sourceLineNo">112</span>     */<a name="line.112"></a>
-<span class="sourceLineNo">113</span>    default Optional&lt;Funnel&lt;T&gt;&gt; funnel() {<a name="line.113"></a>
-<span class="sourceLineNo">114</span>        return Optional.empty();<a name="line.114"></a>
-<span class="sourceLineNo">115</span>    }<a name="line.115"></a>
-<span class="sourceLineNo">116</span><a name="line.116"></a>
-<span class="sourceLineNo">117</span>    /**<a name="line.117"></a>
-<span class="sourceLineNo">118</span>     * Convert this state into a solution.<a name="line.118"></a>
-<span class="sourceLineNo">119</span>     */<a name="line.119"></a>
-<span class="sourceLineNo">120</span>    default List&lt;T&gt; toSolution() {<a name="line.120"></a>
-<span class="sourceLineNo">121</span>        @SuppressWarnings("unchecked")<a name="line.121"></a>
-<span class="sourceLineNo">122</span>        List&lt;T&gt; reversed = StreamEx.iterate(<a name="line.122"></a>
-<span class="sourceLineNo">123</span>            (T) this,<a name="line.123"></a>
-<span class="sourceLineNo">124</span>            s -&gt; s != null,<a name="line.124"></a>
-<span class="sourceLineNo">125</span>            s -&gt; s.predecessor().orElse(null)<a name="line.125"></a>
-<span class="sourceLineNo">126</span>        ).toList();<a name="line.126"></a>
-<span class="sourceLineNo">127</span><a name="line.127"></a>
-<span class="sourceLineNo">128</span>        return StreamEx.ofReversed(reversed).toList();<a name="line.128"></a>
-<span class="sourceLineNo">129</span>    }<a name="line.129"></a>
-<span class="sourceLineNo">130</span><a name="line.130"></a>
-<span class="sourceLineNo">131</span>}<a name="line.131"></a>
+<span class="sourceLineNo">075</span>    default Optional&lt;T&gt; predecessor() {<a name="line.75"></a>
+<span class="sourceLineNo">076</span>        return Optional.empty();<a name="line.76"></a>
+<span class="sourceLineNo">077</span>    }<a name="line.77"></a>
+<span class="sourceLineNo">078</span><a name="line.78"></a>
+<span class="sourceLineNo">079</span><a name="line.79"></a>
+<span class="sourceLineNo">080</span>    /**<a name="line.80"></a>
+<span class="sourceLineNo">081</span>     * Returns a state that is equivalent to this state,<a name="line.81"></a>
+<span class="sourceLineNo">082</span>     * but which might implement some methods more efficiently,<a name="line.82"></a>
+<span class="sourceLineNo">083</span>     * e.g., by precomputing commonly needed values.<a name="line.83"></a>
+<span class="sourceLineNo">084</span>     * The return value can be this instance itself, and that is<a name="line.84"></a>
+<span class="sourceLineNo">085</span>     * how the method is implemented by default.<a name="line.85"></a>
+<span class="sourceLineNo">086</span>     */<a name="line.86"></a>
+<span class="sourceLineNo">087</span>    @SuppressWarnings("unchecked")<a name="line.87"></a>
+<span class="sourceLineNo">088</span>    default T precomputed() {<a name="line.88"></a>
+<span class="sourceLineNo">089</span>        return (T) this;<a name="line.89"></a>
+<span class="sourceLineNo">090</span>    }<a name="line.90"></a>
+<span class="sourceLineNo">091</span><a name="line.91"></a>
+<span class="sourceLineNo">092</span><a name="line.92"></a>
+<span class="sourceLineNo">093</span>    /**<a name="line.93"></a>
+<span class="sourceLineNo">094</span>     * A rating of how good this state is. Lower is better. You can<a name="line.94"></a>
+<span class="sourceLineNo">095</span>     * return the same value for all states if you don't know.<a name="line.95"></a>
+<span class="sourceLineNo">096</span>     * &lt;strong&gt;This value is currently ignored by the framework.&lt;/strong&gt;<a name="line.96"></a>
+<span class="sourceLineNo">097</span>     */<a name="line.97"></a>
+<span class="sourceLineNo">098</span>    default int score() {<a name="line.98"></a>
+<span class="sourceLineNo">099</span>        return 0;<a name="line.99"></a>
+<span class="sourceLineNo">100</span>    }<a name="line.100"></a>
+<span class="sourceLineNo">101</span><a name="line.101"></a>
+<span class="sourceLineNo">102</span><a name="line.102"></a>
+<span class="sourceLineNo">103</span>    /**<a name="line.103"></a>
+<span class="sourceLineNo">104</span>     * Optionally returns a funnel for encoding arbitrary instances<a name="line.104"></a>
+<span class="sourceLineNo">105</span>     * of this type, for use in approximate containment tests.<a name="line.105"></a>
+<span class="sourceLineNo">106</span>     */<a name="line.106"></a>
+<span class="sourceLineNo">107</span>    default Optional&lt;Funnel&lt;T&gt;&gt; funnel() {<a name="line.107"></a>
+<span class="sourceLineNo">108</span>        return Optional.empty();<a name="line.108"></a>
+<span class="sourceLineNo">109</span>    }<a name="line.109"></a>
+<span class="sourceLineNo">110</span><a name="line.110"></a>
+<span class="sourceLineNo">111</span>    /**<a name="line.111"></a>
+<span class="sourceLineNo">112</span>     * Convert this state into a solution.<a name="line.112"></a>
+<span class="sourceLineNo">113</span>     */<a name="line.113"></a>
+<span class="sourceLineNo">114</span>    default List&lt;T&gt; toSolution() {<a name="line.114"></a>
+<span class="sourceLineNo">115</span>        @SuppressWarnings("unchecked")<a name="line.115"></a>
+<span class="sourceLineNo">116</span>        List&lt;T&gt; reversed = StreamEx.iterate(<a name="line.116"></a>
+<span class="sourceLineNo">117</span>            (T) this,<a name="line.117"></a>
+<span class="sourceLineNo">118</span>            s -&gt; s != null,<a name="line.118"></a>
+<span class="sourceLineNo">119</span>            s -&gt; s.predecessor().orElse(null)<a name="line.119"></a>
+<span class="sourceLineNo">120</span>        ).toList();<a name="line.120"></a>
+<span class="sourceLineNo">121</span><a name="line.121"></a>
+<span class="sourceLineNo">122</span>        return StreamEx.ofReversed(reversed).toList();<a name="line.122"></a>
+<span class="sourceLineNo">123</span>    }<a name="line.123"></a>
+<span class="sourceLineNo">124</span><a name="line.124"></a>
+<span class="sourceLineNo">125</span>}<a name="line.125"></a>
 
 
 
