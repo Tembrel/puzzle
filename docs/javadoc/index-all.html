@@ -176,12 +176,6 @@
 </a>
 <h2 class="title">I</h2>
 <dl>
-<dt><span class="memberNameLink"><a href="net/peierls/puzzle/PuzzleState.html#initialized--">initialized()</a></span> - Method in interface net.peierls.puzzle.<a href="net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a></dt>
-<dd>
-<div class="block">Returns a state that is equivalent to this state,
- but which might implement some methods more efficiently,
- e.g., by precomputing commonly needed values.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="net/peierls/puzzle/PuzzleState.html#isHopeless--">isHopeless()</a></span> - Method in interface net.peierls.puzzle.<a href="net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a></dt>
 <dd>
 <div class="block">Returns true if it is known that no solution
@@ -223,6 +217,12 @@
 </a>
 <h2 class="title">P</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="net/peierls/puzzle/PuzzleState.html#precomputed--">precomputed()</a></span> - Method in interface net.peierls.puzzle.<a href="net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a></dt>
+<dd>
+<div class="block">Returns a state that is equivalent to this state,
+ but which might implement some methods more efficiently,
+ e.g., by precomputing commonly needed values.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="net/peierls/puzzle/PuzzleState.html#predecessor--">predecessor()</a></span> - Method in interface net.peierls.puzzle.<a href="net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a></dt>
 <dd>
 <div class="block">The state from which this state was reached.</div>
@@ -242,7 +242,9 @@
 </dd>
 <dt><a href="net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle"><span class="typeNameLink">PuzzleState</span></a>&lt;<a href="net/peierls/puzzle/PuzzleState.html" title="type parameter in PuzzleState">T</a> extends <a href="net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;<a href="net/peierls/puzzle/PuzzleState.html" title="type parameter in PuzzleState">T</a>&gt;&gt; - Interface in <a href="net/peierls/puzzle/package-summary.html">net.peierls.puzzle</a></dt>
 <dd>
-<div class="block">A state that a puzzle of parameterized type T can be in.</div>
+<div class="block">A representation of the state of a puzzle that involves
+ finding a sequence of moves from an initial state to
+ a solution state.</div>
 </dd>
 <dt><a href="net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle"><span class="typeNameLink">PuzzleStateFilter</span></a>&lt;<a href="net/peierls/puzzle/PuzzleStateFilter.html" title="type parameter in PuzzleStateFilter">T</a> extends <a href="net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;<a href="net/peierls/puzzle/PuzzleStateFilter.html" title="type parameter in PuzzleStateFilter">T</a>&gt;&gt; - Interface in <a href="net/peierls/puzzle/package-summary.html">net.peierls.puzzle</a></dt>
 <dd>
@@ -263,7 +265,7 @@
 <dt><span class="memberNameLink"><a href="net/peierls/puzzle/AbstractPuzzleSolver.html#searchableState-T-net.peierls.puzzle.PuzzleStateFilter-">searchableState(T, PuzzleStateFilter&lt;T&gt;)</a></span> - Method in class net.peierls.puzzle.<a href="net/peierls/puzzle/AbstractPuzzleSolver.html" title="class in net.peierls.puzzle">AbstractPuzzleSolver</a></dt>
 <dd>
 <div class="block">If state is not null or hopeless and has definitely not been
- seen by the filter, returns an initialized copy of state
+ seen by the filter, returns an precomputed copy of state
  (and as a side-effect marks state as seen in the filter),
  otherwise returns null.</div>
 </dd>

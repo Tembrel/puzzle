@@ -90,18 +90,18 @@
 <span class="sourceLineNo">082</span><a name="line.82"></a>
 <span class="sourceLineNo">083</span>    /**<a name="line.83"></a>
 <span class="sourceLineNo">084</span>     * If state is not null or hopeless and has definitely not been<a name="line.84"></a>
-<span class="sourceLineNo">085</span>     * seen by the filter, returns an initialized copy of state<a name="line.85"></a>
+<span class="sourceLineNo">085</span>     * seen by the filter, returns an precomputed copy of state<a name="line.85"></a>
 <span class="sourceLineNo">086</span>     * (and as a side-effect marks state as seen in the filter),<a name="line.86"></a>
 <span class="sourceLineNo">087</span>     * otherwise returns null. The test for hopelessness is made<a name="line.87"></a>
-<span class="sourceLineNo">088</span>     * on the initialized copy.<a name="line.88"></a>
+<span class="sourceLineNo">088</span>     * on the precomputed copy.<a name="line.88"></a>
 <span class="sourceLineNo">089</span>     */<a name="line.89"></a>
 <span class="sourceLineNo">090</span>    protected T searchableState(T state, PuzzleStateFilter&lt;T&gt; filter) {<a name="line.90"></a>
 <span class="sourceLineNo">091</span>        if (state == null || !filter.put(state)) {<a name="line.91"></a>
 <span class="sourceLineNo">092</span>            return null;<a name="line.92"></a>
 <span class="sourceLineNo">093</span>        }<a name="line.93"></a>
 <span class="sourceLineNo">094</span><a name="line.94"></a>
-<span class="sourceLineNo">095</span>        // First time seeing state, so initialize it.<a name="line.95"></a>
-<span class="sourceLineNo">096</span>        state = state.initialized();<a name="line.96"></a>
+<span class="sourceLineNo">095</span>        // First time seeing state, so precompute it.<a name="line.95"></a>
+<span class="sourceLineNo">096</span>        state = state.precomputed();<a name="line.96"></a>
 <span class="sourceLineNo">097</span><a name="line.97"></a>
 <span class="sourceLineNo">098</span>        if (state.isHopeless()) {<a name="line.98"></a>
 <span class="sourceLineNo">099</span>            return null;<a name="line.99"></a>

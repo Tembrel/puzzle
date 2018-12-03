@@ -34,7 +34,7 @@ import one.util.streamex.*;
  * of the previous element of the sequence.
  * </li><li>
  * A puzzle state may be initialized with precomputed values through the
- * {@link #precompute} method. This allows solvers to avoid unnecessary
+ * {@link #precomputed} method. This allows solvers to avoid unnecessary
  * expensive computation on states that have already been seen.
  * It is permissible to return self from this method if precautions
  * for mutability under concurrent access are taken, e.g., if the state

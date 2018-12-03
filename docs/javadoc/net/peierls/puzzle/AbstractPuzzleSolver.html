@@ -153,7 +153,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#searchableState-T-net.peierls.puzzle.PuzzleStateFilter-">searchableState</a></span>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;state,
                <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&nbsp;filter)</code>
 <div class="block">If state is not null or hopeless and has definitely not been
- seen by the filter, returns an initialized copy of state
+ seen by the filter, returns an precomputed copy of state
  (and as a side-effect marks state as seen in the filter),
  otherwise returns null.</div>
 </td>
@@ -244,10 +244,10 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
 <pre>protected&nbsp;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;<a href="../../../src-html/net/peierls/puzzle/AbstractPuzzleSolver.html#line.90">searchableState</a>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;state,
                             <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&nbsp;filter)</pre>
 <div class="block">If state is not null or hopeless and has definitely not been
- seen by the filter, returns an initialized copy of state
+ seen by the filter, returns an precomputed copy of state
  (and as a side-effect marks state as seen in the filter),
  otherwise returns null. The test for hopelessness is made
- on the initialized copy.</div>
+ on the precomputed copy.</div>
 </li>
 </ul>
 </li>
