@@ -165,6 +165,13 @@
 </a>
 <h2 class="title">F</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="net/peierls/puzzle/AbstractPuzzleSolver.html#filterState-T-net.peierls.puzzle.PuzzleStateFilter-">filterState(T, PuzzleStateFilter&lt;T&gt;)</a></span> - Method in class net.peierls.puzzle.<a href="net/peierls/puzzle/AbstractPuzzleSolver.html" title="class in net.peierls.puzzle">AbstractPuzzleSolver</a></dt>
+<dd>
+<div class="block">If state is not null or hopeless and has definitely not been
+ seen by the filter, returns an precomputed copy of state
+ (and as a side-effect marks state as seen in the filter),
+ otherwise returns null.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="net/peierls/puzzle/PuzzleState.html#funnel--">funnel()</a></span> - Method in interface net.peierls.puzzle.<a href="net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a></dt>
 <dd>
 <div class="block">Optionally returns a funnel for encoding arbitrary instances
@@ -261,13 +268,6 @@
 <dt><span class="memberNameLink"><a href="net/peierls/puzzle/PuzzleState.html#score--">score()</a></span> - Method in interface net.peierls.puzzle.<a href="net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a></dt>
 <dd>
 <div class="block">A rating of how good this state is.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="net/peierls/puzzle/AbstractPuzzleSolver.html#searchableState-T-net.peierls.puzzle.PuzzleStateFilter-">searchableState(T, PuzzleStateFilter&lt;T&gt;)</a></span> - Method in class net.peierls.puzzle.<a href="net/peierls/puzzle/AbstractPuzzleSolver.html" title="class in net.peierls.puzzle">AbstractPuzzleSolver</a></dt>
-<dd>
-<div class="block">If state is not null or hopeless and has definitely not been
- seen by the filter, returns an precomputed copy of state
- (and as a side-effect marks state as seen in the filter),
- otherwise returns null.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="net/peierls/puzzle/AbstractPuzzleSolver.html#solution-T-">solution(T)</a></span> - Method in class net.peierls.puzzle.<a href="net/peierls/puzzle/AbstractPuzzleSolver.html" title="class in net.peierls.puzzle">AbstractPuzzleSolver</a></dt>
 <dd>&nbsp;</dd>

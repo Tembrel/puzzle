@@ -150,8 +150,8 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>protected <a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#searchableState-T-net.peierls.puzzle.PuzzleStateFilter-">searchableState</a></span>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;state,
-               <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&nbsp;filter)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#filterState-T-net.peierls.puzzle.PuzzleStateFilter-">filterState</a></span>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;state,
+           <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&nbsp;filter)</code>
 <div class="block">If state is not null or hopeless and has definitely not been
  seen by the filter, returns an precomputed copy of state
  (and as a side-effect marks state as seen in the filter),
@@ -233,16 +233,16 @@ implements <a href="../../../net/peierls/puzzle/PuzzleSolver.html" title="interf
  the given state filter.</div>
 </li>
 </ul>
-<a name="searchableState-net.peierls.puzzle.PuzzleState-net.peierls.puzzle.PuzzleStateFilter-">
+<a name="filterState-net.peierls.puzzle.PuzzleState-net.peierls.puzzle.PuzzleStateFilter-">
 <!--   -->
-</a><a name="searchableState-T-net.peierls.puzzle.PuzzleStateFilter-">
+</a><a name="filterState-T-net.peierls.puzzle.PuzzleStateFilter-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>searchableState</h4>
-<pre>protected&nbsp;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;<a href="../../../src-html/net/peierls/puzzle/AbstractPuzzleSolver.html#line.90">searchableState</a>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;state,
-                            <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&nbsp;filter)</pre>
+<h4>filterState</h4>
+<pre>protected&nbsp;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;<a href="../../../src-html/net/peierls/puzzle/AbstractPuzzleSolver.html#line.90">filterState</a>(<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&nbsp;state,
+                        <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&nbsp;filter)</pre>
 <div class="block">If state is not null or hopeless and has definitely not been
  seen by the filter, returns an precomputed copy of state
  (and as a side-effect marks state as seen in the filter),
