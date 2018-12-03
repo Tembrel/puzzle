@@ -87,7 +87,7 @@ public abstract class AbstractPuzzleSolver<T extends PuzzleState<T>> implements 
      * otherwise returns null. The test for hopelessness is made
      * on the precomputed copy.
      */
-    protected T searchableState(T state, PuzzleStateFilter<T> filter) {
+    protected T filterState(T state, PuzzleStateFilter<T> filter) {
         if (state == null || !filter.put(state)) {
             return null;
         }

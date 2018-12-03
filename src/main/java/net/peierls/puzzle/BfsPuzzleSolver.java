@@ -43,7 +43,7 @@ public class BfsPuzzleSolver<T extends PuzzleState<T>> extends AbstractPuzzleSol
             if (state == null) {
                 return false;
             }
-            state = searchableState(state, filter);
+            state = filterState(state, filter);
             if (state != null) {
                 action.accept(state);
                 state.successors().forEach(queue::offer);
@@ -62,7 +62,7 @@ public class BfsPuzzleSolver<T extends PuzzleState<T>> extends AbstractPuzzleSol
     private StreamEx<T> bfs_(PuzzleStateFilter<T> filter, StreamEx<T> states) {
         return states.headTail((state, rest) ->
             bfs_(filter, StreamEx.of(state.successors())
-                .map(next -> searchableState(next, filter))
+                .map(next -> filterState(next, filter))
                 .nonNull()
                 .prepend(rest)
             ).prepend(state)

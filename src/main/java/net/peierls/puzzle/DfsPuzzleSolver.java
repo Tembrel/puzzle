@@ -60,7 +60,7 @@ public class DfsPuzzleSolver<T extends PuzzleState<T>> extends AbstractPuzzleSol
     }
 
     StreamEx<T> dfs(T state, PuzzleStateFilter<T> filter, int depth) {
-        state = searchableState(state, filter);
+        state = filterState(state, filter);
         if (state != null && depth < maxDepth) {
             return StreamEx.of(state.successors())
                 .parallel()
