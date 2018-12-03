@@ -27,12 +27,6 @@ import one.util.streamex.*;
  * equivalence, i.e., two states with different predecessors are
  * permitted to compare as equal.
  * </li><li>
- * There is no separate puzzle type, because an initial puzzle state
- * instance essentially defines the puzzle: Find a sequence of states
- * starting with the initial state and ending with a solution state
- * with each element of the sequence other than first being a successor
- * of the previous element of the sequence.
- * </li><li>
  * A puzzle state may be initialized with precomputed values through the
  * {@link #precomputed} method. This allows solvers to avoid unnecessary
  * expensive computation on states that have already been seen.

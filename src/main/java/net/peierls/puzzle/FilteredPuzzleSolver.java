@@ -21,6 +21,10 @@ import java.util.function.Function;
  * of compressed forms), the {@link PuzzleStateFilter} abstraction is
  * used to allow for searches that use much less memory but that may fail
  * occasionally to search a valid branch.
+ * <p>
+ * The {@link #solution} method is final; subclasses should implement
+ * {@link #solutionState} and use the {@link #filerState} method before
+ * searching a state.
  */
 public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements PuzzleSolver<T> {
 

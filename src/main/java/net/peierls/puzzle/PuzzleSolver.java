@@ -11,8 +11,7 @@ import java.util.Optional;
 public interface PuzzleSolver<T extends PuzzleState<T>> {
 
     /**
-     * Finds a solution to puzzle defined by initial state, using
-     * the state filter supplied by that initial state.
+     * Finds a solution to puzzle defined by initial state.
      *
      * @return the solution to the puzzle as a list of states from
      * the initial state to a solved state (inclusive), or an empty
