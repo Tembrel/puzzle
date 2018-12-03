@@ -46,7 +46,7 @@ var activeTableTab = "activeTableTab";
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="class in net.peierls.puzzle"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li>Prev&nbsp;Class</li>
 <li><a href="../../../net/peierls/puzzle/BloomPuzzleStateFilter.html" title="class in net.peierls.puzzle"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
@@ -97,7 +97,7 @@ var activeTableTab = "activeTableTab";
 <li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</a></li>
 <li>
 <ul class="inheritance">
-<li><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="class in net.peierls.puzzle">net.peierls.puzzle.AbstractPuzzleSolver</a>&lt;T&gt;</li>
+<li><a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="class in net.peierls.puzzle">net.peierls.puzzle.FilteredPuzzleSolver</a>&lt;T&gt;</li>
 <li>
 <ul class="inheritance">
 <li>net.peierls.puzzle.BfsPuzzleSolver&lt;T&gt;</li>
@@ -116,7 +116,7 @@ var activeTableTab = "activeTableTab";
 <hr>
 <br>
 <pre>public class <a href="../../../src-html/net/peierls/puzzle/BfsPuzzleSolver.html#line.13">BfsPuzzleSolver</a>&lt;T extends <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;T&gt;&gt;
-extends <a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="class in net.peierls.puzzle">AbstractPuzzleSolver</a>&lt;T&gt;</pre>
+extends <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="class in net.peierls.puzzle">FilteredPuzzleSolver</a>&lt;T&gt;</pre>
 <div class="block">Breadth-first-search puzzle solver.</div>
 </li>
 </ul>
@@ -173,11 +173,11 @@ extends <a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="c
 </tr>
 </table>
 <ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.net.peierls.puzzle.AbstractPuzzleSolver">
+<li class="blockList"><a name="methods.inherited.from.class.net.peierls.puzzle.FilteredPuzzleSolver">
 <!--   -->
 </a>
-<h3>Methods inherited from class&nbsp;net.peierls.puzzle.<a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="class in net.peierls.puzzle">AbstractPuzzleSolver</a></h3>
-<code><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#filterState-T-net.peierls.puzzle.PuzzleStateFilter-">filterState</a>, <a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#solution-T-">solution</a></code></li>
+<h3>Methods inherited from class&nbsp;net.peierls.puzzle.<a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="class in net.peierls.puzzle">FilteredPuzzleSolver</a></h3>
+<code><a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html#filterState-T-net.peierls.puzzle.PuzzleStateFilter-">filterState</a>, <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html#solution-T-">solution</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
@@ -240,13 +240,13 @@ extends <a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="c
 <h4>solutionState</h4>
 <pre>protected&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html" title="type parameter in BfsPuzzleSolver">T</a>&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/BfsPuzzleSolver.html#line.32">solutionState</a>(<a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html" title="type parameter in BfsPuzzleSolver">T</a>&nbsp;initialState,
                                     <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html" title="type parameter in BfsPuzzleSolver">T</a>&gt;&nbsp;filter)</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-">AbstractPuzzleSolver</a></code></span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-">FilteredPuzzleSolver</a></code></span></div>
 <div class="block">Concrete subclasses must implement this method to
  find a solution from the given initial state, using
  the given state filter.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-">solutionState</a></code>&nbsp;in class&nbsp;<code><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="class in net.peierls.puzzle">AbstractPuzzleSolver</a>&lt;<a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html" title="type parameter in BfsPuzzleSolver">T</a> extends <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;<a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html" title="type parameter in BfsPuzzleSolver">T</a>&gt;&gt;</code></dd>
+<dd><code><a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-">solutionState</a></code>&nbsp;in class&nbsp;<code><a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="class in net.peierls.puzzle">FilteredPuzzleSolver</a>&lt;<a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html" title="type parameter in BfsPuzzleSolver">T</a> extends <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;<a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html" title="type parameter in BfsPuzzleSolver">T</a>&gt;&gt;</code></dd>
 </dl>
 </li>
 </ul>
@@ -276,7 +276,7 @@ extends <a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="c
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../net/peierls/puzzle/AbstractPuzzleSolver.html" title="class in net.peierls.puzzle"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li>Prev&nbsp;Class</li>
 <li><a href="../../../net/peierls/puzzle/BloomPuzzleStateFilter.html" title="class in net.peierls.puzzle"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">

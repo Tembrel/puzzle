@@ -71,12 +71,6 @@
 </a>
 <h2 class="title">A</h2>
 <dl>
-<dt><a href="net/peierls/puzzle/AbstractPuzzleSolver.html" title="class in net.peierls.puzzle"><span class="typeNameLink">AbstractPuzzleSolver</span></a>&lt;<a href="net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a> extends <a href="net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;<a href="net/peierls/puzzle/AbstractPuzzleSolver.html" title="type parameter in AbstractPuzzleSolver">T</a>&gt;&gt; - Class in <a href="net/peierls/puzzle/package-summary.html">net.peierls.puzzle</a></dt>
-<dd>
-<div class="block">Abstract base for puzzle solvers that use a <a href="net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle"><code>PuzzleStateFilter</code></a>
- to keep track (possibility only approximately) of which states have
- been seen during the search for a solution.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="net/peierls/puzzle/BloomPuzzleStateFilter.html#approximateElementCount--">approximateElementCount()</a></span> - Method in class net.peierls.puzzle.<a href="net/peierls/puzzle/BloomPuzzleStateFilter.html" title="class in net.peierls.puzzle">BloomPuzzleStateFilter</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="net/peierls/puzzle/ExactPuzzleStateFilter.html#approximateElementCount--">approximateElementCount()</a></span> - Method in class net.peierls.puzzle.<a href="net/peierls/puzzle/ExactPuzzleStateFilter.html" title="class in net.peierls.puzzle">ExactPuzzleStateFilter</a></dt>
@@ -165,9 +159,31 @@
 </a>
 <h2 class="title">F</h2>
 <dl>
-<dt><span class="memberNameLink"><a href="net/peierls/puzzle/AbstractPuzzleSolver.html#filterState-T-net.peierls.puzzle.PuzzleStateFilter-">filterState(T, PuzzleStateFilter&lt;T&gt;)</a></span> - Method in class net.peierls.puzzle.<a href="net/peierls/puzzle/AbstractPuzzleSolver.html" title="class in net.peierls.puzzle">AbstractPuzzleSolver</a></dt>
+<dt><a href="net/peierls/puzzle/FilteredPuzzleSolver.html" title="class in net.peierls.puzzle"><span class="typeNameLink">FilteredPuzzleSolver</span></a>&lt;<a href="net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a> extends <a href="net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;<a href="net/peierls/puzzle/FilteredPuzzleSolver.html" title="type parameter in FilteredPuzzleSolver">T</a>&gt;&gt; - Class in <a href="net/peierls/puzzle/package-summary.html">net.peierls.puzzle</a></dt>
 <dd>
-<div class="block">If state is not null or hopeless and has definitely not been
+<div class="block">Abstract base for puzzle solvers that use a <a href="net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle"><code>PuzzleStateFilter</code></a>
+ to keep track (possibility only approximately) of which states have
+ been seen during the search for a solution.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="net/peierls/puzzle/FilteredPuzzleSolver.html#FilteredPuzzleSolver--">FilteredPuzzleSolver()</a></span> - Constructor for class net.peierls.puzzle.<a href="net/peierls/puzzle/FilteredPuzzleSolver.html" title="class in net.peierls.puzzle">FilteredPuzzleSolver</a></dt>
+<dd>
+<div class="block">Constructs a solver that will always use an exact filter, which
+ will store each state seen but will always report correctly on
+ whether a state has been seen.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="net/peierls/puzzle/FilteredPuzzleSolver.html#FilteredPuzzleSolver-int-double-">FilteredPuzzleSolver(int, double)</a></span> - Constructor for class net.peierls.puzzle.<a href="net/peierls/puzzle/FilteredPuzzleSolver.html" title="class in net.peierls.puzzle">FilteredPuzzleSolver</a></dt>
+<dd>
+<div class="block">Constructs a solver that will use an exact filter when solving
+ for initial states that do not define a funnel, and a BloomFilter
+ when solving initial states that do define a funnel.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="net/peierls/puzzle/FilteredPuzzleSolver.html#FilteredPuzzleSolver-net.peierls.puzzle.PuzzleStateFilter-">FilteredPuzzleSolver(PuzzleStateFilter&lt;T&gt;)</a></span> - Constructor for class net.peierls.puzzle.<a href="net/peierls/puzzle/FilteredPuzzleSolver.html" title="class in net.peierls.puzzle">FilteredPuzzleSolver</a></dt>
+<dd>
+<div class="block">Constructs a solver that will always use the given state filter.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="net/peierls/puzzle/FilteredPuzzleSolver.html#filterState-T-net.peierls.puzzle.PuzzleStateFilter-">filterState(T, PuzzleStateFilter&lt;T&gt;)</a></span> - Method in class net.peierls.puzzle.<a href="net/peierls/puzzle/FilteredPuzzleSolver.html" title="class in net.peierls.puzzle">FilteredPuzzleSolver</a></dt>
+<dd>
+<div class="block">If state is not null or hopeless and might not have been
  seen by the filter, returns an precomputed copy of state
  (and as a side-effect marks state as seen in the filter),
  otherwise returns null.</div>
@@ -269,23 +285,23 @@
 <dd>
 <div class="block">A rating of how good this state is.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="net/peierls/puzzle/AbstractPuzzleSolver.html#solution-T-">solution(T)</a></span> - Method in class net.peierls.puzzle.<a href="net/peierls/puzzle/AbstractPuzzleSolver.html" title="class in net.peierls.puzzle">AbstractPuzzleSolver</a></dt>
+<dt><span class="memberNameLink"><a href="net/peierls/puzzle/FilteredPuzzleSolver.html#solution-T-">solution(T)</a></span> - Method in class net.peierls.puzzle.<a href="net/peierls/puzzle/FilteredPuzzleSolver.html" title="class in net.peierls.puzzle">FilteredPuzzleSolver</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="net/peierls/puzzle/PuzzleSolver.html#solution-T-">solution(T)</a></span> - Method in interface net.peierls.puzzle.<a href="net/peierls/puzzle/PuzzleSolver.html" title="interface in net.peierls.puzzle">PuzzleSolver</a></dt>
 <dd>
 <div class="block">Finds a solution to puzzle defined by initial state, using
  the state filter supplied by that initial state.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="net/peierls/puzzle/AbstractPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-">solutionState(T, PuzzleStateFilter&lt;T&gt;)</a></span> - Method in class net.peierls.puzzle.<a href="net/peierls/puzzle/AbstractPuzzleSolver.html" title="class in net.peierls.puzzle">AbstractPuzzleSolver</a></dt>
+<dt><span class="memberNameLink"><a href="net/peierls/puzzle/BfsPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-">solutionState(T, PuzzleStateFilter&lt;T&gt;)</a></span> - Method in class net.peierls.puzzle.<a href="net/peierls/puzzle/BfsPuzzleSolver.html" title="class in net.peierls.puzzle">BfsPuzzleSolver</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="net/peierls/puzzle/DfsPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-">solutionState(T, PuzzleStateFilter&lt;T&gt;)</a></span> - Method in class net.peierls.puzzle.<a href="net/peierls/puzzle/DfsPuzzleSolver.html" title="class in net.peierls.puzzle">DfsPuzzleSolver</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="net/peierls/puzzle/FilteredPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-">solutionState(T, PuzzleStateFilter&lt;T&gt;)</a></span> - Method in class net.peierls.puzzle.<a href="net/peierls/puzzle/FilteredPuzzleSolver.html" title="class in net.peierls.puzzle">FilteredPuzzleSolver</a></dt>
 <dd>
 <div class="block">Concrete subclasses must implement this method to
  find a solution from the given initial state, using
  the given state filter.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="net/peierls/puzzle/BfsPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-">solutionState(T, PuzzleStateFilter&lt;T&gt;)</a></span> - Method in class net.peierls.puzzle.<a href="net/peierls/puzzle/BfsPuzzleSolver.html" title="class in net.peierls.puzzle">BfsPuzzleSolver</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="net/peierls/puzzle/DfsPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-">solutionState(T, PuzzleStateFilter&lt;T&gt;)</a></span> - Method in class net.peierls.puzzle.<a href="net/peierls/puzzle/DfsPuzzleSolver.html" title="class in net.peierls.puzzle">DfsPuzzleSolver</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="net/peierls/puzzle/PuzzleState.html#successors--">successors()</a></span> - Method in interface net.peierls.puzzle.<a href="net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a></dt>
 <dd>
 <div class="block">The stream of puzzle states obtainable by

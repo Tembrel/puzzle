@@ -17,7 +17,7 @@
 <span class="sourceLineNo">009</span> * Depth-first-search puzzle solver. Warning: This doesn't work very well unless<a name="line.9"></a>
 <span class="sourceLineNo">010</span> * the puzzle state can recognize hopelessness before the stack overflows.<a name="line.10"></a>
 <span class="sourceLineNo">011</span> */<a name="line.11"></a>
-<span class="sourceLineNo">012</span>public class DfsPuzzleSolver&lt;T extends PuzzleState&lt;T&gt;&gt; extends AbstractPuzzleSolver&lt;T&gt; {<a name="line.12"></a>
+<span class="sourceLineNo">012</span>public class DfsPuzzleSolver&lt;T extends PuzzleState&lt;T&gt;&gt; extends FilteredPuzzleSolver&lt;T&gt; {<a name="line.12"></a>
 <span class="sourceLineNo">013</span><a name="line.13"></a>
 <span class="sourceLineNo">014</span>    private static final int MAX_DEPTH = 20;<a name="line.14"></a>
 <span class="sourceLineNo">015</span><a name="line.15"></a>
