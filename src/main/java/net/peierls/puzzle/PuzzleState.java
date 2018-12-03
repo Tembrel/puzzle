@@ -10,7 +10,46 @@ import one.util.streamex.*;
 
 
 /**
- * A state that a puzzle of parameterized type T can be in.
+ * A representation of the state of a puzzle that involves
+ * finding a sequence of moves from an initial state to
+ * a solution state.
+ * <ul>
+ * <li>
+ * A state can stream its successors, which are the states
+ * resulting in a single move from it.
+ * </li><li>
+ * A puzzle state can report whether it is a solution state or
+ * whether it is "hopeless", meaning that no sequence of
+ * moves from it will result in a solution state.
+ * </li><li>
+ * A puzzle state knows its predecessor state, and this
+ * information is not required to be used in defining state
+ * equivalence, i.e., two states with different predecessors are
+ * permitted to compare as equal.
+ * </li><li>
+ * There is no separate puzzle type, because an initial puzzle state
+ * instance essentially defines the puzzle: Find a sequence of states
+ * starting with the initial state and ending with a solution state
+ * with each element of the sequence other than first being a successor
+ * of the previous element of the sequence.
+ * </li><li>
+ * A puzzle state may be initialized with precomputed values through the
+ * {@link #precompute} method. This allows solvers to avoid unnecessary
+ * expensive computation on states that have already been seen.
+ * It is permissible to return self from this method if precautions
+ * for mutability under concurrent access are taken, e.g., if the state
+ * type is immutable and no precomputation is needed.
+ * </li><li>
+ * A puzzle state type may optionally define a funnel, which if it exists
+ * can be used to produce a (potentially) lossy encoding of states of that type
+ * for use in approximate containment tests.
+ * </li><li>
+ * A puzzle state can produce a solution, i.e., a list of states from some
+ * initial state to the current state, where each element other than the
+ * first is a successor to the previous state in the list. The current state
+ * is not required to be a solution state.
+ * </li>
+ * </ul>
  */
 public interface PuzzleState<T extends PuzzleState<T>> {
 
@@ -52,7 +91,7 @@ public interface PuzzleState<T extends PuzzleState<T>> {
      * how the method is implemented by default.
      */
     @SuppressWarnings("unchecked")
-    default T initialized() {
+    default T precomputed() {
         return (T) this;
     }
 
@@ -60,6 +99,7 @@ public interface PuzzleState<T extends PuzzleState<T>> {
     /**
      * A rating of how good this state is. Lower is better. You can
      * return the same value for all states if you don't know.
+     * <strong>This value is currently ignored by the framework.</strong>
      */
     default int score() {
         return 0;
