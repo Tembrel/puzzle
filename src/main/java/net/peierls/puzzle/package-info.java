@@ -16,7 +16,6 @@
  * for states that are produced by {@code s0.successors()} to be
  * {@code s0}, otherwise it should be empty (initial states have no predecessor).
  * <p>
- * Several 
  * The {@link PuzzleState#precomputed precomputed} method may be implemented
  * to avoid unnecessary computation on states that might have already been seen.
  * The {@link PuzzleState#funnel} method can be implemented to provide a compact

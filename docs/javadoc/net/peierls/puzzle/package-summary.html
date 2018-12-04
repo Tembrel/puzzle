@@ -175,6 +175,11 @@
  for states that are produced by <code>s0.successors()</code> to be
  <code>s0</code>, otherwise it should be empty (initial states have no predecessor).
  <p>
+ The <code>precomputed</code> method may be implemented
+ to avoid unnecessary computation on states that might have already been seen.
+ The <code>PuzzleState#funnel</code> method can be implemented to provide a compact
+ encoding of a state for use in conjunction with an approximate containment filter.
+ <p>
  To define a new general-purpose solver, extend
  <code>FilteredPuzzleSolver</code> by
  implementing <code>solutionState</code>.
