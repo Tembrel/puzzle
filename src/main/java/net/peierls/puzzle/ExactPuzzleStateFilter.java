@@ -1,6 +1,8 @@
 package net.peierls.puzzle;
 
-import java.util.concurrent.*;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 
 /**
  * An implementation of {@link PuzzleStateFilter} with exact containment.
@@ -27,22 +29,22 @@ import java.util.concurrent.*;
 public class ExactPuzzleStateFilter<T extends PuzzleState<T>>
         implements PuzzleStateFilter<T> {
 
-    private final ConcurrentMap<T, T> map = new ConcurrentHashMap<>();
+    private final Map<T, Long> seen = new ConcurrentHashMap<>();
 
 
     @Override
     public boolean mightContain(T state) {
-        return map.containsKey(state);
+        return seen.containsKey(state);
     }
 
     @Override
     public boolean put(T state) {
-        return map.putIfAbsent(state, state) == null;
+        return seen.merge(state, 1L, Long::sum) == 1L;
     }
 
     @Override
     public long approximateElementCount() {
-        return map.size();
+        return seen.size();
     }
 
     @Override
