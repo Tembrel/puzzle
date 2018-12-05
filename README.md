@@ -10,7 +10,6 @@ TBD
 
 - Guava
 - StreamEx
-- JParsec
 - ErrorProne (compile-time only)
 - Apache Ant (build-time only)
 

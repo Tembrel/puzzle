@@ -115,7 +115,7 @@ var activeTableTab = "activeTableTab";
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../src-html/net/peierls/puzzle/DfsPuzzleSolver.html#line.12">DfsPuzzleSolver</a>&lt;T extends <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;T&gt;&gt;
+<pre>public class <a href="../../../src-html/net/peierls/puzzle/DfsPuzzleSolver.html#line.14">DfsPuzzleSolver</a>&lt;T extends <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;T&gt;&gt;
 extends <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="class in net.peierls.puzzle">FilteredPuzzleSolver</a>&lt;T&gt;</pre>
 <div class="block">Depth-first-search puzzle solver. Warning: This doesn't work very well unless
  the puzzle state can recognize hopelessness before the stack overflows.</div>
@@ -137,28 +137,15 @@ extends <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="c
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html#DfsPuzzleSolver--">DfsPuzzleSolver</a></span>()</code>
-<div class="block">Constructs a DFS solver with an exact filter and the default max depth.</div>
-</td>
-</tr>
-<tr class="rowColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html#DfsPuzzleSolver-int-">DfsPuzzleSolver</a></span>(int&nbsp;maxDepth)</code>
 <div class="block">Constructs a DFS solver with an exact filter and the given max depth.</div>
 </td>
 </tr>
-<tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html#DfsPuzzleSolver-int-double-">DfsPuzzleSolver</a></span>(int&nbsp;expectedInsertions,
-               double&nbsp;fpp)</code>
-<div class="block">Constructs a DFS solver with the default max depth that will use
- a Bloom filter for states that support it, otherwise an exact filter.</div>
-</td>
-</tr>
 <tr class="rowColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html#DfsPuzzleSolver-int-int-double-">DfsPuzzleSolver</a></span>(int&nbsp;maxDepth,
-               int&nbsp;expectedInsertions,
-               double&nbsp;fpp)</code>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html#DfsPuzzleSolver-int-java.util.function.Supplier-">DfsPuzzleSolver</a></span>(int&nbsp;maxDepth,
+               <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html?is-external=true" title="class or interface in java.util.function">Supplier</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&gt;&gt;&nbsp;filterSupplier)</code>
 <div class="block">Constructs a DFS solver with the given max depth that will use
- a Bloom filter for states that support it, otherwise an exact filter.</div>
+ a Bloom filter with the given parameters, otherwise an exact filter.</div>
 </td>
 </tr>
 </table>
@@ -214,49 +201,26 @@ extends <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="c
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a name="DfsPuzzleSolver--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>DfsPuzzleSolver</h4>
-<pre>public&nbsp;<a href="../../../src-html/net/peierls/puzzle/DfsPuzzleSolver.html#line.23">DfsPuzzleSolver</a>()</pre>
-<div class="block">Constructs a DFS solver with an exact filter and the default max depth.</div>
-</li>
-</ul>
 <a name="DfsPuzzleSolver-int-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>DfsPuzzleSolver</h4>
-<pre>public&nbsp;<a href="../../../src-html/net/peierls/puzzle/DfsPuzzleSolver.html#line.30">DfsPuzzleSolver</a>(int&nbsp;maxDepth)</pre>
+<pre>public&nbsp;<a href="../../../src-html/net/peierls/puzzle/DfsPuzzleSolver.html#line.21">DfsPuzzleSolver</a>(int&nbsp;maxDepth)</pre>
 <div class="block">Constructs a DFS solver with an exact filter and the given max depth.</div>
 </li>
 </ul>
-<a name="DfsPuzzleSolver-int-double-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>DfsPuzzleSolver</h4>
-<pre>public&nbsp;<a href="../../../src-html/net/peierls/puzzle/DfsPuzzleSolver.html#line.39">DfsPuzzleSolver</a>(int&nbsp;expectedInsertions,
-                       double&nbsp;fpp)</pre>
-<div class="block">Constructs a DFS solver with the default max depth that will use
- a Bloom filter for states that support it, otherwise an exact filter.</div>
-</li>
-</ul>
-<a name="DfsPuzzleSolver-int-int-double-">
+<a name="DfsPuzzleSolver-int-java.util.function.Supplier-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>DfsPuzzleSolver</h4>
-<pre>public&nbsp;<a href="../../../src-html/net/peierls/puzzle/DfsPuzzleSolver.html#line.47">DfsPuzzleSolver</a>(int&nbsp;maxDepth,
-                       int&nbsp;expectedInsertions,
-                       double&nbsp;fpp)</pre>
+<pre>public&nbsp;<a href="../../../src-html/net/peierls/puzzle/DfsPuzzleSolver.html#line.30">DfsPuzzleSolver</a>(int&nbsp;maxDepth,
+                       <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html?is-external=true" title="class or interface in java.util.function">Supplier</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&gt;&gt;&nbsp;filterSupplier)</pre>
 <div class="block">Constructs a DFS solver with the given max depth that will use
- a Bloom filter for states that support it, otherwise an exact filter.</div>
+ a Bloom filter with the given parameters, otherwise an exact filter.</div>
 </li>
 </ul>
 </li>
@@ -275,7 +239,7 @@ extends <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="c
 <ul class="blockListLast">
 <li class="blockList">
 <h4>solutionState</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/DfsPuzzleSolver.html#line.54">solutionState</a>(<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&nbsp;initialState,
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/DfsPuzzleSolver.html#line.37">solutionState</a>(<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&nbsp;initialState,
                                     <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="type parameter in DfsPuzzleSolver">T</a>&gt;&nbsp;filter)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-">FilteredPuzzleSolver</a></code></span></div>
 <div class="block">Concrete subclasses must implement this method to

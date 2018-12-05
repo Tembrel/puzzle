@@ -50,14 +50,16 @@ public class BfsPuzzleSolverTest {
                 .mapToObj(c -> new CounterState(c, this));
         }
 
-        @Override public Optional<Funnel<CounterState>> funnel() {
-            return Optional.of((state, sink) -> sink.putLong(state.count));
+        static Funnel<CounterState> funnel() {
+            return (state, sink) -> sink.putLong(state.count);
         }
     }
 
     @Test public void bfs() {
         CounterState initialState = new CounterState(INIT, null);
-        FilteredPuzzleSolver<CounterState> solver = new BfsPuzzleSolver<>(2_453_203, 0.0001);
+        FilteredPuzzleSolver<CounterState> solver = new BfsPuzzleSolver<>(
+            () -> new BloomPuzzleStateFilter<CounterState>(CounterState.funnel(), 2_453_203, 0.0001)
+        );
         Stopwatch stopwatch = Stopwatch.createStarted();
         Optional<List<CounterState>> solution = solver.solution(initialState);
         if (solution.isPresent()) {

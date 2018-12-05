@@ -1,13 +1,9 @@
 package net.peierls.puzzle;
 
-import com.google.common.hash.*;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-
 import java.util.stream.*;
-
 import one.util.streamex.*;
 
 import org.junit.*;
@@ -45,10 +41,6 @@ public class DfsPuzzleSolverTest {
             return LongStreamEx.of(count * 3 - 1, count / 2)
                 .remove(c -> c == count)
                 .mapToObj(c -> new CounterState(c, this));
-        }
-
-        @Override public Optional<Funnel<CounterState>> funnel() {
-            return Optional.of((state, sink) -> sink.putLong(state.count));
         }
     }
 

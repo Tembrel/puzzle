@@ -1,12 +1,7 @@
 package net.peierls.puzzle;
 
-import com.google.common.hash.Funnel;
-
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.*;
-
-import one.util.streamex.*;
+import java.util.stream.Stream;
 
 
 /**
@@ -25,18 +20,14 @@ import one.util.streamex.*;
  * A puzzle state knows its predecessor state, and this
  * information is not required to be used in defining state
  * equivalence, i.e., two states with different predecessors are
- * permitted to compare as equal.
+ * permitted to compare equal.
  * </li><li>
  * A puzzle state may be initialized with precomputed values through the
- * {@link #precomputed} method. This allows solvers to avoid unnecessary
+ * {@link #initialized} method. This allows solvers to avoid unnecessary
  * expensive computation on states that have already been seen.
  * It is permissible to return self from this method if precautions
  * for mutability under concurrent access are taken, e.g., if the state
  * type is immutable and no precomputation is needed.
- * </li><li>
- * A puzzle state type may optionally define a funnel, which if it exists
- * can be used to produce a (potentially) lossy encoding of states of that type
- * for use in approximate containment tests.
  * </li><li>
  * A puzzle state can produce a solution, i.e., a list of states from some
  * initial state to the current state, where each element other than the
@@ -58,7 +49,7 @@ public interface PuzzleState<T extends PuzzleState<T>> {
      * Returns false otherwise, i.e., if it is not known
      * that no solution state can be reached from this state,
      * or if it is known that a solution state can be reached
-     * from this state.
+     * from this state. The default implementation returns false.
      */
     default boolean isHopeless() {
         return false;
@@ -72,11 +63,10 @@ public interface PuzzleState<T extends PuzzleState<T>> {
 
 
     /**
-     * The state from which this state was reached.
+     * The state from which this state was reached,
+     * or empty if this is an initial state.
      */
-    default Optional<T> predecessor() {
-        return Optional.empty();
-    }
+    Optional<T> predecessor();
 
 
     /**
@@ -87,7 +77,7 @@ public interface PuzzleState<T extends PuzzleState<T>> {
      * how the method is implemented by default.
      */
     @SuppressWarnings("unchecked")
-    default T precomputed() {
+    default T initialized() {
         return (T) this;
     }
 
@@ -96,33 +86,10 @@ public interface PuzzleState<T extends PuzzleState<T>> {
      * A rating of how good this state is. Lower is better. You can
      * return the same value for all states if you don't know.
      * Puzzle solvers are not required to pay attention to scores
-     * unless they are looking for a best solution.
+     * unless they are looking for a best solution. The default
+     * implementation returns zero.
      */
     default int score() {
         return 0;
     }
-
-
-    /**
-     * Optionally returns a funnel for encoding arbitrary instances
-     * of this type, for use in approximate containment tests.
-     */
-    default Optional<Funnel<T>> funnel() {
-        return Optional.empty();
-    }
-
-    /**
-     * Convert this state into a solution.
-     */
-    default List<T> toSolution() {
-        @SuppressWarnings("unchecked")
-        List<T> reversed = StreamEx.iterate(
-            (T) this,
-            s -> s != null,
-            s -> s.predecessor().orElse(null)
-        ).toList();
-
-        return StreamEx.ofReversed(reversed).toList();
-    }
-
 }

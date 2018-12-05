@@ -2,6 +2,8 @@ package net.peierls.puzzle;
 
 import java.util.Optional;
 
+import java.util.function.Supplier;
+
 import one.util.streamex.StreamEx;
 
 
@@ -11,18 +13,7 @@ import one.util.streamex.StreamEx;
  */
 public class DfsPuzzleSolver<T extends PuzzleState<T>> extends FilteredPuzzleSolver<T> {
 
-    private static final int MAX_DEPTH = 20;
-
-
     private final int maxDepth;
-
-
-    /**
-     * Constructs a DFS solver with an exact filter and the default max depth.
-     */
-    public DfsPuzzleSolver() {
-        this(MAX_DEPTH);
-    }
 
     /**
      * Constructs a DFS solver with an exact filter and the given max depth.
@@ -33,19 +24,11 @@ public class DfsPuzzleSolver<T extends PuzzleState<T>> extends FilteredPuzzleSol
     }
 
     /**
-     * Constructs a DFS solver with the default max depth that will use
-     * a Bloom filter for states that support it, otherwise an exact filter.
-     */
-    public DfsPuzzleSolver(int expectedInsertions, double fpp) {
-        this(MAX_DEPTH, expectedInsertions, fpp);
-    }
-
-    /**
      * Constructs a DFS solver with the given max depth that will use
-     * a Bloom filter for states that support it, otherwise an exact filter.
+     * a Bloom filter with the given parameters, otherwise an exact filter.
      */
-    public DfsPuzzleSolver(int maxDepth, int expectedInsertions, double fpp) {
-        super(expectedInsertions, fpp);
+    public DfsPuzzleSolver(int maxDepth, Supplier<PuzzleStateFilter<T>> filterSupplier) {
+        super(filterSupplier);
         this.maxDepth = maxDepth;
     }
 

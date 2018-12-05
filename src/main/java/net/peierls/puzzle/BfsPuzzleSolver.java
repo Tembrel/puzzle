@@ -4,6 +4,8 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Optional;
 
+import java.util.function.Supplier;
+
 import one.util.streamex.StreamEx;
 
 
@@ -23,8 +25,8 @@ public class BfsPuzzleSolver<T extends PuzzleState<T>> extends FilteredPuzzleSol
      * Constructs a BFS solver that will use a Bloom filter for states
      * that support it, otherwise an exact filter.
      */
-    public BfsPuzzleSolver(int expectedInsertions, double fpp) {
-        super(expectedInsertions, fpp);
+    public BfsPuzzleSolver(Supplier<PuzzleStateFilter<T>> filterSupplier) {
+        super(filterSupplier);
     }
 
 

@@ -5,7 +5,6 @@
         <dependency org="com.google.guava" name="guava" rev="25.0-jre" />
         <dependency org="one.util" name="streamex" rev="0.6.7" />
         <dependency org="junit" name="junit" rev="4.12" />
-        <dependency org="org.jparsec" name="jparsec" rev="3.0" />
 	
 	<!--
 	 ! This module is already part of the Ant installation,

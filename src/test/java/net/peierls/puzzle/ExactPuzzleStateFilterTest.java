@@ -1,5 +1,7 @@
 package net.peierls.puzzle;
 
+import java.util.Optional;
+
 import java.util.stream.*;
 
 import one.util.streamex.*;
@@ -22,6 +24,7 @@ public class ExactPuzzleStateFilterTest {
         @Override public int hashCode() { return text.hashCode(); }
         @Override public boolean isSolution() { return false; }
         @Override public Stream<NullState> successors() { return StreamEx.empty(); }
+        @Override public Optional<NullState> predecessor() { return Optional.empty(); }
     }
 
     PuzzleStateFilter<NullState> f = new ExactPuzzleStateFilter<>();

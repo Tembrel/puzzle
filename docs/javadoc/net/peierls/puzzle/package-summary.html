@@ -69,7 +69,8 @@
 <div class="header">
 <h1 title="Package" class="title">Package&nbsp;net.peierls.puzzle</h1>
 <div class="docSummary">
-<div class="block">A framework for describing and solving puzzles that involve moves
+<div class="block">A framework for describing and solving puzzles that can be characterized
+ as a problem of finding a sequence of transitions (or <em>moves</em>)
  from an initial state to a solution state.</div>
 </div>
 <p>See:&nbsp;<a href="#package.description">Description</a></p>
@@ -158,34 +159,55 @@
 <!--   -->
 </a>
 <h2 title="Package net.peierls.puzzle Description">Package net.peierls.puzzle Description</h2>
-<div class="block">A framework for describing and solving puzzles that involve moves
+<div class="block">A framework for describing and solving puzzles that can be characterized
+ as a problem of finding a sequence of transitions (or <em>moves</em>)
  from an initial state to a solution state.
  <p>
+ The primary abstraction is <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle"><code>PuzzleState</code></a>, which defines a
+ successors function and test for whether a state represents a solution.
  There is no separate puzzle type, because an initial puzzle state
  instance essentially defines a puzzle: Find a sequence of states
  starting with the initial state and ending with a solution state
  with each element of the sequence other than first being a successor
  of the previous element of the sequence.
  <p>
- To define a new kind of puzzle, implement <code>PuzzleState</code>'s
- <code>isSolution</code>,
- <code>successors</code>,
- and <code>predecessor</code> methods, and optionally any
- of the other methods. The predecessor method should be defined
+ To define a new kind of puzzle, implement the <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle"><code>PuzzleState</code></a>
+ methods
+ <a href="../../../net/peierls/puzzle/PuzzleState.html#isSolution--"><code>isSolution</code></a>,
+ <a href="../../../net/peierls/puzzle/PuzzleState.html#successors--"><code>successors</code></a>,
+ and <a href="../../../net/peierls/puzzle/PuzzleState.html#predecessor--"><code>predecessor</code></a>,
+ and optionally any of the other methods.
+ <p>
+ The predecessor method should be defined
  for states that are produced by <code>s0.successors()</code> to be
  <code>s0</code>, otherwise it should be empty (initial states have no predecessor).
+ It is also acceptable to define predecessor as <strong>always</strong> empty,
+ in which case solution lists produced by <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="class in net.peierls.puzzle"><code>FilteredPuzzleSolver</code></a>
+ will contain <strong>only</strong> the solution state, which might be acceptable
+ if the solution state itself contains all the relevant information.
  <p>
- The <code>precomputed</code> method may be implemented
+ States must be usable as map keys, so override <code>equals</code> and <code>hashCode</code>
+ properly.
+ Do <strong>not</strong> include a reference to a predecessor in the implementation
+ of these methods; a state might be reachable in two different ways, but we do not
+ in general want approximate containment tests to return false negatives from
+ two otherwise equal states comparing unequal due to different predecessors.
+ <p>
+ The <a href="../../../net/peierls/puzzle/PuzzleState.html#initialized--"><code>initialized</code></a> method may be implemented
  to avoid unnecessary computation on states that might have already been seen.
- The <code>PuzzleState#funnel</code> method can be implemented to provide a compact
- encoding of a state for use in conjunction with an approximate containment filter.
  <p>
  To define a new general-purpose solver, extend
- <code>FilteredPuzzleSolver</code> by
- implementing <code>solutionState</code>.
- Use <code>filterState</code> before searching
- from any state returned by the <code>state.successors()</code> method.
- <p></div>
+ <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="class in net.peierls.puzzle"><code>FilteredPuzzleSolver</code></a> by
+ implementing <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-"><code>solutionState</code></a>.
+ Use <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html#filterState-T-net.peierls.puzzle.PuzzleStateFilter-"><code>filterState</code></a> before searching
+ from any state returned by the <a href="../../../net/peierls/puzzle/PuzzleState.html#successors--"><code>state.successors()</code></a> method.
+ <p>
+ Two concrete implementations of <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="class in net.peierls.puzzle"><code>FilteredPuzzleSolver</code></a> are
+ provided, <a href="../../../net/peierls/puzzle/DfsPuzzleSolver.html" title="class in net.peierls.puzzle"><code>DfsPuzzleSolver</code></a> and <a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html" title="class in net.peierls.puzzle"><code>BfsPuzzleSolver</code></a>,
+ correspondingly using depth-first and breadth-first search.
+ <p>
+ General-purpose solvers should allow users to provide a
+ <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle"><code>PuzzleStateFilter</code></a> supplier.</div>
 </div>
 <!-- ======= START OF BOTTOM NAVBAR ====== -->
 <div class="bottomNav"><a name="navbar.bottom">

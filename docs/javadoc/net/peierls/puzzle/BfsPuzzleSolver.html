@@ -115,7 +115,7 @@ var activeTableTab = "activeTableTab";
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../src-html/net/peierls/puzzle/BfsPuzzleSolver.html#line.13">BfsPuzzleSolver</a>&lt;T extends <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;T&gt;&gt;
+<pre>public class <a href="../../../src-html/net/peierls/puzzle/BfsPuzzleSolver.html#line.15">BfsPuzzleSolver</a>&lt;T extends <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;T&gt;&gt;
 extends <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="class in net.peierls.puzzle">FilteredPuzzleSolver</a>&lt;T&gt;</pre>
 <div class="block">Breadth-first-search puzzle solver.</div>
 </li>
@@ -141,8 +141,7 @@ extends <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="c
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html#BfsPuzzleSolver-int-double-">BfsPuzzleSolver</a></span>(int&nbsp;expectedInsertions,
-               double&nbsp;fpp)</code>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html#BfsPuzzleSolver-java.util.function.Supplier-">BfsPuzzleSolver</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html?is-external=true" title="class or interface in java.util.function">Supplier</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html" title="type parameter in BfsPuzzleSolver">T</a>&gt;&gt;&nbsp;filterSupplier)</code>
 <div class="block">Constructs a BFS solver that will use a Bloom filter for states
  that support it, otherwise an exact filter.</div>
 </td>
@@ -206,18 +205,17 @@ extends <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="c
 <ul class="blockList">
 <li class="blockList">
 <h4>BfsPuzzleSolver</h4>
-<pre>public&nbsp;<a href="../../../src-html/net/peierls/puzzle/BfsPuzzleSolver.html#line.18">BfsPuzzleSolver</a>()</pre>
+<pre>public&nbsp;<a href="../../../src-html/net/peierls/puzzle/BfsPuzzleSolver.html#line.20">BfsPuzzleSolver</a>()</pre>
 <div class="block">Constructs a BFS solver with an exact filter.</div>
 </li>
 </ul>
-<a name="BfsPuzzleSolver-int-double-">
+<a name="BfsPuzzleSolver-java.util.function.Supplier-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>BfsPuzzleSolver</h4>
-<pre>public&nbsp;<a href="../../../src-html/net/peierls/puzzle/BfsPuzzleSolver.html#line.26">BfsPuzzleSolver</a>(int&nbsp;expectedInsertions,
-                       double&nbsp;fpp)</pre>
+<pre>public&nbsp;<a href="../../../src-html/net/peierls/puzzle/BfsPuzzleSolver.html#line.28">BfsPuzzleSolver</a>(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html?is-external=true" title="class or interface in java.util.function">Supplier</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html" title="type parameter in BfsPuzzleSolver">T</a>&gt;&gt;&nbsp;filterSupplier)</pre>
 <div class="block">Constructs a BFS solver that will use a Bloom filter for states
  that support it, otherwise an exact filter.</div>
 </li>
@@ -238,7 +236,7 @@ extends <a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html" title="c
 <ul class="blockListLast">
 <li class="blockList">
 <h4>solutionState</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html" title="type parameter in BfsPuzzleSolver">T</a>&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/BfsPuzzleSolver.html#line.32">solutionState</a>(<a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html" title="type parameter in BfsPuzzleSolver">T</a>&nbsp;initialState,
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html" title="type parameter in BfsPuzzleSolver">T</a>&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/BfsPuzzleSolver.html#line.34">solutionState</a>(<a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html" title="type parameter in BfsPuzzleSolver">T</a>&nbsp;initialState,
                                     <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/BfsPuzzleSolver.html" title="type parameter in BfsPuzzleSolver">T</a>&gt;&nbsp;filter)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../net/peierls/puzzle/FilteredPuzzleSolver.html#solutionState-T-net.peierls.puzzle.PuzzleStateFilter-">FilteredPuzzleSolver</a></code></span></div>
 <div class="block">Concrete subclasses must implement this method to

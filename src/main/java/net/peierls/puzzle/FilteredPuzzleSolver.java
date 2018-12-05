@@ -1,11 +1,14 @@
 package net.peierls.puzzle;
 
-import com.google.common.hash.Funnel;
+import com.google.common.collect.ImmutableList;
+import static com.google.common.collect.ImmutableList.toImmutableList;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
+
+import one.util.streamex.StreamEx;
 
 
 /**
@@ -29,7 +32,7 @@ import java.util.stream.Stream;
  */
 public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements PuzzleSolver<T> {
 
-    private final Function<Funnel<T>, PuzzleStateFilter<T>> funnelToFilter;
+    private final Supplier<PuzzleStateFilter<T>> filterSupplier;
 
     private volatile long lastApproximateElementCount = 0L;
     private volatile double lastExpectedFpp = 0f;
@@ -41,24 +44,14 @@ public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements 
      * whether a state has been seen.
      */
     protected FilteredPuzzleSolver() {
-        this.funnelToFilter = funnel -> exactFilter();
-    }
-
-    /**
-     * Constructs a solver that will use an exact filter when solving
-     * for initial states that do not define a funnel, and a BloomFilter
-     * when solving initial states that do define a funnel. The two
-     * parameters to this method will be ignored in the former case.
-     */
-    protected FilteredPuzzleSolver(int expectedInsertions, double fpp) {
-        this.funnelToFilter = funnel -> bloomFilter(funnel, expectedInsertions, fpp);
+        this.filterSupplier = ExactPuzzleStateFilter::new;
     }
 
     /**
      * Constructs a solver that will always use the given state filter.
      */
-    protected FilteredPuzzleSolver(PuzzleStateFilter<T> filter) {
-        this.funnelToFilter = funnel -> filter;
+    protected FilteredPuzzleSolver(Supplier<PuzzleStateFilter<T>> filterSupplier) {
+        this.filterSupplier = filterSupplier;
     }
 
 
@@ -67,12 +60,10 @@ public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements 
         if (initialState == null) {
             throw new NullPointerException("initial state must not be null");
         }
-        PuzzleStateFilter<T> filter = initialState.funnel()
-            .map(funnel -> funnelToFilter.apply(funnel))
-            .orElseGet(this::exactFilter);
+        PuzzleStateFilter<T> filter = filterSupplier.get();
         try {
             Optional<T> finalState = solutionState(initialState, filter);
-            return finalState.map(PuzzleState::toSolution);
+            return finalState.map(this::toSolution);
         } finally {
             lastApproximateElementCount = filter.approximateElementCount();
             lastExpectedFpp = filter.expectedFalsePositiveProbability();
@@ -90,10 +81,10 @@ public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements 
 
     /**
      * If state is neither null nor hopeless and definitely hasn't
-     * been seen by the filter, returns an precomputed copy of state
+     * been seen by the filter, returns an initialized copy of state
      * (and as a side-effect marks state as seen in the filter),
      * otherwise returns null. The test for hopelessness is made
-     * on the precomputed copy.
+     * on the initialized copy.
      */
     protected T filterState(T state, PuzzleStateFilter<T> filter) {
         if (state == null || !filter.put(state)) {
@@ -102,7 +93,7 @@ public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements 
         }
 
         // First time seeing state, so precompute it.
-        state = state.precomputed();
+        state = state.initialized();
 
         if (state.isHopeless()) {
             return null;
@@ -110,11 +101,11 @@ public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements 
             return state;
         }
     }
-    
+
     /**
      * Returns the successors of state, filtering out already-seen
      * or hopeless states, and marking these successors as seen and
-     * converting them to their precomputed versions. This is
+     * converting them to their initialized versions. This is
      * an alternative to using separate calls to {@link PuzzleState#successors}
      * and {@link #filterState filterState}.
      */
@@ -131,11 +122,17 @@ public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements 
         return lastExpectedFpp;
     }
 
-    private PuzzleStateFilter<T> bloomFilter(Funnel<T> funnel, int expectedInsertions, double fpp) {
-        return new BloomPuzzleStateFilter<>(funnel, expectedInsertions, fpp);
-    }
 
-    private PuzzleStateFilter<T> exactFilter() {
-        return new ExactPuzzleStateFilter<>();
+    /**
+     * Convert a state into a full solution, a list
+     * states ending in this state if it is a solution state,
+     * or an empty list if it is not a solution state.
+     */
+    List<T> toSolution(T state) {
+        return state.isSolution() ? StreamEx.iterate(
+            state,
+            s -> s != null,
+            s -> s.predecessor().orElse(null)
+        ).collect(toImmutableList()).reverse() : ImmutableList.of();
     }
 }
