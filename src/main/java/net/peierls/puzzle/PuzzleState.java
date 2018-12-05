@@ -28,11 +28,6 @@ import java.util.stream.Stream;
  * It is permissible to return self from this method if precautions
  * for mutability under concurrent access are taken, e.g., if the state
  * type is immutable and no precomputation is needed.
- * </li><li>
- * A puzzle state can produce a solution, i.e., a list of states from some
- * initial state to the current state, where each element other than the
- * first is a successor to the previous state in the list. The current state
- * is not required to be a solution state.
  * </li>
  * </ul>
  */

@@ -98,7 +98,7 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <hr>
 <br>
-<pre>public interface <a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.39">PuzzleState</a>&lt;T extends PuzzleState&lt;T&gt;&gt;</pre>
+<pre>public interface <a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.34">PuzzleState</a>&lt;T extends PuzzleState&lt;T&gt;&gt;</pre>
 <div class="block">A representation of the state of a puzzle that involves
  finding a sequence of moves from an initial state to
  a solution state.
@@ -122,11 +122,6 @@ var activeTableTab = "activeTableTab";
  It is permissible to return self from this method if precautions
  for mutability under concurrent access are taken, e.g., if the state
  type is immutable and no precomputation is needed.
- </li><li>
- A puzzle state can produce a solution, i.e., a list of states from some
- initial state to the current state, where each element other than the
- first is a successor to the previous state in the list. The current state
- is not required to be a solution state.
  </li>
  </ul></div>
 </li>
@@ -209,7 +204,7 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>isSolution</h4>
-<pre>boolean&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.44">isSolution</a>()</pre>
+<pre>boolean&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.39">isSolution</a>()</pre>
 <div class="block">Returns whether this is a solution state.</div>
 </li>
 </ul>
@@ -219,7 +214,7 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>isHopeless</h4>
-<pre>default&nbsp;boolean&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.54">isHopeless</a>()</pre>
+<pre>default&nbsp;boolean&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.49">isHopeless</a>()</pre>
 <div class="block">Returns true if it is known that no solution
  state can be reached from this state.
  Returns false otherwise, i.e., if it is not known
@@ -234,7 +229,7 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>successors</h4>
-<pre><a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html?is-external=true" title="class or interface in java.util.stream">Stream</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleState.html" title="type parameter in PuzzleState">T</a>&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.62">successors</a>()</pre>
+<pre><a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html?is-external=true" title="class or interface in java.util.stream">Stream</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleState.html" title="type parameter in PuzzleState">T</a>&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.57">successors</a>()</pre>
 <div class="block">The stream of puzzle states obtainable by
  a single move from this state.</div>
 </li>
@@ -245,7 +240,7 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>predecessor</h4>
-<pre><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleState.html" title="type parameter in PuzzleState">T</a>&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.69">predecessor</a>()</pre>
+<pre><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="../../../net/peierls/puzzle/PuzzleState.html" title="type parameter in PuzzleState">T</a>&gt;&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.64">predecessor</a>()</pre>
 <div class="block">The state from which this state was reached,
  or empty if this is an initial state.</div>
 </li>
@@ -256,7 +251,7 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>initialized</h4>
-<pre>default&nbsp;<a href="../../../net/peierls/puzzle/PuzzleState.html" title="type parameter in PuzzleState">T</a>&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.80">initialized</a>()</pre>
+<pre>default&nbsp;<a href="../../../net/peierls/puzzle/PuzzleState.html" title="type parameter in PuzzleState">T</a>&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.75">initialized</a>()</pre>
 <div class="block">Returns a state that is equivalent to this state,
  but which might implement some methods more efficiently,
  e.g., by precomputing commonly needed values.
@@ -270,7 +265,7 @@ var activeTableTab = "activeTableTab";
 <ul class="blockListLast">
 <li class="blockList">
 <h4>score</h4>
-<pre>default&nbsp;int&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.92">score</a>()</pre>
+<pre>default&nbsp;int&nbsp;<a href="../../../src-html/net/peierls/puzzle/PuzzleState.html#line.87">score</a>()</pre>
 <div class="block">A rating of how good this state is. Lower is better. You can
  return the same value for all states if you don't know.
  Puzzle solvers are not required to pay attention to scores
