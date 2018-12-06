@@ -160,6 +160,8 @@
       <assertions>
 	<enable />
       </assertions>
+      <arg value="7"/>
+      <arg value="3"/>
     </java>
   </target>
 
