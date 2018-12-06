@@ -4,13 +4,16 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
 
+import com.google.common.hash.Funnel;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import net.peierls.puzzle.DfsPuzzleSolver;
+import net.peierls.puzzle.BfsPuzzleSolver;
+import net.peierls.puzzle.BloomPuzzleStateFilter;
 import net.peierls.puzzle.PuzzleSolver;
 import net.peierls.puzzle.PuzzleState;
 
@@ -91,7 +94,7 @@ public final class PegsPuzzle {
         }
 
         @Override public Stream<State> successors() {
-            System.out.println("Searching from " + this);
+            //System.out.println("Searching from " + this);
             return StreamEx.of(pegs)
                 .flatMap(this::moves)
                 .map(move -> new State(this, move));
@@ -100,14 +103,14 @@ public final class PegsPuzzle {
         @Override public Optional<State> predecessor() {
             return Optional.ofNullable(pred);
         }
-        
+
         @Override public boolean equals(Object obj) {
             if (this == obj) return true;
             if (!(obj instanceof State)) return false;
             State that = (State) obj;
             return this.pegs.equals(that.pegs);
         }
-        
+
         @Override public int hashCode() {
             return Objects.hashCode(pegs);
         }
@@ -235,6 +238,16 @@ public final class PegsPuzzle {
         return new PegsPuzzle(size, size, holes.build(), pegs.build());
     }
 
+    public static Funnel<State> stateFunnel() {
+        return (from, into) -> {
+            into.putInt(from.pegs.size());
+            from.pegs.stream().forEach(peg -> {
+                into.putInt(peg.row);
+                into.putInt(peg.col);
+            });
+        };
+    }
+
     public static void main(String[] args) {
         int size = Integer.parseInt(args[0]);
         int armSize = Integer.parseInt(args[1]);
@@ -242,7 +255,8 @@ public final class PegsPuzzle {
         int nPegs = (size * size) - (cornerSize * cornerSize * 4) - 1;
         System.out.printf("Solving cross puzzle of size %d, arm size %d, corner size %d, and #pegs %d%n", size, armSize, cornerSize, nPegs);
         PegsPuzzle puzzle = makeCross(size, armSize);
-        PuzzleSolver<State> solver = new DfsPuzzleSolver<>(nPegs);
+        PuzzleSolver<State> solver = new BfsPuzzleSolver<>(() ->
+            new BloomPuzzleStateFilter<>(stateFunnel(), 8_000_000L, 0.0001));
         Optional<List<State>> solution = puzzle.solve(solver);
         String result = solution.map(s -> StreamEx.of(s).joining("\n")).orElse("no solution");
         System.out.println(result);

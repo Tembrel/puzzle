@@ -15,7 +15,7 @@ public class BloomPuzzleStateFilter<T extends PuzzleState<T>>
     private final BloomFilter<T> filter;
 
 
-    BloomPuzzleStateFilter(Funnel<T> funnel, long expectedInsertions, double fpp) {
+    public BloomPuzzleStateFilter(Funnel<T> funnel, long expectedInsertions, double fpp) {
         this.filter = BloomFilter.create(funnel, expectedInsertions, fpp);
     }
 
