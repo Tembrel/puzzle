@@ -4,7 +4,7 @@ This repository contains a Java framework for solving puzzles.
 
 ## API usage
 
-TBD
+See the <a href="https://tembrel.github.io/puzzle/javadoc/">javadocs</a> for now.
 
 ## Dependencies
 
