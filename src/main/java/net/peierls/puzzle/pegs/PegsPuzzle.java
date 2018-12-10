@@ -29,9 +29,9 @@ import one.util.streamex.StreamEx;
 public final class PegsPuzzle {
 
     static class Move {
-        final PegEncoding.JumpType jump;
+        final JumpType jump;
         final Position from;
-        Move(PegEncoding.JumpType jump, Position from) {
+        Move(JumpType jump, Position from) {
             this.jump = jump;
             this.from = from;
         }
@@ -124,10 +124,10 @@ public final class PegsPuzzle {
 
         private BitSet applyJump(Move move) {
             BitSet newPegs = (BitSet) pegs.clone();
-            System.out.printf("applying %s to %s:%n", move, pegs);
+            //System.out.printf("applying %s to %s:%n", move, pegs);
             StreamEx.of(move.from(), move.to(), move.mid())
                 .mapToInt(encoding::toRowMajor)
-                .peek(b -> System.out.printf("\t%d%n", b))
+                //.peek(b -> System.out.printf("\t%d%n", b))
                 .forEach(newPegs::flip);
             return newPegs;
         }

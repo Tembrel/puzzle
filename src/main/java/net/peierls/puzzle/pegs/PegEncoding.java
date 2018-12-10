@@ -124,62 +124,6 @@ class PegEncoding {
      * jump formulas, respectively, on the column major bit vector.
      */
 
-    enum Major {
-        ROW,
-        COL
-    }
-
-    /**
-     * Types of jump: rightward, leftward, downward, upward.
-     */
-    enum JumpType {
-        RIGHT(Major.ROW, 0, 2, 0, 1),
-        LEFT(Major.ROW, 0, -2, 0, -1),
-        DOWN(Major.COL, 2, 0, 1, 0),
-        UP(Major.COL, -2, 0, -1, 0),
-        ;
-
-        final Major major;
-        final Position targetDelta;
-        final Position jumpedDelta;
-
-        JumpType(Major major, int tdr, int tdc, int jdr, int jdc) {
-            this.major = major;
-            this.targetDelta = new Position(tdr, tdc);
-            this.jumpedDelta = new Position(jdr, jdc);
-        }
-        Position target(Position source) {
-            return source.move(targetDelta);
-        }
-        Position jumped(Position source) {
-            return source.move(jumpedDelta);
-        }
-        int targetShift() {
-            switch (major) {
-                default:
-                case ROW: return -targetDelta.col();
-                case COL: return -targetDelta.row();
-            }
-        }
-        int jumpedShift() {
-            switch (major) {
-                default:
-                case ROW: return -jumpedDelta.col();
-                case COL: return -jumpedDelta.row();
-            }
-        }
-        BitSet legal(BitSet holes, BitSet pegs, BitSet holesOnly, int fence) {
-            BitSet pegsShiftedOne = shift(pegs, jumpedShift(), fence);
-            BitSet holesOnlyShiftedTwo = shift(holesOnly, targetShift(), fence);
-
-            BitSet result = (BitSet) pegs.clone();
-            result.and(pegsShiftedOne);
-            result.and(holesOnlyShiftedTwo);
-
-            return result;
-        }
-    }
-
     private static final int PAD = 2;
 
     final int nrows;
@@ -198,12 +142,12 @@ class PegEncoding {
         return toRowMajor(pos.row(), pos.col());
     }
 
-    int toRowMajor(int row, int col) {
-        return row * (ncols + PAD) + col;
-    }
-
     int toColMajor(Position pos) {
         return toColMajor(pos.row(), pos.col());
+    }
+
+    int toRowMajor(int row, int col) {
+        return row * (ncols + PAD) + col;
     }
 
     int toColMajor(int row, int col) {
@@ -215,7 +159,7 @@ class PegEncoding {
     }
 
     Position fromColMajor(int j) {
-        return new Position(j / (nrows + PAD), j % (nrows + PAD));
+        return new Position(j % (nrows + PAD), j / (nrows + PAD));
     }
 
     BitSet toRowMajor(Set<Position> positions) {
@@ -246,16 +190,6 @@ class PegEncoding {
         return toColMajor(fromRowMajor(rowMajorBits));
     }
 
-    static BitSet shift(BitSet bits, int shift, int fence) {
-        bits = (BitSet) bits.clone();
-        if (shift > 0) {
-            return IntStreamEx.of(bits).map(b -> b + shift).filter(b -> b < fence).toBitSet();
-        } else if (shift < 0) {
-            return IntStreamEx.of(bits).map(b -> b + shift).remove(b -> b < 0).toBitSet();
-        }
-        return bits;
-    }
-
     EntryStream<JumpType, Position> legalJumps(BitSet rmHoles, BitSet rmPegs) {
         BitSet cmHoles = transposeRowToCol(rmHoles);
         BitSet cmPegs = transposeRowToCol(rmPegs);
@@ -268,9 +202,7 @@ class PegEncoding {
 
         return StreamEx.of(JumpType.values())
             .mapToEntry(jump -> {
-                BitSet holes, pegs, holesOnly;
-                int fence;
-                switch (jump.major) {
+                switch (jump.major()) {
                     default:
                     case ROW:
                         return fromRowMajor(jump.legal(rmHoles, rmPegs, rmHolesOnly, rowMajorFence));
