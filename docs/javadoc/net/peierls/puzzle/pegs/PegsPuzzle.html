@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":9,"i2":9,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":9};
+var methods = {"i0":10,"i1":9,"i2":9,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -161,11 +161,12 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
           <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;net.peierls.puzzle.pegs.Position&gt;&nbsp;pegs)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.html#PegsPuzzle-int-int-java.util.Set-java.util.Set-int-">PegsPuzzle</a></span>(int&nbsp;nrows,
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.html#PegsPuzzle-int-int-java.util.Set-java.util.Set-int-java.util.Set-">PegsPuzzle</a></span>(int&nbsp;nrows,
           int&nbsp;ncols,
           <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;net.peierls.puzzle.pegs.Position&gt;&nbsp;holes,
           <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;net.peierls.puzzle.pegs.Position&gt;&nbsp;pegs,
-          int&nbsp;solutionCount)</code>&nbsp;</td>
+          int&nbsp;solutionCount,
+          <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;net.peierls.puzzle.pegs.Position&gt;&nbsp;solutionRequires)</code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -183,7 +184,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>com.google.common.collect.ImmutableSet&lt;net.peierls.puzzle.pegs.Position&gt;</code></td>
+<td class="colFirst"><code><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;net.peierls.puzzle.pegs.Position&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.html#holes--">holes</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
@@ -208,7 +209,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.html#nrows--">nrows</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><code>com.google.common.collect.ImmutableSet&lt;net.peierls.puzzle.pegs.Position&gt;</code></td>
+<td class="colFirst"><code><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;net.peierls.puzzle.pegs.Position&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.html#pegs--">pegs</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i6" class="altColor">
@@ -216,10 +217,14 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.html#solutionCount--">solutionCount</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i7" class="rowColor">
+<td class="colFirst"><code><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;net.peierls.puzzle.pegs.Position&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.html#solutionRequires--">solutionRequires</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.State.html" title="class in net.peierls.puzzle.pegs">PegsPuzzle.State</a>&gt;&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.html#solve-net.peierls.puzzle.PuzzleSolver-">solve</a></span>(<a href="../../../../net/peierls/puzzle/PuzzleSolver.html" title="interface in net.peierls.puzzle">PuzzleSolver</a>&lt;<a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.State.html" title="class in net.peierls.puzzle.pegs">PegsPuzzle.State</a>&gt;&nbsp;solver)</code>&nbsp;</td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>static com.google.common.hash.Funnel&lt;<a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.State.html" title="class in net.peierls.puzzle.pegs">PegsPuzzle.State</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.html#stateFunnel--">stateFunnel</a></span>()</code>&nbsp;</td>
 </tr>
@@ -251,23 +256,24 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>PegsPuzzle</h4>
-<pre>public&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.176">PegsPuzzle</a>(int&nbsp;nrows,
+<pre>public&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.181">PegsPuzzle</a>(int&nbsp;nrows,
                   int&nbsp;ncols,
                   <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;net.peierls.puzzle.pegs.Position&gt;&nbsp;holes,
                   <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;net.peierls.puzzle.pegs.Position&gt;&nbsp;pegs)</pre>
 </li>
 </ul>
-<a name="PegsPuzzle-int-int-java.util.Set-java.util.Set-int-">
+<a name="PegsPuzzle-int-int-java.util.Set-java.util.Set-int-java.util.Set-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>PegsPuzzle</h4>
-<pre>public&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.180">PegsPuzzle</a>(int&nbsp;nrows,
+<pre>public&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.185">PegsPuzzle</a>(int&nbsp;nrows,
                   int&nbsp;ncols,
                   <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;net.peierls.puzzle.pegs.Position&gt;&nbsp;holes,
                   <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;net.peierls.puzzle.pegs.Position&gt;&nbsp;pegs,
-                  int&nbsp;solutionCount)</pre>
+                  int&nbsp;solutionCount,
+                  <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;net.peierls.puzzle.pegs.Position&gt;&nbsp;solutionRequires)</pre>
 </li>
 </ul>
 </li>
@@ -284,7 +290,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>nrows</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.199">nrows</a>()</pre>
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.205">nrows</a>()</pre>
 </li>
 </ul>
 <a name="ncols--">
@@ -293,7 +299,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>ncols</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.200">ncols</a>()</pre>
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.206">ncols</a>()</pre>
 </li>
 </ul>
 <a name="holes--">
@@ -302,7 +308,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>holes</h4>
-<pre>public&nbsp;com.google.common.collect.ImmutableSet&lt;net.peierls.puzzle.pegs.Position&gt;&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.201">holes</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;net.peierls.puzzle.pegs.Position&gt;&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.207">holes</a>()</pre>
 </li>
 </ul>
 <a name="pegs--">
@@ -311,7 +317,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>pegs</h4>
-<pre>public&nbsp;com.google.common.collect.ImmutableSet&lt;net.peierls.puzzle.pegs.Position&gt;&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.202">pegs</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;net.peierls.puzzle.pegs.Position&gt;&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.208">pegs</a>()</pre>
 </li>
 </ul>
 <a name="solutionCount--">
@@ -320,7 +326,16 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>solutionCount</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.203">solutionCount</a>()</pre>
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.209">solutionCount</a>()</pre>
+</li>
+</ul>
+<a name="solutionRequires--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>solutionRequires</h4>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;net.peierls.puzzle.pegs.Position&gt;&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.210">solutionRequires</a>()</pre>
 </li>
 </ul>
 <a name="solve-net.peierls.puzzle.PuzzleSolver-">
@@ -329,7 +344,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>solve</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.State.html" title="class in net.peierls.puzzle.pegs">PegsPuzzle.State</a>&gt;&gt;&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.206">solve</a>(<a href="../../../../net/peierls/puzzle/PuzzleSolver.html" title="interface in net.peierls.puzzle">PuzzleSolver</a>&lt;<a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.State.html" title="class in net.peierls.puzzle.pegs">PegsPuzzle.State</a>&gt;&nbsp;solver)</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.State.html" title="class in net.peierls.puzzle.pegs">PegsPuzzle.State</a>&gt;&gt;&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.213">solve</a>(<a href="../../../../net/peierls/puzzle/PuzzleSolver.html" title="interface in net.peierls.puzzle">PuzzleSolver</a>&lt;<a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.State.html" title="class in net.peierls.puzzle.pegs">PegsPuzzle.State</a>&gt;&nbsp;solver)</pre>
 </li>
 </ul>
 <a name="makeCross-int-int-int-">
@@ -338,7 +353,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>makeCross</h4>
-<pre>public static&nbsp;<a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.html" title="class in net.peierls.puzzle.pegs">PegsPuzzle</a>&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.220">makeCross</a>(int&nbsp;size,
+<pre>public static&nbsp;<a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.html" title="class in net.peierls.puzzle.pegs">PegsPuzzle</a>&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.227">makeCross</a>(int&nbsp;size,
                                    int&nbsp;armSize,
                                    int&nbsp;solutionCount)</pre>
 <div class="block">Creates the initial state of a cross-shaped peg puzzle with the
@@ -361,7 +376,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>stateFunnel</h4>
-<pre>public static&nbsp;com.google.common.hash.Funnel&lt;<a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.State.html" title="class in net.peierls.puzzle.pegs">PegsPuzzle.State</a>&gt;&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.236">stateFunnel</a>()</pre>
+<pre>public static&nbsp;com.google.common.hash.Funnel&lt;<a href="../../../../net/peierls/puzzle/pegs/PegsPuzzle.State.html" title="class in net.peierls.puzzle.pegs">PegsPuzzle.State</a>&gt;&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.244">stateFunnel</a>()</pre>
 </li>
 </ul>
 <a name="main-java.lang.String:A-">
@@ -370,7 +385,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>main</h4>
-<pre>public static&nbsp;void&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.261">main</a>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;args)</pre>
+<pre>public static&nbsp;void&nbsp;<a href="../../../../src-html/net/peierls/puzzle/pegs/PegsPuzzle.html#line.269">main</a>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;args)</pre>
 </li>
 </ul>
 </li>

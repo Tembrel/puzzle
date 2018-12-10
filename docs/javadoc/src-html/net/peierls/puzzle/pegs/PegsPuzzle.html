@@ -52,237 +52,245 @@
 <span class="sourceLineNo">044</span>        Position from() { return from; }<a name="line.44"></a>
 <span class="sourceLineNo">045</span>        Position to() { return jump.target(from); }<a name="line.45"></a>
 <span class="sourceLineNo">046</span>        Position mid() { return jump.jumped(from); }<a name="line.46"></a>
-<span class="sourceLineNo">047</span>        @Override public String toString() {<a name="line.47"></a>
-<span class="sourceLineNo">048</span>            return String.format(<a name="line.48"></a>
-<span class="sourceLineNo">049</span>                "Move peg at %s %s to %s, removing peg at %s",<a name="line.49"></a>
-<span class="sourceLineNo">050</span>                from(), jump, to(), mid()<a name="line.50"></a>
-<span class="sourceLineNo">051</span>            );<a name="line.51"></a>
-<span class="sourceLineNo">052</span>        }<a name="line.52"></a>
-<span class="sourceLineNo">053</span>    }<a name="line.53"></a>
-<span class="sourceLineNo">054</span><a name="line.54"></a>
-<span class="sourceLineNo">055</span>    public final class State implements PuzzleState&lt;State&gt; {<a name="line.55"></a>
-<span class="sourceLineNo">056</span>        private final State pred;<a name="line.56"></a>
-<span class="sourceLineNo">057</span>        private final Move move;<a name="line.57"></a>
-<span class="sourceLineNo">058</span>        private final BitSet pegs; // row major<a name="line.58"></a>
-<span class="sourceLineNo">059</span><a name="line.59"></a>
-<span class="sourceLineNo">060</span><a name="line.60"></a>
-<span class="sourceLineNo">061</span>        State(Set&lt;Position&gt; pegs) {<a name="line.61"></a>
-<span class="sourceLineNo">062</span>            this.pred = null;<a name="line.62"></a>
-<span class="sourceLineNo">063</span>            this.move = null;<a name="line.63"></a>
-<span class="sourceLineNo">064</span>            this.pegs = encoding.toRowMajor(pegs);<a name="line.64"></a>
-<span class="sourceLineNo">065</span>        }<a name="line.65"></a>
-<span class="sourceLineNo">066</span><a name="line.66"></a>
-<span class="sourceLineNo">067</span>        State(State pred, Move move) {<a name="line.67"></a>
-<span class="sourceLineNo">068</span>            this.pred = pred;<a name="line.68"></a>
-<span class="sourceLineNo">069</span>            this.move = move;<a name="line.69"></a>
-<span class="sourceLineNo">070</span>            this.pegs = pred.applyJump(move);<a name="line.70"></a>
-<span class="sourceLineNo">071</span>        }<a name="line.71"></a>
-<span class="sourceLineNo">072</span><a name="line.72"></a>
-<span class="sourceLineNo">073</span>        @Override public boolean isSolution() {<a name="line.73"></a>
-<span class="sourceLineNo">074</span>            return pegs.cardinality() == solutionCount;<a name="line.74"></a>
-<span class="sourceLineNo">075</span>        }<a name="line.75"></a>
-<span class="sourceLineNo">076</span><a name="line.76"></a>
-<span class="sourceLineNo">077</span>        @Override public Stream&lt;State&gt; successors() {<a name="line.77"></a>
-<span class="sourceLineNo">078</span>            //System.out.println("Searching from " + this);<a name="line.78"></a>
-<span class="sourceLineNo">079</span>            return encoding.legalJumps(rowMajorHoles, pegs)<a name="line.79"></a>
-<span class="sourceLineNo">080</span>                .mapKeyValue(Move::new)<a name="line.80"></a>
-<span class="sourceLineNo">081</span>                .map(move -&gt; new State(this, move));<a name="line.81"></a>
-<span class="sourceLineNo">082</span>        }<a name="line.82"></a>
-<span class="sourceLineNo">083</span><a name="line.83"></a>
-<span class="sourceLineNo">084</span>        @Override public Optional&lt;State&gt; predecessor() {<a name="line.84"></a>
-<span class="sourceLineNo">085</span>            return Optional.ofNullable(pred);<a name="line.85"></a>
+<span class="sourceLineNo">047</span>        String sourceSymbol() { return jump.sourceSymbol(); }<a name="line.47"></a>
+<span class="sourceLineNo">048</span>        String jumpedSymbol() { return jump.jumpedSymbol(); }<a name="line.48"></a>
+<span class="sourceLineNo">049</span>        String targetSymbol() { return "X"; }<a name="line.49"></a>
+<span class="sourceLineNo">050</span>        @Override public String toString() {<a name="line.50"></a>
+<span class="sourceLineNo">051</span>            return String.format(<a name="line.51"></a>
+<span class="sourceLineNo">052</span>                "Move peg at %s %s to %s, removing peg at %s",<a name="line.52"></a>
+<span class="sourceLineNo">053</span>                from(), jump, to(), mid()<a name="line.53"></a>
+<span class="sourceLineNo">054</span>            );<a name="line.54"></a>
+<span class="sourceLineNo">055</span>        }<a name="line.55"></a>
+<span class="sourceLineNo">056</span>    }<a name="line.56"></a>
+<span class="sourceLineNo">057</span><a name="line.57"></a>
+<span class="sourceLineNo">058</span>    public final class State implements PuzzleState&lt;State&gt; {<a name="line.58"></a>
+<span class="sourceLineNo">059</span>        private final State pred;<a name="line.59"></a>
+<span class="sourceLineNo">060</span>        private final Move move;<a name="line.60"></a>
+<span class="sourceLineNo">061</span>        private final BitSet pegs; // row major<a name="line.61"></a>
+<span class="sourceLineNo">062</span><a name="line.62"></a>
+<span class="sourceLineNo">063</span><a name="line.63"></a>
+<span class="sourceLineNo">064</span>        State(Set&lt;Position&gt; pegs) {<a name="line.64"></a>
+<span class="sourceLineNo">065</span>            this.pred = null;<a name="line.65"></a>
+<span class="sourceLineNo">066</span>            this.move = null;<a name="line.66"></a>
+<span class="sourceLineNo">067</span>            this.pegs = encoding.toRowMajor(pegs);<a name="line.67"></a>
+<span class="sourceLineNo">068</span>        }<a name="line.68"></a>
+<span class="sourceLineNo">069</span><a name="line.69"></a>
+<span class="sourceLineNo">070</span>        State(State pred, Move move) {<a name="line.70"></a>
+<span class="sourceLineNo">071</span>            this.pred = pred;<a name="line.71"></a>
+<span class="sourceLineNo">072</span>            this.move = move;<a name="line.72"></a>
+<span class="sourceLineNo">073</span>            this.pegs = pred.applyJump(move);<a name="line.73"></a>
+<span class="sourceLineNo">074</span>        }<a name="line.74"></a>
+<span class="sourceLineNo">075</span><a name="line.75"></a>
+<span class="sourceLineNo">076</span>        @Override public boolean isSolution() {<a name="line.76"></a>
+<span class="sourceLineNo">077</span>            return pegs.cardinality() == solutionCount<a name="line.77"></a>
+<span class="sourceLineNo">078</span>                &amp;&amp; encoding.fromRowMajor(pegs).containsAll(solutionRequires);<a name="line.78"></a>
+<span class="sourceLineNo">079</span>        }<a name="line.79"></a>
+<span class="sourceLineNo">080</span><a name="line.80"></a>
+<span class="sourceLineNo">081</span>        @Override public Stream&lt;State&gt; successors() {<a name="line.81"></a>
+<span class="sourceLineNo">082</span>            //System.out.println("Searching from " + this);<a name="line.82"></a>
+<span class="sourceLineNo">083</span>            return encoding.legalJumps(rowMajorHoles, pegs)<a name="line.83"></a>
+<span class="sourceLineNo">084</span>                .mapKeyValue(Move::new)<a name="line.84"></a>
+<span class="sourceLineNo">085</span>                .map(move -&gt; new State(this, move));<a name="line.85"></a>
 <span class="sourceLineNo">086</span>        }<a name="line.86"></a>
 <span class="sourceLineNo">087</span><a name="line.87"></a>
-<span class="sourceLineNo">088</span>        @Override public boolean equals(Object obj) {<a name="line.88"></a>
-<span class="sourceLineNo">089</span>            if (this == obj) return true;<a name="line.89"></a>
-<span class="sourceLineNo">090</span>            if (!(obj instanceof State)) return false;<a name="line.90"></a>
-<span class="sourceLineNo">091</span>            State that = (State) obj;<a name="line.91"></a>
-<span class="sourceLineNo">092</span>            return this.pegs.equals(that.pegs);<a name="line.92"></a>
-<span class="sourceLineNo">093</span>        }<a name="line.93"></a>
-<span class="sourceLineNo">094</span><a name="line.94"></a>
-<span class="sourceLineNo">095</span>        @Override public int hashCode() {<a name="line.95"></a>
-<span class="sourceLineNo">096</span>            return Objects.hashCode(pegs);<a name="line.96"></a>
+<span class="sourceLineNo">088</span>        @Override public Optional&lt;State&gt; predecessor() {<a name="line.88"></a>
+<span class="sourceLineNo">089</span>            return Optional.ofNullable(pred);<a name="line.89"></a>
+<span class="sourceLineNo">090</span>        }<a name="line.90"></a>
+<span class="sourceLineNo">091</span><a name="line.91"></a>
+<span class="sourceLineNo">092</span>        @Override public boolean equals(Object obj) {<a name="line.92"></a>
+<span class="sourceLineNo">093</span>            if (this == obj) return true;<a name="line.93"></a>
+<span class="sourceLineNo">094</span>            if (!(obj instanceof State)) return false;<a name="line.94"></a>
+<span class="sourceLineNo">095</span>            State that = (State) obj;<a name="line.95"></a>
+<span class="sourceLineNo">096</span>            return this.pegs.equals(that.pegs);<a name="line.96"></a>
 <span class="sourceLineNo">097</span>        }<a name="line.97"></a>
 <span class="sourceLineNo">098</span><a name="line.98"></a>
-<span class="sourceLineNo">099</span>        @Override<a name="line.99"></a>
-<span class="sourceLineNo">100</span>        public String toString() {<a name="line.100"></a>
-<span class="sourceLineNo">101</span>            Set&lt;Position&gt; pegs = encoding.fromRowMajor(this.pegs);<a name="line.101"></a>
-<span class="sourceLineNo">102</span>            StringBuilder buf = new StringBuilder();<a name="line.102"></a>
-<span class="sourceLineNo">103</span>            if (move == null) {<a name="line.103"></a>
-<span class="sourceLineNo">104</span>                buf.append("\nInitial position");<a name="line.104"></a>
-<span class="sourceLineNo">105</span>            } else {<a name="line.105"></a>
-<span class="sourceLineNo">106</span>                buf.append("\n").append(move);<a name="line.106"></a>
-<span class="sourceLineNo">107</span>            }<a name="line.107"></a>
-<span class="sourceLineNo">108</span>            buf.append(String.format(": #pegs=%d", pegs.size()));<a name="line.108"></a>
-<span class="sourceLineNo">109</span>            rowMajorPositions(nrows, ncols).forEach(cur -&gt; {<a name="line.109"></a>
-<span class="sourceLineNo">110</span>                if (cur.col() == 0) {<a name="line.110"></a>
-<span class="sourceLineNo">111</span>                    buf.append("\n");<a name="line.111"></a>
-<span class="sourceLineNo">112</span>                }<a name="line.112"></a>
-<span class="sourceLineNo">113</span>                String symbol = null;<a name="line.113"></a>
-<span class="sourceLineNo">114</span>                if (move != null) {<a name="line.114"></a>
-<span class="sourceLineNo">115</span>                    if (cur.equals(move.from())) {<a name="line.115"></a>
-<span class="sourceLineNo">116</span>                        symbol = "-";<a name="line.116"></a>
-<span class="sourceLineNo">117</span>                    } else if (cur.equals(move.to())) {<a name="line.117"></a>
-<span class="sourceLineNo">118</span>                        symbol = "+";<a name="line.118"></a>
-<span class="sourceLineNo">119</span>                    } else if (cur.equals(move.mid())) {<a name="line.119"></a>
-<span class="sourceLineNo">120</span>                        symbol = "0";<a name="line.120"></a>
-<span class="sourceLineNo">121</span>                    }<a name="line.121"></a>
-<span class="sourceLineNo">122</span>                }<a name="line.122"></a>
-<span class="sourceLineNo">123</span>                if (symbol == null) {<a name="line.123"></a>
-<span class="sourceLineNo">124</span>                    if (pegs.contains(cur)) {<a name="line.124"></a>
-<span class="sourceLineNo">125</span>                        symbol = "X";<a name="line.125"></a>
-<span class="sourceLineNo">126</span>                    } else if (holes.contains(cur)) {<a name="line.126"></a>
-<span class="sourceLineNo">127</span>                        symbol = ".";<a name="line.127"></a>
-<span class="sourceLineNo">128</span>                    } else {<a name="line.128"></a>
-<span class="sourceLineNo">129</span>                        symbol = " ";<a name="line.129"></a>
-<span class="sourceLineNo">130</span>                    }<a name="line.130"></a>
-<span class="sourceLineNo">131</span>                }<a name="line.131"></a>
-<span class="sourceLineNo">132</span>                buf.append(symbol);<a name="line.132"></a>
-<span class="sourceLineNo">133</span>            });<a name="line.133"></a>
-<span class="sourceLineNo">134</span>            return buf.toString();<a name="line.134"></a>
-<span class="sourceLineNo">135</span>        }<a name="line.135"></a>
-<span class="sourceLineNo">136</span><a name="line.136"></a>
-<span class="sourceLineNo">137</span>        public Position dimensions() {<a name="line.137"></a>
-<span class="sourceLineNo">138</span>            return new Position(nrows, ncols);<a name="line.138"></a>
+<span class="sourceLineNo">099</span>        @Override public int hashCode() {<a name="line.99"></a>
+<span class="sourceLineNo">100</span>            return Objects.hashCode(pegs);<a name="line.100"></a>
+<span class="sourceLineNo">101</span>        }<a name="line.101"></a>
+<span class="sourceLineNo">102</span><a name="line.102"></a>
+<span class="sourceLineNo">103</span>        @Override<a name="line.103"></a>
+<span class="sourceLineNo">104</span>        public String toString() {<a name="line.104"></a>
+<span class="sourceLineNo">105</span>            Set&lt;Position&gt; pegs = encoding.fromRowMajor(this.pegs);<a name="line.105"></a>
+<span class="sourceLineNo">106</span>            StringBuilder buf = new StringBuilder();<a name="line.106"></a>
+<span class="sourceLineNo">107</span>            if (move == null) {<a name="line.107"></a>
+<span class="sourceLineNo">108</span>                buf.append("\nInitial position");<a name="line.108"></a>
+<span class="sourceLineNo">109</span>            } else {<a name="line.109"></a>
+<span class="sourceLineNo">110</span>                buf.append("\n").append(move);<a name="line.110"></a>
+<span class="sourceLineNo">111</span>            }<a name="line.111"></a>
+<span class="sourceLineNo">112</span>            buf.append(String.format(": #pegs=%d", pegs.size()));<a name="line.112"></a>
+<span class="sourceLineNo">113</span>            rowMajorPositions(nrows, ncols).forEach(cur -&gt; {<a name="line.113"></a>
+<span class="sourceLineNo">114</span>                if (cur.col() == 0) {<a name="line.114"></a>
+<span class="sourceLineNo">115</span>                    buf.append("\n");<a name="line.115"></a>
+<span class="sourceLineNo">116</span>                }<a name="line.116"></a>
+<span class="sourceLineNo">117</span>                String symbol = null;<a name="line.117"></a>
+<span class="sourceLineNo">118</span>                if (move != null) {<a name="line.118"></a>
+<span class="sourceLineNo">119</span>                    if (cur.equals(move.from())) {<a name="line.119"></a>
+<span class="sourceLineNo">120</span>                        symbol = move.sourceSymbol();<a name="line.120"></a>
+<span class="sourceLineNo">121</span>                    } else if (cur.equals(move.to())) {<a name="line.121"></a>
+<span class="sourceLineNo">122</span>                        symbol = move.targetSymbol();<a name="line.122"></a>
+<span class="sourceLineNo">123</span>                    } else if (cur.equals(move.mid())) {<a name="line.123"></a>
+<span class="sourceLineNo">124</span>                        symbol = move.jumpedSymbol();<a name="line.124"></a>
+<span class="sourceLineNo">125</span>                    }<a name="line.125"></a>
+<span class="sourceLineNo">126</span>                }<a name="line.126"></a>
+<span class="sourceLineNo">127</span>                if (symbol == null) {<a name="line.127"></a>
+<span class="sourceLineNo">128</span>                    if (pegs.contains(cur)) {<a name="line.128"></a>
+<span class="sourceLineNo">129</span>                        symbol = "X";<a name="line.129"></a>
+<span class="sourceLineNo">130</span>                    } else if (holes.contains(cur)) {<a name="line.130"></a>
+<span class="sourceLineNo">131</span>                        symbol = ".";<a name="line.131"></a>
+<span class="sourceLineNo">132</span>                    } else {<a name="line.132"></a>
+<span class="sourceLineNo">133</span>                        symbol = " ";<a name="line.133"></a>
+<span class="sourceLineNo">134</span>                    }<a name="line.134"></a>
+<span class="sourceLineNo">135</span>                }<a name="line.135"></a>
+<span class="sourceLineNo">136</span>                buf.append(symbol);<a name="line.136"></a>
+<span class="sourceLineNo">137</span>            });<a name="line.137"></a>
+<span class="sourceLineNo">138</span>            return buf.toString();<a name="line.138"></a>
 <span class="sourceLineNo">139</span>        }<a name="line.139"></a>
 <span class="sourceLineNo">140</span><a name="line.140"></a>
-<span class="sourceLineNo">141</span>        public Set&lt;Position&gt; holes() {<a name="line.141"></a>
-<span class="sourceLineNo">142</span>            return holes;<a name="line.142"></a>
+<span class="sourceLineNo">141</span>        public Position dimensions() {<a name="line.141"></a>
+<span class="sourceLineNo">142</span>            return new Position(nrows, ncols);<a name="line.142"></a>
 <span class="sourceLineNo">143</span>        }<a name="line.143"></a>
 <span class="sourceLineNo">144</span><a name="line.144"></a>
-<span class="sourceLineNo">145</span>        private BitSet applyJump(Move move) {<a name="line.145"></a>
-<span class="sourceLineNo">146</span>            BitSet newPegs = (BitSet) pegs.clone();<a name="line.146"></a>
-<span class="sourceLineNo">147</span>            //System.out.printf("applying %s to %s:%n", move, pegs);<a name="line.147"></a>
-<span class="sourceLineNo">148</span>            StreamEx.of(move.from(), move.to(), move.mid())<a name="line.148"></a>
-<span class="sourceLineNo">149</span>                .mapToInt(encoding::toRowMajor)<a name="line.149"></a>
-<span class="sourceLineNo">150</span>                //.peek(b -&gt; System.out.printf("\t%d%n", b))<a name="line.150"></a>
-<span class="sourceLineNo">151</span>                .forEach(newPegs::flip);<a name="line.151"></a>
-<span class="sourceLineNo">152</span>            return newPegs;<a name="line.152"></a>
-<span class="sourceLineNo">153</span>        }<a name="line.153"></a>
-<span class="sourceLineNo">154</span>    }<a name="line.154"></a>
-<span class="sourceLineNo">155</span><a name="line.155"></a>
-<span class="sourceLineNo">156</span>    /**<a name="line.156"></a>
-<span class="sourceLineNo">157</span>     * Pairs of jump offsets and corresponding common neighbors offsets.<a name="line.157"></a>
-<span class="sourceLineNo">158</span>     */<a name="line.158"></a>
-<span class="sourceLineNo">159</span>    private static ImmutableMap&lt;Position, Position&gt; JUMPS = ImmutableMap.of(<a name="line.159"></a>
-<span class="sourceLineNo">160</span>        new Position(0, 2),    new Position(0, 1),<a name="line.160"></a>
-<span class="sourceLineNo">161</span>        new Position(2, 0),    new Position(1, 0),<a name="line.161"></a>
-<span class="sourceLineNo">162</span>        new Position(0, -2),   new Position(0, -1),<a name="line.162"></a>
-<span class="sourceLineNo">163</span>        new Position(-2, 0),   new Position(-1, 0)<a name="line.163"></a>
-<span class="sourceLineNo">164</span>    );<a name="line.164"></a>
-<span class="sourceLineNo">165</span><a name="line.165"></a>
-<span class="sourceLineNo">166</span><a name="line.166"></a>
-<span class="sourceLineNo">167</span>    private final int nrows;<a name="line.167"></a>
-<span class="sourceLineNo">168</span>    private final int ncols;<a name="line.168"></a>
-<span class="sourceLineNo">169</span>    private final ImmutableSet&lt;Position&gt; holes;<a name="line.169"></a>
-<span class="sourceLineNo">170</span>    private final ImmutableSet&lt;Position&gt; pegs;<a name="line.170"></a>
-<span class="sourceLineNo">171</span>    private final int solutionCount;<a name="line.171"></a>
-<span class="sourceLineNo">172</span>    private final PegEncoding encoding;<a name="line.172"></a>
-<span class="sourceLineNo">173</span>    private final BitSet rowMajorHoles;<a name="line.173"></a>
-<span class="sourceLineNo">174</span><a name="line.174"></a>
-<span class="sourceLineNo">175</span><a name="line.175"></a>
-<span class="sourceLineNo">176</span>    public PegsPuzzle(int nrows, int ncols, Set&lt;Position&gt; holes, Set&lt;Position&gt; pegs) {<a name="line.176"></a>
-<span class="sourceLineNo">177</span>        this(nrows, ncols, holes, pegs, 1); // default solution is to get to 1 peg<a name="line.177"></a>
-<span class="sourceLineNo">178</span>    }<a name="line.178"></a>
+<span class="sourceLineNo">145</span>        public Set&lt;Position&gt; holes() {<a name="line.145"></a>
+<span class="sourceLineNo">146</span>            return holes;<a name="line.146"></a>
+<span class="sourceLineNo">147</span>        }<a name="line.147"></a>
+<span class="sourceLineNo">148</span><a name="line.148"></a>
+<span class="sourceLineNo">149</span>        private BitSet applyJump(Move move) {<a name="line.149"></a>
+<span class="sourceLineNo">150</span>            BitSet newPegs = (BitSet) pegs.clone();<a name="line.150"></a>
+<span class="sourceLineNo">151</span>            //System.out.printf("applying %s to %s:%n", move, pegs);<a name="line.151"></a>
+<span class="sourceLineNo">152</span>            StreamEx.of(move.from(), move.to(), move.mid())<a name="line.152"></a>
+<span class="sourceLineNo">153</span>                .mapToInt(encoding::toRowMajor)<a name="line.153"></a>
+<span class="sourceLineNo">154</span>                //.peek(b -&gt; System.out.printf("\t%d%n", b))<a name="line.154"></a>
+<span class="sourceLineNo">155</span>                .forEach(newPegs::flip);<a name="line.155"></a>
+<span class="sourceLineNo">156</span>            return newPegs;<a name="line.156"></a>
+<span class="sourceLineNo">157</span>        }<a name="line.157"></a>
+<span class="sourceLineNo">158</span>    }<a name="line.158"></a>
+<span class="sourceLineNo">159</span><a name="line.159"></a>
+<span class="sourceLineNo">160</span>    /**<a name="line.160"></a>
+<span class="sourceLineNo">161</span>     * Pairs of jump offsets and corresponding common neighbors offsets.<a name="line.161"></a>
+<span class="sourceLineNo">162</span>     */<a name="line.162"></a>
+<span class="sourceLineNo">163</span>    private static ImmutableMap&lt;Position, Position&gt; JUMPS = ImmutableMap.of(<a name="line.163"></a>
+<span class="sourceLineNo">164</span>        new Position(0, 2),    new Position(0, 1),<a name="line.164"></a>
+<span class="sourceLineNo">165</span>        new Position(2, 0),    new Position(1, 0),<a name="line.165"></a>
+<span class="sourceLineNo">166</span>        new Position(0, -2),   new Position(0, -1),<a name="line.166"></a>
+<span class="sourceLineNo">167</span>        new Position(-2, 0),   new Position(-1, 0)<a name="line.167"></a>
+<span class="sourceLineNo">168</span>    );<a name="line.168"></a>
+<span class="sourceLineNo">169</span><a name="line.169"></a>
+<span class="sourceLineNo">170</span><a name="line.170"></a>
+<span class="sourceLineNo">171</span>    private final int nrows;<a name="line.171"></a>
+<span class="sourceLineNo">172</span>    private final int ncols;<a name="line.172"></a>
+<span class="sourceLineNo">173</span>    private final ImmutableSet&lt;Position&gt; holes;<a name="line.173"></a>
+<span class="sourceLineNo">174</span>    private final ImmutableSet&lt;Position&gt; pegs;<a name="line.174"></a>
+<span class="sourceLineNo">175</span>    private final int solutionCount;<a name="line.175"></a>
+<span class="sourceLineNo">176</span>    private final ImmutableSet&lt;Position&gt; solutionRequires;<a name="line.176"></a>
+<span class="sourceLineNo">177</span>    private final PegEncoding encoding;<a name="line.177"></a>
+<span class="sourceLineNo">178</span>    private final BitSet rowMajorHoles;<a name="line.178"></a>
 <span class="sourceLineNo">179</span><a name="line.179"></a>
-<span class="sourceLineNo">180</span>    public PegsPuzzle(int nrows, int ncols, Set&lt;Position&gt; holes, Set&lt;Position&gt; pegs, int solutionCount) {<a name="line.180"></a>
-<span class="sourceLineNo">181</span>        if (!holes.stream().allMatch(hole -&gt; hole.row() &gt;= 0<a name="line.181"></a>
-<span class="sourceLineNo">182</span>                                          &amp;&amp; hole.row() &lt; nrows<a name="line.182"></a>
-<span class="sourceLineNo">183</span>                                          &amp;&amp; hole.col() &gt;= 0<a name="line.183"></a>
-<span class="sourceLineNo">184</span>                                          &amp;&amp; hole.col() &lt; ncols)) {<a name="line.184"></a>
-<span class="sourceLineNo">185</span>            throw new IllegalArgumentException(String.format("holes must all be in %d x %s grid", nrows, ncols));<a name="line.185"></a>
-<span class="sourceLineNo">186</span>        }<a name="line.186"></a>
-<span class="sourceLineNo">187</span>        if (!pegs.stream().allMatch(holes::contains)) {<a name="line.187"></a>
-<span class="sourceLineNo">188</span>            throw new IllegalArgumentException("all pegs must be in holes");<a name="line.188"></a>
-<span class="sourceLineNo">189</span>        }<a name="line.189"></a>
-<span class="sourceLineNo">190</span>        this.nrows = nrows;<a name="line.190"></a>
-<span class="sourceLineNo">191</span>        this.ncols = ncols;<a name="line.191"></a>
-<span class="sourceLineNo">192</span>        this.holes = ImmutableSet.copyOf(holes);<a name="line.192"></a>
-<span class="sourceLineNo">193</span>        this.pegs = ImmutableSet.copyOf(pegs);<a name="line.193"></a>
-<span class="sourceLineNo">194</span>        this.solutionCount = solutionCount;<a name="line.194"></a>
-<span class="sourceLineNo">195</span>        this.encoding = new PegEncoding(nrows, ncols);<a name="line.195"></a>
-<span class="sourceLineNo">196</span>        this.rowMajorHoles = encoding.toRowMajor(holes);<a name="line.196"></a>
-<span class="sourceLineNo">197</span>    }<a name="line.197"></a>
-<span class="sourceLineNo">198</span><a name="line.198"></a>
-<span class="sourceLineNo">199</span>    public int nrows() { return nrows; }<a name="line.199"></a>
-<span class="sourceLineNo">200</span>    public int ncols() { return ncols; }<a name="line.200"></a>
-<span class="sourceLineNo">201</span>    public ImmutableSet&lt;Position&gt; holes() { return holes; }<a name="line.201"></a>
-<span class="sourceLineNo">202</span>    public ImmutableSet&lt;Position&gt; pegs() { return pegs; }<a name="line.202"></a>
-<span class="sourceLineNo">203</span>    public int solutionCount() { return solutionCount; }<a name="line.203"></a>
+<span class="sourceLineNo">180</span><a name="line.180"></a>
+<span class="sourceLineNo">181</span>    public PegsPuzzle(int nrows, int ncols, Set&lt;Position&gt; holes, Set&lt;Position&gt; pegs) {<a name="line.181"></a>
+<span class="sourceLineNo">182</span>        this(nrows, ncols, holes, pegs, 1, ImmutableSet.of()); // default solution is to get to 1 peg<a name="line.182"></a>
+<span class="sourceLineNo">183</span>    }<a name="line.183"></a>
+<span class="sourceLineNo">184</span><a name="line.184"></a>
+<span class="sourceLineNo">185</span>    public PegsPuzzle(int nrows, int ncols, Set&lt;Position&gt; holes, Set&lt;Position&gt; pegs, int solutionCount, Set&lt;Position&gt; solutionRequires) {<a name="line.185"></a>
+<span class="sourceLineNo">186</span>        if (!holes.stream().allMatch(hole -&gt; hole.row() &gt;= 0<a name="line.186"></a>
+<span class="sourceLineNo">187</span>                                          &amp;&amp; hole.row() &lt; nrows<a name="line.187"></a>
+<span class="sourceLineNo">188</span>                                          &amp;&amp; hole.col() &gt;= 0<a name="line.188"></a>
+<span class="sourceLineNo">189</span>                                          &amp;&amp; hole.col() &lt; ncols)) {<a name="line.189"></a>
+<span class="sourceLineNo">190</span>            throw new IllegalArgumentException(String.format("holes must all be in %d x %s grid", nrows, ncols));<a name="line.190"></a>
+<span class="sourceLineNo">191</span>        }<a name="line.191"></a>
+<span class="sourceLineNo">192</span>        if (!pegs.stream().allMatch(holes::contains)) {<a name="line.192"></a>
+<span class="sourceLineNo">193</span>            throw new IllegalArgumentException("all pegs must be in holes");<a name="line.193"></a>
+<span class="sourceLineNo">194</span>        }<a name="line.194"></a>
+<span class="sourceLineNo">195</span>        this.nrows = nrows;<a name="line.195"></a>
+<span class="sourceLineNo">196</span>        this.ncols = ncols;<a name="line.196"></a>
+<span class="sourceLineNo">197</span>        this.holes = ImmutableSet.copyOf(holes);<a name="line.197"></a>
+<span class="sourceLineNo">198</span>        this.pegs = ImmutableSet.copyOf(pegs);<a name="line.198"></a>
+<span class="sourceLineNo">199</span>        this.solutionCount = solutionCount;<a name="line.199"></a>
+<span class="sourceLineNo">200</span>        this.solutionRequires = ImmutableSet.copyOf(solutionRequires);<a name="line.200"></a>
+<span class="sourceLineNo">201</span>        this.encoding = new PegEncoding(nrows, ncols);<a name="line.201"></a>
+<span class="sourceLineNo">202</span>        this.rowMajorHoles = encoding.toRowMajor(holes);<a name="line.202"></a>
+<span class="sourceLineNo">203</span>    }<a name="line.203"></a>
 <span class="sourceLineNo">204</span><a name="line.204"></a>
-<span class="sourceLineNo">205</span><a name="line.205"></a>
-<span class="sourceLineNo">206</span>    public Optional&lt;List&lt;State&gt;&gt; solve(PuzzleSolver&lt;State&gt; solver) {<a name="line.206"></a>
-<span class="sourceLineNo">207</span>        return solver.solution(new State(pegs));<a name="line.207"></a>
-<span class="sourceLineNo">208</span>    }<a name="line.208"></a>
-<span class="sourceLineNo">209</span><a name="line.209"></a>
-<span class="sourceLineNo">210</span>    /**<a name="line.210"></a>
-<span class="sourceLineNo">211</span>     * Creates the initial state of a cross-shaped peg puzzle with the<a name="line.211"></a>
-<span class="sourceLineNo">212</span>     * initial empty hole in the center. The containing square must have<a name="line.212"></a>
-<span class="sourceLineNo">213</span>     * odd dimension, and the size of each arm must be odd and no greater<a name="line.213"></a>
-<span class="sourceLineNo">214</span>     * than the side of the containing square.<a name="line.214"></a>
-<span class="sourceLineNo">215</span>     * @param size number of holes in the center column (or center row)<a name="line.215"></a>
-<span class="sourceLineNo">216</span>     * @param armSize number of columns or rows in each arm of the cross<a name="line.216"></a>
-<span class="sourceLineNo">217</span>     * @throws IllegalArgumentException if {@code armSize &gt; size}, if<a name="line.217"></a>
-<span class="sourceLineNo">218</span>     * either is not odd and positive<a name="line.218"></a>
-<span class="sourceLineNo">219</span>     */<a name="line.219"></a>
-<span class="sourceLineNo">220</span>    public static PegsPuzzle makeCross(int size, int armSize, int solutionCount) {<a name="line.220"></a>
-<span class="sourceLineNo">221</span>        int cornerSize = (size - armSize) / 2;<a name="line.221"></a>
-<span class="sourceLineNo">222</span>        int nPegs = (size * size) - (cornerSize * cornerSize * 4) - 1;<a name="line.222"></a>
-<span class="sourceLineNo">223</span><a name="line.223"></a>
-<span class="sourceLineNo">224</span>        //System.out.printf(<a name="line.224"></a>
-<span class="sourceLineNo">225</span>        //    "Making cross puzzle of size %d, arm size %d, corner size %d, and #pegs %d%n",<a name="line.225"></a>
-<span class="sourceLineNo">226</span>        //    size, armSize, cornerSize, nPegs);<a name="line.226"></a>
-<span class="sourceLineNo">227</span><a name="line.227"></a>
-<span class="sourceLineNo">228</span>        Position center = new Position(size/2, size/2);<a name="line.228"></a>
-<span class="sourceLineNo">229</span>        return new PegsPuzzle(size, size,<a name="line.229"></a>
-<span class="sourceLineNo">230</span>            crossHoles(size, armSize).toSet(),<a name="line.230"></a>
-<span class="sourceLineNo">231</span>            crossHoles(size, armSize).removeBy(c -&gt; c, center).toSet(),<a name="line.231"></a>
-<span class="sourceLineNo">232</span>            solutionCount<a name="line.232"></a>
-<span class="sourceLineNo">233</span>        );<a name="line.233"></a>
-<span class="sourceLineNo">234</span>    }<a name="line.234"></a>
-<span class="sourceLineNo">235</span><a name="line.235"></a>
-<span class="sourceLineNo">236</span>    public static Funnel&lt;State&gt; stateFunnel() {<a name="line.236"></a>
-<span class="sourceLineNo">237</span>        return (from, into) -&gt; into.putBytes(from.pegs.toByteArray());<a name="line.237"></a>
-<span class="sourceLineNo">238</span>    }<a name="line.238"></a>
-<span class="sourceLineNo">239</span><a name="line.239"></a>
-<span class="sourceLineNo">240</span>    static StreamEx&lt;Position&gt; crossHoles(int size, int armSize) {<a name="line.240"></a>
-<span class="sourceLineNo">241</span>        if (armSize &gt; size || armSize &lt; 1 || size &lt; 1 || (armSize % 2) != 1 || (size % 2) != 1) {<a name="line.241"></a>
-<span class="sourceLineNo">242</span>            throw new IllegalArgumentException(<a name="line.242"></a>
-<span class="sourceLineNo">243</span>                "size arguments must be odd positive, arm size must be &lt;= size");<a name="line.243"></a>
-<span class="sourceLineNo">244</span>        }<a name="line.244"></a>
-<span class="sourceLineNo">245</span>        int cornerSize = (size - armSize) / 2;<a name="line.245"></a>
-<span class="sourceLineNo">246</span>        int minArm = cornerSize;<a name="line.246"></a>
-<span class="sourceLineNo">247</span>        int maxArm = size - cornerSize - 1;<a name="line.247"></a>
-<span class="sourceLineNo">248</span>        return rowMajorPositions(size, size)<a name="line.248"></a>
-<span class="sourceLineNo">249</span>            .remove(c -&gt;<a name="line.249"></a>
-<span class="sourceLineNo">250</span>                (c.row() &lt; minArm || c.row() &gt; maxArm) &amp;&amp;<a name="line.250"></a>
-<span class="sourceLineNo">251</span>                (c.col() &lt; minArm || c.col() &gt; maxArm)<a name="line.251"></a>
-<span class="sourceLineNo">252</span>            );<a name="line.252"></a>
-<span class="sourceLineNo">253</span>    }<a name="line.253"></a>
-<span class="sourceLineNo">254</span><a name="line.254"></a>
-<span class="sourceLineNo">255</span>    static StreamEx&lt;Position&gt; rowMajorPositions(int nrows, int ncols) {<a name="line.255"></a>
-<span class="sourceLineNo">256</span>        return IntStreamEx.range(0, nrows * ncols)<a name="line.256"></a>
-<span class="sourceLineNo">257</span>            .mapToEntry(i -&gt; i / ncols, i -&gt; i % ncols)<a name="line.257"></a>
-<span class="sourceLineNo">258</span>            .mapKeyValue((r, c) -&gt; new Position(r, c));<a name="line.258"></a>
-<span class="sourceLineNo">259</span>    }<a name="line.259"></a>
-<span class="sourceLineNo">260</span><a name="line.260"></a>
-<span class="sourceLineNo">261</span>    public static void main(String[] args) {<a name="line.261"></a>
-<span class="sourceLineNo">262</span>        int size = Integer.parseInt(args[0]);<a name="line.262"></a>
-<span class="sourceLineNo">263</span>        int armSize = Integer.parseInt(args[1]);<a name="line.263"></a>
-<span class="sourceLineNo">264</span>        int remainder = size - armSize;<a name="line.264"></a>
-<span class="sourceLineNo">265</span>        int pegCount = size * size - remainder * remainder - 1;<a name="line.265"></a>
-<span class="sourceLineNo">266</span>        int solutionCount = 1;<a name="line.266"></a>
-<span class="sourceLineNo">267</span>        PegsPuzzle puzzle = makeCross(size, armSize, solutionCount);<a name="line.267"></a>
-<span class="sourceLineNo">268</span>        PuzzleSolver&lt;State&gt; solver = new DfsPuzzleSolver&lt;&gt;(<a name="line.268"></a>
-<span class="sourceLineNo">269</span>            //() -&gt; new BloomPuzzleStateFilter&lt;&gt;(stateFunnel(), 100_000_000L, 0.0001)<a name="line.269"></a>
-<span class="sourceLineNo">270</span>        );<a name="line.270"></a>
-<span class="sourceLineNo">271</span>        System.out.printf("Solving %d x %d cross puzzle with arm %d, #pegs = %d, solution at %d%n",<a name="line.271"></a>
-<span class="sourceLineNo">272</span>            size, size, armSize, pegCount, solutionCount);<a name="line.272"></a>
-<span class="sourceLineNo">273</span>        Optional&lt;List&lt;State&gt;&gt; solution = puzzle.solve(solver);<a name="line.273"></a>
-<span class="sourceLineNo">274</span>        String result = solution.map(s -&gt; StreamEx.of(s).joining("\n")).orElse("no solution");<a name="line.274"></a>
-<span class="sourceLineNo">275</span>        System.out.println(result);<a name="line.275"></a>
-<span class="sourceLineNo">276</span>    }<a name="line.276"></a>
-<span class="sourceLineNo">277</span>}<a name="line.277"></a>
+<span class="sourceLineNo">205</span>    public int nrows() { return nrows; }<a name="line.205"></a>
+<span class="sourceLineNo">206</span>    public int ncols() { return ncols; }<a name="line.206"></a>
+<span class="sourceLineNo">207</span>    public Set&lt;Position&gt; holes() { return holes; }<a name="line.207"></a>
+<span class="sourceLineNo">208</span>    public Set&lt;Position&gt; pegs() { return pegs; }<a name="line.208"></a>
+<span class="sourceLineNo">209</span>    public int solutionCount() { return solutionCount; }<a name="line.209"></a>
+<span class="sourceLineNo">210</span>    public Set&lt;Position&gt; solutionRequires() { return solutionRequires; }<a name="line.210"></a>
+<span class="sourceLineNo">211</span><a name="line.211"></a>
+<span class="sourceLineNo">212</span><a name="line.212"></a>
+<span class="sourceLineNo">213</span>    public Optional&lt;List&lt;State&gt;&gt; solve(PuzzleSolver&lt;State&gt; solver) {<a name="line.213"></a>
+<span class="sourceLineNo">214</span>        return solver.solution(new State(pegs));<a name="line.214"></a>
+<span class="sourceLineNo">215</span>    }<a name="line.215"></a>
+<span class="sourceLineNo">216</span><a name="line.216"></a>
+<span class="sourceLineNo">217</span>    /**<a name="line.217"></a>
+<span class="sourceLineNo">218</span>     * Creates the initial state of a cross-shaped peg puzzle with the<a name="line.218"></a>
+<span class="sourceLineNo">219</span>     * initial empty hole in the center. The containing square must have<a name="line.219"></a>
+<span class="sourceLineNo">220</span>     * odd dimension, and the size of each arm must be odd and no greater<a name="line.220"></a>
+<span class="sourceLineNo">221</span>     * than the side of the containing square.<a name="line.221"></a>
+<span class="sourceLineNo">222</span>     * @param size number of holes in the center column (or center row)<a name="line.222"></a>
+<span class="sourceLineNo">223</span>     * @param armSize number of columns or rows in each arm of the cross<a name="line.223"></a>
+<span class="sourceLineNo">224</span>     * @throws IllegalArgumentException if {@code armSize &gt; size}, if<a name="line.224"></a>
+<span class="sourceLineNo">225</span>     * either is not odd and positive<a name="line.225"></a>
+<span class="sourceLineNo">226</span>     */<a name="line.226"></a>
+<span class="sourceLineNo">227</span>    public static PegsPuzzle makeCross(int size, int armSize, int solutionCount) {<a name="line.227"></a>
+<span class="sourceLineNo">228</span>        int cornerSize = (size - armSize) / 2;<a name="line.228"></a>
+<span class="sourceLineNo">229</span>        int nPegs = (size * size) - (cornerSize * cornerSize * 4) - 1;<a name="line.229"></a>
+<span class="sourceLineNo">230</span><a name="line.230"></a>
+<span class="sourceLineNo">231</span>        //System.out.printf(<a name="line.231"></a>
+<span class="sourceLineNo">232</span>        //    "Making cross puzzle of size %d, arm size %d, corner size %d, and #pegs %d%n",<a name="line.232"></a>
+<span class="sourceLineNo">233</span>        //    size, armSize, cornerSize, nPegs);<a name="line.233"></a>
+<span class="sourceLineNo">234</span><a name="line.234"></a>
+<span class="sourceLineNo">235</span>        Position center = new Position(size/2, size/2);<a name="line.235"></a>
+<span class="sourceLineNo">236</span>        return new PegsPuzzle(size, size,<a name="line.236"></a>
+<span class="sourceLineNo">237</span>            crossHoles(size, armSize).toSet(),<a name="line.237"></a>
+<span class="sourceLineNo">238</span>            crossHoles(size, armSize).removeBy(c -&gt; c, center).toSet(),<a name="line.238"></a>
+<span class="sourceLineNo">239</span>            solutionCount,<a name="line.239"></a>
+<span class="sourceLineNo">240</span>            ImmutableSet.of(new Position(size/2, size/2))<a name="line.240"></a>
+<span class="sourceLineNo">241</span>        );<a name="line.241"></a>
+<span class="sourceLineNo">242</span>    }<a name="line.242"></a>
+<span class="sourceLineNo">243</span><a name="line.243"></a>
+<span class="sourceLineNo">244</span>    public static Funnel&lt;State&gt; stateFunnel() {<a name="line.244"></a>
+<span class="sourceLineNo">245</span>        return (from, into) -&gt; into.putBytes(from.pegs.toByteArray());<a name="line.245"></a>
+<span class="sourceLineNo">246</span>    }<a name="line.246"></a>
+<span class="sourceLineNo">247</span><a name="line.247"></a>
+<span class="sourceLineNo">248</span>    static StreamEx&lt;Position&gt; crossHoles(int size, int armSize) {<a name="line.248"></a>
+<span class="sourceLineNo">249</span>        if (armSize &gt; size || armSize &lt; 1 || size &lt; 1 || (armSize % 2) != 1 || (size % 2) != 1) {<a name="line.249"></a>
+<span class="sourceLineNo">250</span>            throw new IllegalArgumentException(<a name="line.250"></a>
+<span class="sourceLineNo">251</span>                "size arguments must be odd positive, arm size must be &lt;= size");<a name="line.251"></a>
+<span class="sourceLineNo">252</span>        }<a name="line.252"></a>
+<span class="sourceLineNo">253</span>        int cornerSize = (size - armSize) / 2;<a name="line.253"></a>
+<span class="sourceLineNo">254</span>        int minArm = cornerSize;<a name="line.254"></a>
+<span class="sourceLineNo">255</span>        int maxArm = size - cornerSize - 1;<a name="line.255"></a>
+<span class="sourceLineNo">256</span>        return rowMajorPositions(size, size)<a name="line.256"></a>
+<span class="sourceLineNo">257</span>            .remove(c -&gt;<a name="line.257"></a>
+<span class="sourceLineNo">258</span>                (c.row() &lt; minArm || c.row() &gt; maxArm) &amp;&amp;<a name="line.258"></a>
+<span class="sourceLineNo">259</span>                (c.col() &lt; minArm || c.col() &gt; maxArm)<a name="line.259"></a>
+<span class="sourceLineNo">260</span>            );<a name="line.260"></a>
+<span class="sourceLineNo">261</span>    }<a name="line.261"></a>
+<span class="sourceLineNo">262</span><a name="line.262"></a>
+<span class="sourceLineNo">263</span>    static StreamEx&lt;Position&gt; rowMajorPositions(int nrows, int ncols) {<a name="line.263"></a>
+<span class="sourceLineNo">264</span>        return IntStreamEx.range(0, nrows * ncols)<a name="line.264"></a>
+<span class="sourceLineNo">265</span>            .mapToEntry(i -&gt; i / ncols, i -&gt; i % ncols)<a name="line.265"></a>
+<span class="sourceLineNo">266</span>            .mapKeyValue((r, c) -&gt; new Position(r, c));<a name="line.266"></a>
+<span class="sourceLineNo">267</span>    }<a name="line.267"></a>
+<span class="sourceLineNo">268</span><a name="line.268"></a>
+<span class="sourceLineNo">269</span>    public static void main(String[] args) {<a name="line.269"></a>
+<span class="sourceLineNo">270</span>        int size = Integer.parseInt(args[0]);<a name="line.270"></a>
+<span class="sourceLineNo">271</span>        int armSize = Integer.parseInt(args[1]);<a name="line.271"></a>
+<span class="sourceLineNo">272</span>        int remainder = size - armSize;<a name="line.272"></a>
+<span class="sourceLineNo">273</span>        int pegCount = size * size - remainder * remainder - 1;<a name="line.273"></a>
+<span class="sourceLineNo">274</span>        int solutionCount = 1;<a name="line.274"></a>
+<span class="sourceLineNo">275</span>        PegsPuzzle puzzle = makeCross(size, armSize, solutionCount);<a name="line.275"></a>
+<span class="sourceLineNo">276</span>        PuzzleSolver&lt;State&gt; solver = new DfsPuzzleSolver&lt;&gt;(<a name="line.276"></a>
+<span class="sourceLineNo">277</span>            //() -&gt; new BloomPuzzleStateFilter&lt;&gt;(stateFunnel(), 100_000_000L, 0.0001)<a name="line.277"></a>
+<span class="sourceLineNo">278</span>        );<a name="line.278"></a>
+<span class="sourceLineNo">279</span>        System.out.printf("Solving %d x %d cross puzzle with arm %d, #pegs = %d, solution at %d%n",<a name="line.279"></a>
+<span class="sourceLineNo">280</span>            size, size, armSize, pegCount, solutionCount);<a name="line.280"></a>
+<span class="sourceLineNo">281</span>        Optional&lt;List&lt;State&gt;&gt; solution = puzzle.solve(solver);<a name="line.281"></a>
+<span class="sourceLineNo">282</span>        String result = solution.map(s -&gt; StreamEx.of(s).joining("\n")).orElse("no solution");<a name="line.282"></a>
+<span class="sourceLineNo">283</span>        System.out.println(result);<a name="line.283"></a>
+<span class="sourceLineNo">284</span>    }<a name="line.284"></a>
+<span class="sourceLineNo">285</span>}<a name="line.285"></a>
 
 
 
