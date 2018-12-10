@@ -13,27 +13,32 @@ import one.util.streamex.IntStreamEx;
  * Down and up jumps are computed in a column major context.
  */
 enum JumpType {
-    RIGHT(Major.ROW, 0, 2, 0, 1),
-    LEFT(Major.ROW, 0, -2, 0, -1),
-    DOWN(Major.COL, 2, 0, 1, 0),
-    UP(Major.COL, -2, 0, -1, 0),
+    RIGHT(Major.ROW, 0, 2, 0, 1, "-", ">"),
+    LEFT(Major.ROW, 0, -2, 0, -1, "-", "<"),
+    DOWN(Major.COL, 2, 0, 1, 0, "|", "v"),
+    UP(Major.COL, -2, 0, -1, 0, "|", "^"),
     ;
 
     private final Major major;
     private final Position targetDelta;
     private final Position jumpedDelta;
+    private final String sourceSymbol;
+    private final String jumpedSymbol;
 
     JumpType(Major major,
             int targetDeltaRow, int targetDeltaCol,
-            int jumpedDeltaRow, int jumpedDeltaCol) {
+            int jumpedDeltaRow, int jumpedDeltaCol,
+            String sourceSymbol, String jumpedSymbol) {
         this.major = major;
         this.targetDelta = new Position(targetDeltaRow, targetDeltaCol);
         this.jumpedDelta = new Position(jumpedDeltaRow, jumpedDeltaCol);
+        this.sourceSymbol = sourceSymbol;
+        this.jumpedSymbol = jumpedSymbol;
     }
 
-    Major major() {
-        return major;
-    }
+    Major major() { return major; }
+    String sourceSymbol() { return sourceSymbol; }
+    String jumpedSymbol() { return jumpedSymbol; }
 
     /**
      * Position of the target jumped to from source.

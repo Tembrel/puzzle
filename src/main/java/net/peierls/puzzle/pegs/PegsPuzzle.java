@@ -44,6 +44,9 @@ public final class PegsPuzzle {
         Position from() { return from; }
         Position to() { return jump.target(from); }
         Position mid() { return jump.jumped(from); }
+        String sourceSymbol() { return jump.sourceSymbol(); }
+        String jumpedSymbol() { return jump.jumpedSymbol(); }
+        String targetSymbol() { return "X"; }
         @Override public String toString() {
             return String.format(
                 "Move peg at %s %s to %s, removing peg at %s",
@@ -71,7 +74,8 @@ public final class PegsPuzzle {
         }
 
         @Override public boolean isSolution() {
-            return pegs.cardinality() == solutionCount;
+            return pegs.cardinality() == solutionCount
+                && encoding.fromRowMajor(pegs).containsAll(solutionRequires);
         }
 
         @Override public Stream<State> successors() {
@@ -113,11 +117,11 @@ public final class PegsPuzzle {
                 String symbol = null;
                 if (move != null) {
                     if (cur.equals(move.from())) {
-                        symbol = "-";
+                        symbol = move.sourceSymbol();
                     } else if (cur.equals(move.to())) {
-                        symbol = "+";
+                        symbol = move.targetSymbol();
                     } else if (cur.equals(move.mid())) {
-                        symbol = "0";
+                        symbol = move.jumpedSymbol();
                     }
                 }
                 if (symbol == null) {
@@ -169,15 +173,16 @@ public final class PegsPuzzle {
     private final ImmutableSet<Position> holes;
     private final ImmutableSet<Position> pegs;
     private final int solutionCount;
+    private final ImmutableSet<Position> solutionRequires;
     private final PegEncoding encoding;
     private final BitSet rowMajorHoles;
 
 
     public PegsPuzzle(int nrows, int ncols, Set<Position> holes, Set<Position> pegs) {
-        this(nrows, ncols, holes, pegs, 1); // default solution is to get to 1 peg
+        this(nrows, ncols, holes, pegs, 1, ImmutableSet.of()); // default solution is to get to 1 peg
     }
 
-    public PegsPuzzle(int nrows, int ncols, Set<Position> holes, Set<Position> pegs, int solutionCount) {
+    public PegsPuzzle(int nrows, int ncols, Set<Position> holes, Set<Position> pegs, int solutionCount, Set<Position> solutionRequires) {
         if (!holes.stream().allMatch(hole -> hole.row() >= 0
                                           && hole.row() < nrows
                                           && hole.col() >= 0
@@ -192,15 +197,17 @@ public final class PegsPuzzle {
         this.holes = ImmutableSet.copyOf(holes);
         this.pegs = ImmutableSet.copyOf(pegs);
         this.solutionCount = solutionCount;
+        this.solutionRequires = ImmutableSet.copyOf(solutionRequires);
         this.encoding = new PegEncoding(nrows, ncols);
         this.rowMajorHoles = encoding.toRowMajor(holes);
     }
 
     public int nrows() { return nrows; }
     public int ncols() { return ncols; }
-    public ImmutableSet<Position> holes() { return holes; }
-    public ImmutableSet<Position> pegs() { return pegs; }
+    public Set<Position> holes() { return holes; }
+    public Set<Position> pegs() { return pegs; }
     public int solutionCount() { return solutionCount; }
+    public Set<Position> solutionRequires() { return solutionRequires; }
 
 
     public Optional<List<State>> solve(PuzzleSolver<State> solver) {
@@ -229,7 +236,8 @@ public final class PegsPuzzle {
         return new PegsPuzzle(size, size,
             crossHoles(size, armSize).toSet(),
             crossHoles(size, armSize).removeBy(c -> c, center).toSet(),
-            solutionCount
+            solutionCount,
+            ImmutableSet.of(new Position(size/2, size/2))
         );
     }
 
