@@ -2,10 +2,11 @@ package net.peierls.puzzle.pegs;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import static com.google.common.collect.ImmutableSet.toImmutableSet;
+//import static com.google.common.collect.ImmutableSet.toImmutableSet;
 
 import com.google.common.hash.Funnel;
 
+import java.util.BitSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -17,7 +18,7 @@ import net.peierls.puzzle.BloomPuzzleStateFilter;
 import net.peierls.puzzle.PuzzleSolver;
 import net.peierls.puzzle.PuzzleState;
 
-import one.util.streamex.EntryStream;
+//import one.util.streamex.EntryStream;
 import one.util.streamex.StreamEx;
 
 
@@ -27,46 +28,20 @@ import one.util.streamex.StreamEx;
  */
 public final class PegsPuzzle {
 
-    public static class Coord {
-        private final int row;
-        private final int col;
-
-        Coord(int row, int col) { this.row = row; this.col = col; }
-
-        public int row() { return row; }
-        public int col() { return col; }
-
-        @Override public boolean equals(Object obj) {
-            if (this == obj) return true;
-            if (!(obj instanceof Coord)) return false;
-            Coord that = (Coord) obj;
-            return this.row == that.row && this.col == that.col;
-        }
-        @Override public int hashCode() {
-            return Objects.hash(row, col);
-        }
-        @Override public String toString() {
-            return String.format("(%d, %d)", row, col);
-        }
-
-        public Coord move(Coord amount) {
-            return new Coord(row + amount.row, col + amount.col);
-        }
-    }
-
     static class Move {
-        final Coord from;
-        final Coord to;
-        final Coord mid;
-        Move(Coord from, Coord to, Coord mid) {
+        final PegEncoding.JumpType jump;
+        final Position from;
+        Move(PegEncoding.JumpType jump, Position from) {
+            this.jump = jump;
             this.from = from;
-            this.to = to;
-            this.mid = mid;
         }
+        Position from() { return from; }
+        Position to() { return jump.target(from); }
+        Position mid() { return jump.jumped(from); }
         @Override public String toString() {
             return String.format(
-                "Move peg at %s to %s, removing peg at %s",
-                from, to, mid
+                "Move peg at %s %s to %s, removing peg at %s",
+                from(), jump, to(), mid()
             );
         }
     }
@@ -74,13 +49,13 @@ public final class PegsPuzzle {
     public final class State implements PuzzleState<State> {
         private final State pred;
         private final Move move;
-        private final ImmutableSet<Coord> pegs;
+        private final BitSet pegs; // row major
 
 
-        State(Set<Coord> pegs) {
+        State(Set<Position> pegs) {
             this.pred = null;
             this.move = null;
-            this.pegs = ImmutableSet.copyOf(pegs);
+            this.pegs = encoding.toRowMajor(pegs);
         }
 
         State(State pred, Move move) {
@@ -90,13 +65,13 @@ public final class PegsPuzzle {
         }
 
         @Override public boolean isSolution() {
-            return pegs.size() == 1;
+            return pegs.cardinality() == 1;
         }
 
         @Override public Stream<State> successors() {
             //System.out.println("Searching from " + this);
-            return StreamEx.of(pegs)
-                .flatMap(this::moves)
+            return encoding.legalJumps(rowMajorHoles, pegs)
+                .mapKeyValue(Move::new)
                 .map(move -> new State(this, move));
         }
 
@@ -117,81 +92,80 @@ public final class PegsPuzzle {
 
         @Override
         public String toString() {
+            Set<Position> pegs = encoding.fromRowMajor(this.pegs);
             StringBuilder buf = new StringBuilder();
             if (move == null) {
                 buf.append("\nInitial position:\n");
             } else {
                 buf.append("\n").append(move).append("\n");
             }
-            for (int row = 0; row < nrows; ++row) {
-                for (int col = 0; col < ncols; ++col) {
-                    Coord cur = new Coord(row, col);
-                    if (pegs.contains(cur)) {
-                        buf.append("X");
-                    } else if (holes.contains(cur)) {
-                        buf.append(".");
-                    } else {
-                        buf.append(" ");
-                    }
+            rowMajorPositions(nrows, ncols).forEach(cur -> {
+                if (cur.col() == 0) {
+                    buf.append("\n");
                 }
-                buf.append("\n");
-            }
-            return buf.toString();
+                if (pegs.contains(cur)) {
+                    buf.append("X");
+                } else if (holes.contains(cur)) {
+                    buf.append(".");
+                } else {
+                    buf.append(" ");
+                }
+            });
+            return buf.append("\n").toString();
         }
 
-        public Coord dimensions() {
-            return new Coord(nrows, ncols);
+        public Position dimensions() {
+            return new Position(nrows, ncols);
         }
 
-        public Set<Coord> holes() {
+        public Set<Position> holes() {
             return holes;
         }
 
-        private StreamEx<Move> moves(Coord from) {
-            return EntryStream.of(JUMPS)
-                .mapKeys(from::move)            // keys are jump targets
-                .filterKeys(holes::contains)    // jumps must be to holes
-                .removeKeys(pegs::contains)     // jumps must be to empty holes
-                .mapValues(from::move)          // values are intervening holes
-                .filterValues(pegs::contains)   // can only jump if peg intervening
-                .mapKeyValue((to, mid) -> new Move(from, to, mid));
-        }
-
-        private ImmutableSet<Coord> applyJump(Move move) {
-            return StreamEx.of(pegs)
-                .remove(peg -> peg.equals(move.from))
-                .remove(peg -> peg.equals(move.mid))
-                .append(move.to)
-                .collect(toImmutableSet());
+        private BitSet applyJump(Move move) {
+            BitSet newPegs = (BitSet) pegs.clone();
+            System.out.printf("applying %s to %s:%n", move, pegs);
+            StreamEx.of(move.from(), move.to(), move.mid())
+                .mapToInt(encoding::toRowMajor)
+                .peek(b -> System.out.printf("\t%d%n", b))
+                .forEach(newPegs::flip);
+            return newPegs;
         }
     }
 
     /**
      * Pairs of jump offsets and corresponding common neighbors offsets.
      */
-    private static ImmutableMap<Coord, Coord> JUMPS = ImmutableMap.of(
-        new Coord(0, 2),    new Coord(0, 1),
-        new Coord(2, 0),    new Coord(1, 0),
-        new Coord(0, -2),   new Coord(0, -1),
-        new Coord(-2, 0),   new Coord(-1, 0)
+    private static ImmutableMap<Position, Position> JUMPS = ImmutableMap.of(
+        new Position(0, 2),    new Position(0, 1),
+        new Position(2, 0),    new Position(1, 0),
+        new Position(0, -2),   new Position(0, -1),
+        new Position(-2, 0),   new Position(-1, 0)
     );
 
 
     private final int nrows;
     private final int ncols;
-    private final ImmutableSet<Coord> holes;
-    private final ImmutableSet<Coord> pegs;
+    private final PegEncoding encoding;
+    private final ImmutableSet<Position> holes;
+    private final ImmutableSet<Position> pegs;
+    private final BitSet rowMajorHoles;
 
 
-    public PegsPuzzle(int nrows, int ncols, Set<Coord> holes, Set<Coord> pegs) {
+    public PegsPuzzle(int nrows, int ncols, Set<Position> holes, Set<Position> pegs) {
         if (!pegs.stream().allMatch(holes::contains)) {
             throw new IllegalArgumentException("all pegs must be in holes");
         }
         this.nrows = nrows;
         this.ncols = ncols;
+        this.encoding = new PegEncoding(nrows, ncols);
         this.holes = ImmutableSet.copyOf(holes);
         this.pegs = ImmutableSet.copyOf(pegs);
+        this.rowMajorHoles = encoding.toRowMajor(holes);
     }
+
+    public ImmutableSet<Position> holes() { return holes; }
+    public ImmutableSet<Position> pegs() { return pegs; }
 
 
     public Optional<List<State>> solve(PuzzleSolver<State> solver) {
@@ -209,54 +183,65 @@ public final class PegsPuzzle {
      * either is not odd and positive
      */
     public static PegsPuzzle makeCross(int size, int armSize) {
+        int cornerSize = (size - armSize) / 2;
+        int nPegs = (size * size) - (cornerSize * cornerSize * 4) - 1;
+
+        System.out.printf("Making cross puzzle of size %d, arm size %d, corner size %d, and #pegs %d%n", size, armSize, cornerSize, nPegs);
+
+        Position center = new Position(size/2, size/2);
+        return new PegsPuzzle(size, size,
+            crossHoles(size, armSize).toSet(),
+            crossHoles(size, armSize).removeBy(c -> c, center).toSet()
+        );
+    }
+
+    public static Funnel<State> stateFunnel() {
+        return (from, into) -> into.putBytes(from.pegs.toByteArray());
+    }
+
+    static StreamEx<Position> crossHoles(int size, int armSize) {
         if (armSize > size || armSize < 1 || size < 1 || (armSize % 2) != 1 || (size % 2) != 1) {
             throw new IllegalArgumentException(
                 "size arguments must be odd positive, arm size must be <= size");
         }
-        int mid = size / 2; // integer divide truncates
         int cornerSize = (size - armSize) / 2;
         int minArm = cornerSize;
         int maxArm = size - cornerSize - 1;
-        ImmutableSet.Builder<Coord> holes = ImmutableSet.builder();
-        ImmutableSet.Builder<Coord> pegs = ImmutableSet.builder();
-        for (int row = 0; row < size; ++row) {
-            for (int col = 0; col < size; ++col) {
-                if (row < minArm && (col < minArm || col > maxArm)) {
-                    continue;
-                }
-                if (row > maxArm && (col < minArm || col > maxArm)) {
-                    continue;
-                }
-                Coord cur = new Coord(row, col);
-                holes.add(cur);
-                if (row == mid && col == mid) {
-                    continue;
-                }
-                pegs.add(cur);
-            }
-        }
-        return new PegsPuzzle(size, size, holes.build(), pegs.build());
+        return rowMajorPositions(size, size)
+            .remove(c ->
+                (c.row() < minArm || c.row() > maxArm) &&
+                (c.col() < minArm || c.col() > maxArm)
+            );
     }
 
-    public static Funnel<State> stateFunnel() {
-        return (from, into) -> {
-            into.putInt(from.pegs.size());
-            from.pegs.stream().forEach(peg -> {
-                into.putInt(peg.row);
-                into.putInt(peg.col);
-            });
-        };
+    static StreamEx<Position> rowMajorPositions(int nrows, int ncols) {
+        int[] coord = new int[2];
+        coord[0] = coord[1] = 0;
+        return StreamEx.produce(action -> {
+            int row = coord[0], col = coord[1];
+            //System.out.printf("row=%d, col=%d%n", row, col);
+            if (row >= nrows) return false;
+            action.accept(new Position(row, col));
+            if (++col >= ncols) {
+                ++row;
+                col = 0;
+            }
+            coord[0] = row;
+            coord[1] = col;
+            //System.out.printf("new row=%d, new col=%d%n", row, col);
+            return true;
+        });
     }
 
     public static void main(String[] args) {
         int size = Integer.parseInt(args[0]);
         int armSize = Integer.parseInt(args[1]);
-        int cornerSize = (size - armSize) / 2;
-        int nPegs = (size * size) - (cornerSize * cornerSize * 4) - 1;
-        System.out.printf("Solving cross puzzle of size %d, arm size %d, corner size %d, and #pegs %d%n", size, armSize, cornerSize, nPegs);
         PegsPuzzle puzzle = makeCross(size, armSize);
-        PuzzleSolver<State> solver = new BfsPuzzleSolver<>(() ->
-            new BloomPuzzleStateFilter<>(stateFunnel(), 8_000_000L, 0.0001));
+        PuzzleSolver<State> solver = new BfsPuzzleSolver<>(
+            () -> new BloomPuzzleStateFilter<>(stateFunnel(), 100_000_000L, 0.0001)
+        );
+        System.out.printf("Solving %d x %d puzzle, holes = %s, pegs = %s%n",
+            size, size, puzzle.holes(), puzzle.pegs());
         Optional<List<State>> solution = puzzle.solve(solver);
         String result = solution.map(s -> StreamEx.of(s).joining("\n")).orElse("no solution");
         System.out.println(result);
