@@ -8,7 +8,7 @@ import java.util.Objects;
  * Represents a grid position in a peg puzzle.
  */
 @Immutable
-class Position {
+public class Position {
     private final int row;
     private final int col;
 
