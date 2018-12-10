@@ -34,9 +34,6 @@ public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements 
 
     private final Supplier<PuzzleStateFilter<T>> filterSupplier;
 
-    private volatile long lastApproximateElementCount = 0L;
-    private volatile double lastExpectedFpp = 0f;
-
 
     /**
      * Constructs a solver that will always use an exact filter, which
@@ -60,13 +57,12 @@ public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements 
         if (initialState == null) {
             throw new NullPointerException("initial state must not be null");
         }
-        PuzzleStateFilter<T> filter = filterSupplier.get();
-        try {
-            Optional<T> finalState = solutionState(initialState, filter);
-            return finalState.map(this::toSolution);
-        } finally {
-            lastApproximateElementCount = filter.approximateElementCount();
-            lastExpectedFpp = filter.expectedFalsePositiveProbability();
+        try (PuzzleStateFilter<T> filter = filterSupplier.get()) {
+            if (filter == null) {
+                throw new IllegalStateException("filter supplier must not return null");
+            }
+            return solutionState(initialState, filter)
+                .map(this::toSolution);
         }
     }
 
@@ -110,16 +106,9 @@ public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements 
      * and {@link #filterState filterState}.
      */
     protected Stream<T> successors(T state, PuzzleStateFilter<T> filter) {
-        return state.successors()
-            .filter(s -> filter.put(s));
-    }
-
-    long lastApproximateElementCount() {
-        return lastApproximateElementCount;
-    }
-
-    double lastExpectedFpp() {
-        return lastExpectedFpp;
+        return StreamEx.of(state.successors())
+            .map(s -> filterState(s, filter))
+            .nonNull();
     }
 
 
@@ -134,5 +123,15 @@ public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements 
             s -> s != null,
             s -> s.predecessor().orElse(null)
         ).collect(toImmutableList()).reverse() : ImmutableList.of();
+    }
+
+
+    /**
+     * For debugging.
+     */
+    protected void trace(T state) {
+        System.out.printf("searching %s, pred %s%n",
+            state,
+            state.predecessor().map(Object::toString).orElse("-"));
     }
 }

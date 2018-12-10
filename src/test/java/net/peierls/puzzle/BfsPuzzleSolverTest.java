@@ -68,18 +68,14 @@ public class BfsPuzzleSolverTest {
                 .boxed()
                 .toList();
             System.out.printf(
-                "solved in %s with %d moves, approx count %d, expected fpp %f%n",
+                "solved in %s with %d moves%n",
                 stopwatch,
-                moves.size(),
-                solver.lastApproximateElementCount(),
-                solver.lastExpectedFpp()
+                moves.size()
             );
         } else {
             System.out.printf(
-                "no solution found in %s, approx count %d, expected fpp %f%n",
-                stopwatch,
-                solver.lastApproximateElementCount(),
-                solver.lastExpectedFpp()
+                "no solution found in %s%n",
+                stopwatch
             );
         }
     }

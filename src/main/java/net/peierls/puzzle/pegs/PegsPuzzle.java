@@ -13,18 +13,22 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import net.peierls.puzzle.BfsPuzzleSolver;
+import net.peierls.puzzle.DfsPuzzleSolver;
 import net.peierls.puzzle.BloomPuzzleStateFilter;
 import net.peierls.puzzle.PuzzleSolver;
 import net.peierls.puzzle.PuzzleState;
 
 //import one.util.streamex.EntryStream;
+import one.util.streamex.IntStreamEx;
 import one.util.streamex.StreamEx;
 
 
 /**
  * A peg-jumping puzzle.
  * @see https://www.chiark.greenend.org.uk/~sgtatham/puzzles/doc/pegs.html
+ * The puzzle type holds common information about the puzzle, and the
+ * {@link PuzzleState} is an inner class of the puzzle type, to allow
+ * access to common information from state method implementations.
  */
 public final class PegsPuzzle {
 
@@ -65,7 +69,7 @@ public final class PegsPuzzle {
         }
 
         @Override public boolean isSolution() {
-            return pegs.cardinality() == 1;
+            return pegs.cardinality() == solutionCount;
         }
 
         @Override public Stream<State> successors() {
@@ -95,23 +99,37 @@ public final class PegsPuzzle {
             Set<Position> pegs = encoding.fromRowMajor(this.pegs);
             StringBuilder buf = new StringBuilder();
             if (move == null) {
-                buf.append("\nInitial position:\n");
+                buf.append("\nInitial position");
             } else {
-                buf.append("\n").append(move).append("\n");
+                buf.append("\n").append(move);
             }
+            buf.append(String.format(": #pegs=%d", pegs.size()));
             rowMajorPositions(nrows, ncols).forEach(cur -> {
                 if (cur.col() == 0) {
                     buf.append("\n");
                 }
-                if (pegs.contains(cur)) {
-                    buf.append("X");
-                } else if (holes.contains(cur)) {
-                    buf.append(".");
-                } else {
-                    buf.append(" ");
+                String symbol = null;
+                if (move != null) {
+                    if (cur.equals(move.from())) {
+                        symbol = "-";
+                    } else if (cur.equals(move.to())) {
+                        symbol = "+";
+                    } else if (cur.equals(move.mid())) {
+                        symbol = "0";
+                    }
                 }
+                if (symbol == null) {
+                    if (pegs.contains(cur)) {
+                        symbol = "X";
+                    } else if (holes.contains(cur)) {
+                        symbol = ".";
+                    } else {
+                        symbol = " ";
+                    }
+                }
+                buf.append(symbol);
             });
-            return buf.append("\n").toString();
+            return buf.toString();
         }
 
         public Position dimensions() {
@@ -146,26 +164,41 @@ public final class PegsPuzzle {
 
     private final int nrows;
     private final int ncols;
-    private final PegEncoding encoding;
     private final ImmutableSet<Position> holes;
     private final ImmutableSet<Position> pegs;
+    private final int solutionCount;
+    private final PegEncoding encoding;
     private final BitSet rowMajorHoles;
 
 
     public PegsPuzzle(int nrows, int ncols, Set<Position> holes, Set<Position> pegs) {
+        this(nrows, ncols, holes, pegs, 1); // default solution is to get to 1 peg
+    }
+
+    public PegsPuzzle(int nrows, int ncols, Set<Position> holes, Set<Position> pegs, int solutionCount) {
+        if (!holes.stream().allMatch(hole -> hole.row() >= 0
+                                          && hole.row() < nrows
+                                          && hole.col() >= 0
+                                          && hole.col() < ncols)) {
+            throw new IllegalArgumentException(String.format("holes must all be in %d x %s grid", nrows, ncols));
+        }
         if (!pegs.stream().allMatch(holes::contains)) {
             throw new IllegalArgumentException("all pegs must be in holes");
         }
         this.nrows = nrows;
         this.ncols = ncols;
-        this.encoding = new PegEncoding(nrows, ncols);
         this.holes = ImmutableSet.copyOf(holes);
         this.pegs = ImmutableSet.copyOf(pegs);
+        this.solutionCount = solutionCount;
+        this.encoding = new PegEncoding(nrows, ncols);
         this.rowMajorHoles = encoding.toRowMajor(holes);
     }
 
+    public int nrows() { return nrows; }
+    public int ncols() { return ncols; }
     public ImmutableSet<Position> holes() { return holes; }
     public ImmutableSet<Position> pegs() { return pegs; }
+    public int solutionCount() { return solutionCount; }
 
 
     public Optional<List<State>> solve(PuzzleSolver<State> solver) {
@@ -182,16 +215,19 @@ public final class PegsPuzzle {
      * @throws IllegalArgumentException if {@code armSize > size}, if
      * either is not odd and positive
      */
-    public static PegsPuzzle makeCross(int size, int armSize) {
+    public static PegsPuzzle makeCross(int size, int armSize, int solutionCount) {
         int cornerSize = (size - armSize) / 2;
         int nPegs = (size * size) - (cornerSize * cornerSize * 4) - 1;
 
-        System.out.printf("Making cross puzzle of size %d, arm size %d, corner size %d, and #pegs %d%n", size, armSize, cornerSize, nPegs);
+        //System.out.printf(
+        //    "Making cross puzzle of size %d, arm size %d, corner size %d, and #pegs %d%n",
+        //    size, armSize, cornerSize, nPegs);
 
         Position center = new Position(size/2, size/2);
         return new PegsPuzzle(size, size,
             crossHoles(size, armSize).toSet(),
-            crossHoles(size, armSize).removeBy(c -> c, center).toSet()
+            crossHoles(size, armSize).removeBy(c -> c, center).toSet(),
+            solutionCount
         );
     }
 
@@ -215,33 +251,23 @@ public final class PegsPuzzle {
     }
 
     static StreamEx<Position> rowMajorPositions(int nrows, int ncols) {
-        int[] coord = new int[2];
-        coord[0] = coord[1] = 0;
-        return StreamEx.produce(action -> {
-            int row = coord[0], col = coord[1];
-            //System.out.printf("row=%d, col=%d%n", row, col);
-            if (row >= nrows) return false;
-            action.accept(new Position(row, col));
-            if (++col >= ncols) {
-                ++row;
-                col = 0;
-            }
-            coord[0] = row;
-            coord[1] = col;
-            //System.out.printf("new row=%d, new col=%d%n", row, col);
-            return true;
-        });
+        return IntStreamEx.range(0, nrows * ncols)
+            .mapToEntry(i -> i / ncols, i -> i % ncols)
+            .mapKeyValue((r, c) -> new Position(r, c));
     }
 
     public static void main(String[] args) {
         int size = Integer.parseInt(args[0]);
         int armSize = Integer.parseInt(args[1]);
-        PegsPuzzle puzzle = makeCross(size, armSize);
-        PuzzleSolver<State> solver = new BfsPuzzleSolver<>(
-            () -> new BloomPuzzleStateFilter<>(stateFunnel(), 100_000_000L, 0.0001)
+        int remainder = size - armSize;
+        int pegCount = size * size - remainder * remainder - 1;
+        int solutionCount = 1;
+        PegsPuzzle puzzle = makeCross(size, armSize, solutionCount);
+        PuzzleSolver<State> solver = new DfsPuzzleSolver<>(
+            //() -> new BloomPuzzleStateFilter<>(stateFunnel(), 100_000_000L, 0.0001)
         );
-        System.out.printf("Solving %d x %d puzzle, holes = %s, pegs = %s%n",
-            size, size, puzzle.holes(), puzzle.pegs());
+        System.out.printf("Solving %d x %d cross puzzle with arm %d, #pegs = %d, solution at %d%n",
+            size, size, armSize, pegCount, solutionCount);
         Optional<List<State>> solution = puzzle.solve(solver);
         String result = solution.map(s -> StreamEx.of(s).joining("\n")).orElse("no solution");
         System.out.println(result);

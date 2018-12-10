@@ -32,32 +32,29 @@ public class BfsPuzzleSolver<T extends PuzzleState<T>> extends FilteredPuzzleSol
 
     @Override
     protected Optional<T> solutionState(T initialState, PuzzleStateFilter<T> filter) {
-        return bfs(initialState, filter)
-            .parallel()
-            //.peek(this::trace)
-            .findAny(PuzzleState::isSolution);
+        Deque<T> queue = new ArrayDeque<>();
+        try {
+            return bfs(initialState, filter, queue)
+                //.peek(this::trace)
+                .findAny(PuzzleState::isSolution);
+        } finally {
+            System.out.printf("BFS queue size: %d%n", queue.size());
+        }
     }
 
-    private StreamEx<T> bfs(T initialState, PuzzleStateFilter<T> filter) {
-        Deque<T> queue = new ArrayDeque<>();
-        queue.offer(initialState);
+    private StreamEx<T> bfs(T initialState, PuzzleStateFilter<T> filter, Deque<T> queue) {
+        queue.offerLast(initialState);
         return StreamEx.produce(action -> {
-            T state = queue.poll();
+            T state = queue.pollFirst();
             if (state == null) {
                 return false;
             }
             state = filterState(state, filter);
             if (state != null) {
                 action.accept(state);
-                state.successors().forEach(queue::offer);
+                state.successors().forEach(queue::offerLast);
             }
             return true;
         });
-    }
-
-    private void trace(T state) {
-        System.out.printf("searching %s, pred %s%n",
-            state,
-            state.predecessor().map(Object::toString).orElse("-"));
     }
 }

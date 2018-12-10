@@ -51,4 +51,9 @@ public class ExactPuzzleStateFilter<T extends PuzzleState<T>>
     public double expectedFalsePositiveProbability() {
         return 0.0;
     }
+
+    @Override
+    public void close() {
+        System.out.printf("Filter saw %d elements%n", seen.size());
+    }
 }

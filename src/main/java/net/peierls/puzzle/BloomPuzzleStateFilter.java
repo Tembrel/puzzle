@@ -39,4 +39,10 @@ public class BloomPuzzleStateFilter<T extends PuzzleState<T>>
     public double expectedFalsePositiveProbability() {
         return filter.expectedFpp();
     }
+
+    @Override
+    public void close() {
+        System.out.printf("Filter saw approx. %d elements with expected FPP %f:%n",
+            approximateElementCount(), expectedFalsePositiveProbability());
+    }
 }

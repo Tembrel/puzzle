@@ -28,7 +28,7 @@ package net.peierls.puzzle;
  * </li>
  * </ul>
  */
-public interface PuzzleStateFilter<T extends PuzzleState<T>> {
+public interface PuzzleStateFilter<T extends PuzzleState<T>> extends AutoCloseable {
 
     /**
      * Returns true if the given state might have been put in
@@ -57,4 +57,11 @@ public interface PuzzleStateFilter<T extends PuzzleState<T>> {
      * a false positive.
      */
     double expectedFalsePositiveProbability();
+
+    /**
+     * Operation to perform on close.
+     * Default is no-op.
+     */
+    @Override default void close() {
+    }
 }

@@ -1,5 +1,7 @@
 package net.peierls.puzzle;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Optional;
 
 import java.util.function.Supplier;
@@ -13,44 +15,48 @@ import one.util.streamex.StreamEx;
  */
 public class DfsPuzzleSolver<T extends PuzzleState<T>> extends FilteredPuzzleSolver<T> {
 
-    private final int maxDepth;
 
     /**
      * Constructs a DFS solver with an exact filter and the given max depth.
      */
-    public DfsPuzzleSolver(int maxDepth) {
+    public DfsPuzzleSolver() {
         super();
-        this.maxDepth = maxDepth;
     }
 
     /**
      * Constructs a DFS solver with the given max depth that will use
      * a Bloom filter with the given parameters, otherwise an exact filter.
      */
-    public DfsPuzzleSolver(int maxDepth, Supplier<PuzzleStateFilter<T>> filterSupplier) {
+    public DfsPuzzleSolver(Supplier<PuzzleStateFilter<T>> filterSupplier) {
         super(filterSupplier);
-        this.maxDepth = maxDepth;
     }
 
 
     @Override
     protected Optional<T> solutionState(T initialState, PuzzleStateFilter<T> filter) {
-        if (initialState == null || filter == null) {
-            throw new NullPointerException("arguments must be non-null");
+        Deque<T> stack = new ArrayDeque<>();
+        try {
+            return dfs(initialState, filter, stack)
+                //.peek(this::trace)
+                .findAny(PuzzleState::isSolution);
+        } finally {
+            System.out.printf("DFS stack size: %d%n", stack.size());
         }
-        return dfs(initialState, filter, 0)
-            .findAny(PuzzleState::isSolution);
     }
 
-    StreamEx<T> dfs(T state, PuzzleStateFilter<T> filter, int depth) {
-        state = filterState(state, filter);
-        if (state != null && depth < maxDepth) {
-            return StreamEx.of(state.successors())
-                .parallel()
-                .flatMap(next -> dfs(next, filter, depth + 1))
-                .prepend(state);
-        } else {
-            return StreamEx.empty();
-        }
+    private StreamEx<T> dfs(T initialState, PuzzleStateFilter<T> filter, Deque<T> stack) {
+        stack.offerFirst(initialState);
+        return StreamEx.produce(action -> {
+            T state = stack.pollFirst();
+            if (state == null) {
+                return false;
+            }
+            state = filterState(state, filter);
+            if (state != null) {
+                action.accept(state);
+                state.successors().forEach(stack::offerFirst);
+            }
+            return true;
+        });
     }
 }
