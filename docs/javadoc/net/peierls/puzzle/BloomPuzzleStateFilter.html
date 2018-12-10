@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -36,7 +36,8 @@ var activeTableTab = "activeTableTab";
 <!--   -->
 </a>
 <ul class="navList" title="Navigation">
-<li><a href="../../../net/peierls/puzzle/package-summary.html">Package</a></li>
+<li><a href="../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../deprecated-list.html">Deprecated</a></li>
@@ -73,13 +74,13 @@ var activeTableTab = "activeTableTab";
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
@@ -106,7 +107,7 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;T&gt;</dd>
+<dd><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html?is-external=true" title="class or interface in java.lang">AutoCloseable</a>, <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;T&gt;</dd>
 </dl>
 <hr>
 <br>
@@ -121,6 +122,25 @@ implements <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="i
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor.summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/BloomPuzzleStateFilter.html#BloomPuzzleStateFilter-com.google.common.hash.Funnel-long-double-">BloomPuzzleStateFilter</a></span>(com.google.common.hash.Funnel&lt;<a href="../../../net/peierls/puzzle/BloomPuzzleStateFilter.html" title="type parameter in BloomPuzzleStateFilter">T</a>&gt;&nbsp;funnel,
+                      long&nbsp;expectedInsertions,
+                      double&nbsp;fpp)</code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
 <!-- ========== METHOD SUMMARY =========== -->
 <ul class="blockList">
 <li class="blockList"><a name="method.summary">
@@ -141,20 +161,26 @@ implements <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="i
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/BloomPuzzleStateFilter.html#close--">close</a></span>()</code>
+<div class="block">Operation to perform on close.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>double</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/BloomPuzzleStateFilter.html#expectedFalsePositiveProbability--">expectedFalsePositiveProbability</a></span>()</code>
 <div class="block">Expected probability that <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html#mightContain-T-"><code>PuzzleStateFilter.mightContain(T)</code></a> will return
  a false positive.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/BloomPuzzleStateFilter.html#mightContain-T-">mightContain</a></span>(<a href="../../../net/peierls/puzzle/BloomPuzzleStateFilter.html" title="type parameter in BloomPuzzleStateFilter">T</a>&nbsp;state)</code>
 <div class="block">Returns true if the given state might have been put in
  this filter, false if this is definitely not the case.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../net/peierls/puzzle/BloomPuzzleStateFilter.html#put-T-">put</a></span>(<a href="../../../net/peierls/puzzle/BloomPuzzleStateFilter.html" title="type parameter in BloomPuzzleStateFilter">T</a>&nbsp;state)</code>
 <div class="block">Adds the given state to the filter, returning true if
@@ -177,6 +203,25 @@ implements <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="i
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor.detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a name="BloomPuzzleStateFilter-com.google.common.hash.Funnel-long-double-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>BloomPuzzleStateFilter</h4>
+<pre>public&nbsp;<a href="../../../src-html/net/peierls/puzzle/BloomPuzzleStateFilter.html#line.18">BloomPuzzleStateFilter</a>(com.google.common.hash.Funnel&lt;<a href="../../../net/peierls/puzzle/BloomPuzzleStateFilter.html" title="type parameter in BloomPuzzleStateFilter">T</a>&gt;&nbsp;funnel,
+                              long&nbsp;expectedInsertions,
+                              double&nbsp;fpp)</pre>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ============ METHOD DETAIL ========== -->
 <ul class="blockList">
 <li class="blockList"><a name="method.detail">
@@ -238,7 +283,7 @@ implements <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="i
 <a name="expectedFalsePositiveProbability--">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>expectedFalsePositiveProbability</h4>
 <pre>public&nbsp;double&nbsp;<a href="../../../src-html/net/peierls/puzzle/BloomPuzzleStateFilter.html#line.39">expectedFalsePositiveProbability</a>()</pre>
@@ -248,6 +293,24 @@ implements <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="i
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../net/peierls/puzzle/PuzzleStateFilter.html#expectedFalsePositiveProbability--">expectedFalsePositiveProbability</a></code>&nbsp;in interface&nbsp;<code><a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/BloomPuzzleStateFilter.html" title="type parameter in BloomPuzzleStateFilter">T</a> extends <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;<a href="../../../net/peierls/puzzle/BloomPuzzleStateFilter.html" title="type parameter in BloomPuzzleStateFilter">T</a>&gt;&gt;</code></dd>
+</dl>
+</li>
+</ul>
+<a name="close--">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>close</h4>
+<pre>public&nbsp;void&nbsp;<a href="../../../src-html/net/peierls/puzzle/BloomPuzzleStateFilter.html#line.44">close</a>()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../net/peierls/puzzle/PuzzleStateFilter.html#close--">PuzzleStateFilter</a></code></span></div>
+<div class="block">Operation to perform on close.
+ Default is no-op.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html?is-external=true#close--" title="class or interface in java.lang">close</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html?is-external=true" title="class or interface in java.lang">AutoCloseable</a></code></dd>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../net/peierls/puzzle/PuzzleStateFilter.html#close--">close</a></code>&nbsp;in interface&nbsp;<code><a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="interface in net.peierls.puzzle">PuzzleStateFilter</a>&lt;<a href="../../../net/peierls/puzzle/BloomPuzzleStateFilter.html" title="type parameter in BloomPuzzleStateFilter">T</a> extends <a href="../../../net/peierls/puzzle/PuzzleState.html" title="interface in net.peierls.puzzle">PuzzleState</a>&lt;<a href="../../../net/peierls/puzzle/BloomPuzzleStateFilter.html" title="type parameter in BloomPuzzleStateFilter">T</a>&gt;&gt;</code></dd>
 </dl>
 </li>
 </ul>
@@ -267,7 +330,8 @@ implements <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="i
 <!--   -->
 </a>
 <ul class="navList" title="Navigation">
-<li><a href="../../../net/peierls/puzzle/package-summary.html">Package</a></li>
+<li><a href="../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../deprecated-list.html">Deprecated</a></li>
@@ -304,13 +368,13 @@ implements <a href="../../../net/peierls/puzzle/PuzzleStateFilter.html" title="i
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>

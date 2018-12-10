@@ -25,10 +25,12 @@ import one.util.streamex.StreamEx;
 
 /**
  * A peg-jumping puzzle.
- * @see https://www.chiark.greenend.org.uk/~sgtatham/puzzles/doc/pegs.html
  * The puzzle type holds common information about the puzzle, and the
  * {@link PuzzleState} is an inner class of the puzzle type, to allow
  * access to common information from state method implementations.
+ *
+ * @see <a href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/doc/pegs.html">Simon
+ * Tatham's puzzle page</a>
  */
 public final class PegsPuzzle {
 
