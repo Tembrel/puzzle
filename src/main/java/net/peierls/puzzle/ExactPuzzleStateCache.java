@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 
 /**
- * An implementation of {@link PuzzleStateFilter} with exact containment.
+ * An implementation of {@link PuzzleStateCache} with exact containment.
  * It has these properties:
  * <ul>
  * <li>
@@ -26,8 +26,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * </li>
  * </ul>
  */
-public class ExactPuzzleStateFilter<T extends PuzzleState<T>>
-        implements PuzzleStateFilter<T> {
+public class ExactPuzzleStateCache<T extends PuzzleState<T>>
+        implements PuzzleStateCache<T> {
 
     private final Map<T, Long> seen = new ConcurrentHashMap<>();
 
@@ -54,6 +54,6 @@ public class ExactPuzzleStateFilter<T extends PuzzleState<T>>
 
     @Override
     public void close() {
-        System.out.printf("Filter saw %d elements%n", seen.size());
+        System.out.printf("Cache holds %d elements%n", seen.size());
     }
 }

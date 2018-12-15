@@ -4,7 +4,7 @@ package net.peierls.puzzle;
 /**
  * A container for states that offers only an approximate containment
  * test, no removal, and no iteration. The interface is modeled on the
- * idea of a Bloom filter and closely adheres to the Guava BloomFilter
+ * idea of a BloomFilter and closely adheres to the Guava BloomFilter
  * API.
  * <p>
  * Implementations of this interface are free to make the containment
@@ -28,16 +28,16 @@ package net.peierls.puzzle;
  * </li>
  * </ul>
  */
-public interface PuzzleStateFilter<T extends PuzzleState<T>> extends AutoCloseable {
+public interface PuzzleStateCache<T extends PuzzleState<T>> extends AutoCloseable {
 
     /**
      * Returns true if the given state might have been put in
-     * this filter, false if this is definitely not the case.
+     * this cache, false if this is definitely not the case.
      */
     boolean mightContain(T state);
 
     /**
-     * Adds the given state to the filter, returning true if
+     * Adds the given state to the cache, returning true if
      * this was definitely the first time the state was added.
      * @returns true if this is definitely the first time the
      * state has been added to the tracker, false otherwise,

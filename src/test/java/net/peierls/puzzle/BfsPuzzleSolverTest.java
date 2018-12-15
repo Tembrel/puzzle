@@ -57,13 +57,18 @@ public class BfsPuzzleSolverTest {
 
     @Test public void bfs() {
         CounterState initialState = new CounterState(INIT, null);
-        FilteredPuzzleSolver<CounterState> solver = new BfsPuzzleSolver<>(
-            () -> new BloomPuzzleStateFilter<CounterState>(CounterState.funnel(), 2_453_203, 0.0001)
+        PuzzleSolver<CounterState> solver = new BfsPuzzleSolver<>(
+            () -> new BloomPuzzleStateCache<CounterState>(CounterState.funnel(), 2_453_203, 0.0001)
         );
         Stopwatch stopwatch = Stopwatch.createStarted();
-        Optional<List<CounterState>> solution = solver.solution(initialState);
-        if (solution.isPresent()) {
-            List<Long> moves = StreamEx.of(solution.get())
+        List<CounterState> solution = solver.solution(initialState);
+        if (solution.isEmpty()) {
+            System.out.printf(
+                "no solution found in %s%n",
+                stopwatch
+            );
+        } else {
+            List<Long> moves = StreamEx.of(solution)
                 .mapToLong(CounterState::getCount)
                 .boxed()
                 .toList();
@@ -71,11 +76,6 @@ public class BfsPuzzleSolverTest {
                 "solved in %s with %d moves%n",
                 stopwatch,
                 moves.size()
-            );
-        } else {
-            System.out.printf(
-                "no solution found in %s%n",
-                stopwatch
             );
         }
     }

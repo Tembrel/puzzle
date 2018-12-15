@@ -10,7 +10,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 
-public class ExactPuzzleStateFilterTest {
+public class ExactPuzzleStateCacheTest {
 
     static class NullState implements PuzzleState<NullState> {
         final String text;
@@ -27,7 +27,7 @@ public class ExactPuzzleStateFilterTest {
         @Override public Optional<NullState> predecessor() { return Optional.empty(); }
     }
 
-    PuzzleStateFilter<NullState> f = new ExactPuzzleStateFilter<>();
+    PuzzleStateCache<NullState> f = new ExactPuzzleStateCache<>();
 
     @Test public void exactFilter() {
         NullState abc = new NullState("abc");

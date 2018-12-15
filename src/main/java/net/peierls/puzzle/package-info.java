@@ -22,7 +22,7 @@
  * for states that are produced by {@code s0.successors()} to be
  * {@code s0}, otherwise it should be empty (initial states have no predecessor).
  * It is also acceptable to define predecessor as <strong>always</strong> empty,
- * in which case solution lists produced by {@link net.peierls.puzzle.FilteredPuzzleSolver}
+ * in which case solution lists produced by {@link net.peierls.puzzle.CachedPuzzleSolver}
  * will contain <strong>only</strong> the solution state, which might be acceptable
  * if the solution state itself contains all the relevant information.
  * <p>
@@ -37,16 +37,16 @@
  * to avoid unnecessary computation on states that might have already been seen.
  * <p>
  * To define a new general-purpose solver, extend
- * {@link net.peierls.puzzle.FilteredPuzzleSolver} by
- * implementing {@link net.peierls.puzzle.FilteredPuzzleSolver#solutionState solutionState}.
- * Use {@link net.peierls.puzzle.FilteredPuzzleSolver#filterState filterState} before searching
+ * {@link net.peierls.puzzle.CachedPuzzleSolver} by
+ * implementing {@link net.peierls.puzzle.CachedPuzzleSolver#solutionState solutionState}.
+ * Use {@link net.peierls.puzzle.CachedPuzzleSolver#filterState filterState} before searching
  * from any state returned by the {@link net.peierls.puzzle.PuzzleState#successors state.successors()} method.
  * <p>
- * Two concrete implementations of {@link net.peierls.puzzle.FilteredPuzzleSolver} are
+ * Two concrete implementations of {@link net.peierls.puzzle.CachedPuzzleSolver} are
  * provided, {@link net.peierls.puzzle.DfsPuzzleSolver} and {@link net.peierls.puzzle.BfsPuzzleSolver},
  * correspondingly using depth-first and breadth-first search.
  * <p>
  * General-purpose solvers should allow users to provide a
- * {@link net.peierls.puzzle.PuzzleStateFilter} supplier.
+ * {@link net.peierls.puzzle.PuzzleStateCache} supplier.
  */
 package net.peierls.puzzle;

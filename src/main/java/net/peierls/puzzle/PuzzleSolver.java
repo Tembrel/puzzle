@@ -1,7 +1,6 @@
 package net.peierls.puzzle;
 
 import java.util.List;
-import java.util.Optional;
 
 
 /**
@@ -15,7 +14,7 @@ public interface PuzzleSolver<T extends PuzzleState<T>> {
      *
      * @return the solution to the puzzle as a list of states from
      * the initial state to a solved state (inclusive), or an empty
-     * optional if solution is unreachable from initial state.
+     * list if this solve cannot reach a solution from the initial state.
      */
-    Optional<List<T>> solution(T initialState);
+    List<T> solution(T initialState);
 }

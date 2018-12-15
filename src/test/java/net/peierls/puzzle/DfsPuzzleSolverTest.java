@@ -47,9 +47,9 @@ public class DfsPuzzleSolverTest {
     @Test public void dfs() {
         CounterState initialState = new CounterState(INIT, null);
         PuzzleSolver<CounterState> solver = new DfsPuzzleSolver<>();
-        Optional<List<CounterState>> solution = solver.solution(initialState);
-        assertTrue(solution.isPresent());
-        String solutionString = StreamEx.of(solution.get())
+        List<CounterState> solution = solver.solution(initialState);
+        assertTrue(!solution.isEmpty());
+        String solutionString = StreamEx.of(solution)
             .mapToLong(CounterState::getCount)
             .joining(", ", "[", "]");
         System.out.println("solved: " + solutionString);

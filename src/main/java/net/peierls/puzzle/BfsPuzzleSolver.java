@@ -12,29 +12,29 @@ import one.util.streamex.StreamEx;
 /**
  * Breadth-first-search puzzle solver.
  */
-public class BfsPuzzleSolver<T extends PuzzleState<T>> extends FilteredPuzzleSolver<T> {
+public class BfsPuzzleSolver<T extends PuzzleState<T>> extends CachedPuzzleSolver<T> {
 
     /**
-     * Constructs a BFS solver with an exact filter.
+     * Constructs a BFS solver with an exact (non-lossy) cache.
      */
     public BfsPuzzleSolver() {
         super();
     }
 
     /**
-     * Constructs a BFS solver that will use a Bloom filter for states
-     * that support it, otherwise an exact filter.
+     * Constructs a BFS solver that will use a BloomFilter cache for
+     * states that support it, otherwise an exact (non-lossy) cache.
      */
-    public BfsPuzzleSolver(Supplier<PuzzleStateFilter<T>> filterSupplier) {
-        super(filterSupplier);
+    public BfsPuzzleSolver(Supplier<PuzzleStateCache<T>> cacheSupplier) {
+        super(cacheSupplier);
     }
 
 
     @Override
-    protected Optional<T> solutionState(T initialState, PuzzleStateFilter<T> filter) {
+    protected Optional<T> solutionState(T initialState, PuzzleStateCache<T> cache) {
         Deque<T> queue = new ArrayDeque<>();
         try {
-            return bfs(initialState, filter, queue)
+            return bfs(initialState, cache, queue)
                 //.peek(this::trace)
                 .findAny(PuzzleState::isSolution);
         } finally {
@@ -42,14 +42,14 @@ public class BfsPuzzleSolver<T extends PuzzleState<T>> extends FilteredPuzzleSol
         }
     }
 
-    private StreamEx<T> bfs(T initialState, PuzzleStateFilter<T> filter, Deque<T> queue) {
+    private StreamEx<T> bfs(T initialState, PuzzleStateCache<T> cache, Deque<T> queue) {
         queue.offerLast(initialState);
         return StreamEx.produce(action -> {
             T state = queue.pollFirst();
             if (state == null) {
                 return false;
             }
-            state = filterState(state, filter);
+            state = filterState(state, cache);
             if (state != null) {
                 action.accept(state);
                 state.successors().forEach(queue::offerLast);

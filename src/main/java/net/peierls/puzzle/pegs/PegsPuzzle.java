@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import net.peierls.puzzle.DfsPuzzleSolver;
-import net.peierls.puzzle.BloomPuzzleStateFilter;
+//import net.peierls.puzzle.BloomPuzzleStateCache;
 import net.peierls.puzzle.PuzzleSolver;
 import net.peierls.puzzle.PuzzleState;
 
@@ -210,7 +210,7 @@ public final class PegsPuzzle {
     public Set<Position> solutionRequires() { return solutionRequires; }
 
 
-    public Optional<List<State>> solve(PuzzleSolver<State> solver) {
+    public List<State> solve(PuzzleSolver<State> solver) {
         return solver.solution(new State(pegs));
     }
 
@@ -274,12 +274,13 @@ public final class PegsPuzzle {
         int solutionCount = 1;
         PegsPuzzle puzzle = makeCross(size, armSize, solutionCount);
         PuzzleSolver<State> solver = new DfsPuzzleSolver<>(
-            //() -> new BloomPuzzleStateFilter<>(stateFunnel(), 100_000_000L, 0.0001)
+            //() -> new BloomPuzzleStateCache<>(stateFunnel(), 100_000_000L, 0.0001)
         );
         System.out.printf("Solving %d x %d cross puzzle with arm %d, #pegs = %d, solution at %d%n",
             size, size, armSize, pegCount, solutionCount);
-        Optional<List<State>> solution = puzzle.solve(solver);
-        String result = solution.map(s -> StreamEx.of(s).joining("\n")).orElse("no solution");
+        List<State> solution = puzzle.solve(solver);
+        String result = solution.isEmpty() ? "no solution" :
+            StreamEx.of(solution).joining("\n");
         System.out.println(result);
     }
 }

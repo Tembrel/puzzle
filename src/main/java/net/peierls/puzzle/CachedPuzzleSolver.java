@@ -3,6 +3,7 @@ package net.peierls.puzzle;
 import com.google.common.collect.ImmutableList;
 import static com.google.common.collect.ImmutableList.toImmutableList;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -12,7 +13,7 @@ import one.util.streamex.StreamEx;
 
 
 /**
- * Abstract base for puzzle solvers that use a {@link PuzzleStateFilter}
+ * Abstract base for puzzle solvers that use a {@link PuzzleStateCache}
  * to keep track (possibility only approximately) of which states have
  * been seen during the search for a solution. General-purpose solvers
  * necessarily fall into this category, because otherwise there is no
@@ -22,47 +23,49 @@ import one.util.streamex.StreamEx;
  * <p>
  * Because in general the search space can be so large that it is not
  * possible to store all states that have been seen (even taking advantage
- * of compressed forms), the {@link PuzzleStateFilter} abstraction is
+ * of compressed forms), the {@link PuzzleStateCache} abstraction is
  * used to allow for searches that use much less memory but that may fail
  * occasionally to search a valid branch.
  * <p>
  * The {@link #solution} method is final; subclasses should implement
- * {@link #solutionState solutionState(initialState, filter)} and use the
- * {@link #filterState filterState(state, filter)} method before searching a state.
+ * {@link #solutionState solutionState(initialState, cache)} and use the
+ * {@link #filterState filterState(state, cache)} method before searching a state.
  */
-public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements PuzzleSolver<T> {
+public abstract class CachedPuzzleSolver<T extends PuzzleState<T>> implements PuzzleSolver<T> {
 
-    private final Supplier<PuzzleStateFilter<T>> filterSupplier;
+    private final Supplier<PuzzleStateCache<T>> cacheSupplier;
 
 
     /**
-     * Constructs a solver that will always use an exact filter, which
-     * will store each state seen but will always report correctly on
+     * Constructs a solver that will always use an exact (non-lossy) cache,
+     * which will store each state seen but will always report correctly on
      * whether a state has been seen.
      */
-    protected FilteredPuzzleSolver() {
-        this.filterSupplier = ExactPuzzleStateFilter::new;
+    protected CachedPuzzleSolver() {
+        this.cacheSupplier = ExactPuzzleStateCache::new;
     }
 
     /**
-     * Constructs a solver that will always use the given state filter.
+     * Constructs a solver that will use the cache supplier to provide
+     * caches for puzzle states.
      */
-    protected FilteredPuzzleSolver(Supplier<PuzzleStateFilter<T>> filterSupplier) {
-        this.filterSupplier = filterSupplier;
+    protected CachedPuzzleSolver(Supplier<PuzzleStateCache<T>> cacheSupplier) {
+        this.cacheSupplier = cacheSupplier;
     }
 
 
     @Override
-    public final Optional<List<T>> solution(T initialState) {
+    public final List<T> solution(T initialState) {
         if (initialState == null) {
             throw new NullPointerException("initial state must not be null");
         }
-        try (PuzzleStateFilter<T> filter = filterSupplier.get()) {
-            if (filter == null) {
-                throw new IllegalStateException("filter supplier must not return null");
+        try (PuzzleStateCache<T> cache = cacheSupplier.get()) {
+            if (cache == null) {
+                throw new IllegalStateException("cache supplier must not return null");
             }
-            return solutionState(initialState, filter)
-                .map(this::toSolution);
+            return solutionState(initialState, cache)
+                .map(this::toSolution)
+                .orElseGet(Collections::emptyList);
         }
     }
 
@@ -70,20 +73,20 @@ public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements 
     /**
      * Concrete subclasses must implement this method to
      * find a solution from the given initial state, using
-     * the given state filter.
+     * the given cache.
      */
-    protected abstract Optional<T> solutionState(T initialState, PuzzleStateFilter<T> filter);
+    protected abstract Optional<T> solutionState(T initialState, PuzzleStateCache<T> cache);
 
 
     /**
      * If state is neither null nor hopeless and definitely hasn't
-     * been seen by the filter, returns an initialized copy of state
-     * (and as a side-effect marks state as seen in the filter),
+     * been seen by the cache, returns an initialized copy of state
+     * (and as a side-effect marks state as seen in the cache),
      * otherwise returns null. The test for hopelessness is made
      * on the initialized copy.
      */
-    protected T filterState(T state, PuzzleStateFilter<T> filter) {
-        if (state == null || !filter.put(state)) {
+    protected T filterState(T state, PuzzleStateCache<T> cache) {
+        if (state == null || !cache.put(state)) {
             // Null state or state might not have been seen.
             return null;
         }
@@ -105,9 +108,9 @@ public abstract class FilteredPuzzleSolver<T extends PuzzleState<T>> implements 
      * an alternative to using separate calls to {@link PuzzleState#successors}
      * and {@link #filterState filterState}.
      */
-    protected Stream<T> successors(T state, PuzzleStateFilter<T> filter) {
+    protected Stream<T> successors(T state, PuzzleStateCache<T> cache) {
         return StreamEx.of(state.successors())
-            .map(s -> filterState(s, filter))
+            .map(s -> filterState(s, cache))
             .nonNull();
     }
 
