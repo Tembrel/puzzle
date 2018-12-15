@@ -12,7 +12,7 @@ import one.util.streamex.StreamEx;
 /**
  * Breadth-first-search puzzle solver.
  */
-public class BfsPuzzleSolver<T extends PuzzleState<T>> extends CachedPuzzleSolver<T> {
+public class BfsPuzzleSolver<T extends PuzzleState<T>> extends CachingPuzzleSolver<T> {
 
     /**
      * Constructs a BFS solver with an exact (non-lossy) cache.

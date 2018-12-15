@@ -31,7 +31,7 @@ import one.util.streamex.StreamEx;
  * {@link #solutionState solutionState(initialState, cache)} and use the
  * {@link #filterState filterState(state, cache)} method before searching a state.
  */
-public abstract class CachedPuzzleSolver<T extends PuzzleState<T>> implements PuzzleSolver<T> {
+public abstract class CachingPuzzleSolver<T extends PuzzleState<T>> implements PuzzleSolver<T> {
 
     private final Supplier<PuzzleStateCache<T>> cacheSupplier;
 
@@ -41,7 +41,7 @@ public abstract class CachedPuzzleSolver<T extends PuzzleState<T>> implements Pu
      * which will store each state seen but will always report correctly on
      * whether a state has been seen.
      */
-    protected CachedPuzzleSolver() {
+    protected CachingPuzzleSolver() {
         this.cacheSupplier = ExactPuzzleStateCache::new;
     }
 
@@ -49,7 +49,7 @@ public abstract class CachedPuzzleSolver<T extends PuzzleState<T>> implements Pu
      * Constructs a solver that will use the cache supplier to provide
      * caches for puzzle states.
      */
-    protected CachedPuzzleSolver(Supplier<PuzzleStateCache<T>> cacheSupplier) {
+    protected CachingPuzzleSolver(Supplier<PuzzleStateCache<T>> cacheSupplier) {
         this.cacheSupplier = cacheSupplier;
     }
 
