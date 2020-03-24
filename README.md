@@ -1,6 +1,7 @@
 # Puzzle solving
 
-This repository contains a Java framework for solving puzzles.
+This repository contains a Java framework for solving puzzles, but the main
+reason it exists is to serve as a repository template.
 
 ## API usage
 
